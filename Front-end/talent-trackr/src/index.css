@@ -1,13 +1,66 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "inter";
+  src: url("../fonts/Inter/static/Inter-Medium.ttf") format("woff2");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "inter", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+}
+.navbar-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20%; /* Adjust the width as needed */
+}
+
+.logo1 {
+  width: 20%;
+}
+.logo2 {
+  width: 70%;
+}
+.navbar-middle {
+  padding-right: 10%;
+}
+
+.navbar-middle ul {
+  list-style-type: none;
+  display: flex;
+}
+
+.navbar-middle ul li {
+  margin-right: 35px;
+}
+
+.navbar-middle ul li a {
+  color: #000000;
+  text-decoration: none; /* Remove underline */
+}
+
+.navbar-middle ul li a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.navbar-right button {
+  background-color: transparent;
+  border: 1px solid #020202;
+  color: #000000;
+  padding: 11px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.navbar-right {
+  width: 10%;
+}
+
+.navbar-right button:hover {
+  color: #8f8f8f;
+  border: 1px solid #8f8f8f;
 }
