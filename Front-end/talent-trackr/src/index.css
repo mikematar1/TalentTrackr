@@ -1,3 +1,25 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #333;
+  transition: background-color 5000s ease-in-out 0s;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
 @font-face {
   font-family: "inter";
   src: url("../fonts/Inter/static/Inter-Medium.ttf") format("woff2");
@@ -7,25 +29,36 @@ body {
   font-family: "inter", sans-serif;
 }
 
+/* Start of navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px;
 }
+
 .navbar-left {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 20%; /* Adjust the width as needed */
+  width: 20%;
 }
 
 .logo1 {
   width: 20%;
+  transition: transform 0.3s ease;
 }
+
 .logo2 {
   width: 70%;
+  transition: transform 0.3s ease;
 }
+
+#logo-container:hover .logo1,
+#logo-container:hover .logo2 {
+  transform: scale(1.1);
+}
+
 .navbar-middle {
   padding-right: 10%;
 }
@@ -41,11 +74,30 @@ body {
 
 .navbar-middle ul li a {
   color: #000000;
-  text-decoration: none; /* Remove underline */
+  text-decoration: none;
+  position: relative;
 }
 
-.navbar-middle ul li a:hover {
-  text-decoration: underline; /* Add underline on hover */
+.navbar-middle ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 3px;
+  width: 0;
+  background-color: #6c194d;
+  transition: width 0.3s ease; /* Add transition for width change */
+}
+
+.navbar-middle ul li a:hover::after {
+  width: 100%; /* Expand the underline on hover */
+}
+.navbar-middle ul li a.active::after {
+  width: 100%; /* Expand the underline for active link */
+}
+
+.navbar-right {
+  width: 10%;
 }
 
 .navbar-right button {
@@ -55,12 +107,13 @@ body {
   padding: 11px 30px;
   border-radius: 20px;
   cursor: pointer;
-}
-.navbar-right {
-  width: 10%;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition for color, background-color, and border-color */
 }
 
 .navbar-right button:hover {
-  color: #8f8f8f;
-  border: 1px solid #8f8f8f;
+  background-color: #020202;
+  color: #ffffff;
+  border-color: #ffffff;
 }
+
+/* End of navbar */
