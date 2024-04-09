@@ -99,7 +99,6 @@ body {
 .navbar-right {
   width: 10%;
 }
-
 .navbar-right button {
   background-color: transparent;
   border: 1px solid #020202;
@@ -117,3 +116,52 @@ body {
 }
 
 /* End of navbar */
+
+/* Start of home */
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left-side {
+  width: 40%;
+}
+
+.left-column {
+  padding-left: 12px;
+}
+
+.left-column h1 {
+  cursor: default;
+  font-weight: bold;
+  font-size: 55px;
+}
+.left-column p {
+  width: 75%;
+  cursor: default;
+  font-size: 17px;
+  line-height: 32px;
+}
+.left-column button {
+  margin-top: 5%;
+  background-color: #000000;
+  border: 1px solid #020202;
+  color: #ffffff;
+  padding: 11px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition for color, background-color, and border-color */
+}
+
+.left-column button:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+
+.right-side {
+  width: 50%;
+}
+
+/* End of home */
