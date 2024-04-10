@@ -182,7 +182,7 @@ body {
   height: 40vh;
   background: linear-gradient(135deg, #6c194d, #b03257);
   border-radius: 35px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4); /* Increase shadow intensity */
 }
 
 .right-text h1 {
@@ -225,6 +225,7 @@ body {
 }
 
 .black-square h1 {
+  cursor: default;
   padding-left: 30px;
   padding-right: 30px;
   text-align: center;
