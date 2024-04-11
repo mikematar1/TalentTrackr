@@ -143,6 +143,7 @@ body {
   padding-left: 12px;
 }
 
+.companies-title h1,
 .left-column h1 {
   cursor: default;
   font-weight: bold;
@@ -254,3 +255,64 @@ body {
 }
 
 /* End of home */
+
+/* Start of companies */
+.companies-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.companies-container.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.companies-title {
+  text-align: center;
+  width: 30%;
+}
+
+.slideshow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.slides {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center align images */
+  width: 70%;
+  height: 250px; /* Set a fixed height for the slides container */
+  overflow: hidden; /* Ensure images don't overflow */
+}
+
+.slides img {
+  width: 130px;
+  margin: 10px;
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #333;
+}
+
+/* End of companies */
