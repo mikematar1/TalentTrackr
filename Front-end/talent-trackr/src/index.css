@@ -130,7 +130,9 @@ body {
   transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
 }
 
-.home-container.loaded {
+.home-container.loaded,
+.companies-container.loaded,
+.about-container.loaded {
   opacity: 1; /* Set opacity to 1 when loaded */
   transform: translateY(0); /* Set translation to 0 when loaded */
 }
@@ -267,11 +269,6 @@ body {
   transition: opacity 0.5s, transform 0.5s;
 }
 
-.companies-container.loaded {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .companies-title {
   text-align: center;
   width: 30%;
@@ -316,3 +313,6 @@ body {
 }
 
 /* End of companies */
+
+/* Start of about */
+/* End of about */
