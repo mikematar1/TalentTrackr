@@ -24,6 +24,10 @@ const About = () => {
     <div className={`about-container ${loaded ? "loaded" : ""}`}>
       <div className="about-title">
         <h1>Contact Us</h1>
+        <p>
+          We’re excited to welcome you to our website! Reach out to us if you
+          have any specific questions.
+        </p>
       </div>
     </div>
   );

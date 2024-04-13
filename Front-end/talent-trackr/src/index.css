@@ -145,12 +145,14 @@ body {
   padding-left: 12px;
 }
 
+.about-title h1,
 .companies-title h1,
 .left-column h1 {
   cursor: default;
   font-weight: bold;
   font-size: 55px;
 }
+
 .left-column p {
   width: 75%;
   cursor: default;
@@ -315,4 +317,25 @@ body {
 /* End of companies */
 
 /* Start of about */
+.about-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.about-title {
+  text-align: center;
+  width: 28%;
+}
+
+.about-title p {
+  text-align: center;
+  cursor: default;
+  font-size: 17px;
+  line-height: 32px;
+  margin-top: -5%;
+}
 /* End of about */
