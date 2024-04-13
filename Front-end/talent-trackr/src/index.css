@@ -24,10 +24,7 @@ input:-webkit-autofill:active {
   font-family: "inter";
   src: url("../fonts/Inter/static/Inter-Medium.ttf") format("woff2");
 }
-html,
-body {
-  overflow: hidden; /* Hide scrollbar */
-}
+
 body {
   font-family: "inter", sans-serif;
 }
@@ -325,7 +322,9 @@ body {
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 0.5s, transform 0.5s;
+  margin-bottom: 5%;
 }
+
 .about-title {
   text-align: center;
   width: 28%;
@@ -338,4 +337,115 @@ body {
   line-height: 32px;
   margin-top: -5%;
 }
+
+.about-input {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  height: 40vh;
+}
+
+.input-row {
+  display: flex;
+  margin-bottom: 2.5%;
+}
+
+.name-input,
+.email-input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.message-input {
+  font-family: inherit; /* Use the same font as the website */
+  resize: none; /* Prevent resizing */
+}
+
+.name-input:focus,
+.email-input:focus,
+.message-input:focus {
+  outline: none;
+  border-color: #ccc;
+}
+
+.name-input,
+.email-input,
+.message-input {
+  flex: 1;
+  margin-right: 10px;
+  border: 0px solid #ccc; /* Set border color */
+  border-radius: 13px; /* Set border radius */
+  padding: 10px; /* Add padding */
+  padding-left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Add shadow */
+}
+
+.send-button {
+  width: 20%;
+}
+.about-button {
+  display: flex;
+  justify-content: center;
+}
+
+.about-input button {
+  margin-top: 5%;
+  background-color: #000000;
+  border: 1px solid #020202;
+  color: #ffffff;
+  padding: 11px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s; /* Add transition for color, background-color, and border-color */
+}
+
+.about-input button:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+
+.about-title.reviews {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+.slideshow.reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.slide.reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  padding-top: 20px;
+  padding-bottom: 70px;
+}
+
+.reviews-profile-picture {
+  display: flex;
+  justify-content: center;
+}
+
+.reviews-profile-picture img {
+  width: 70px;
+}
+
+.reviews-name {
+  cursor: default;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.reviews-message {
+  width: 75%;
+  cursor: default;
+  font-size: 17px;
+  line-height: 32px;
+  text-align: center;
+}
+
 /* End of about */
