@@ -3,22 +3,6 @@ import React, { useState, useEffect } from "react";
 const Companies = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 200);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!loaded) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-    }
-  }, [loaded]);
-
   const companies = [
     "/Logo1.png",
     "/Logo1.png",
@@ -39,6 +23,25 @@ const Companies = () => {
   ];
 
   const totalPages = Math.ceil(companies.length / 12);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoaded(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!loaded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+      const interval = setInterval(() => {
+        // Increment the current page, looping back to the first page if needed
+        setCurrentPage((currentPage) => (currentPage % totalPages) + 1);
+      }, 5000); // Change the interval time as needed (in milliseconds)
+      return () => clearInterval(interval);
+    }
+  }, [loaded, totalPages]);
 
   const handleClickDot = (page) => {
     setCurrentPage(page);

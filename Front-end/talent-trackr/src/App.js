@@ -2,10 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import Companies from "./Components/Companies";
+import About from "./Components/About";
 
 import Navbar from "./Navigation/Navbar";
-
-const About = () => <h2>About Page</h2>;
 
 function App() {
   return (
@@ -30,7 +29,15 @@ function App() {
               </>
             }
           />
-          <Route path="/about" element={<About />} />
+          <Route
+            path="/about"
+            element={
+              <>
+                <Navbar />
+                <About />
+              </>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
