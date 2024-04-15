@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import Companies from "./Components/Companies";
 import About from "./Components/About";
+import Login from "./Components/Login";
 
 import Navbar from "./Navigation/Navbar";
 
@@ -35,6 +36,14 @@ function App() {
               <>
                 <Navbar />
                 <About />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Login />
               </>
             }
           />
