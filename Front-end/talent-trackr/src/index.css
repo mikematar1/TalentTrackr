@@ -482,6 +482,69 @@ body {
   border-radius: 15px;
   transition: transform 0.5s ease; /* Add transition for smooth zoom effect */
 }
+.left-side.login > p {
+  cursor: default;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 17px;
+  line-height: 32px;
+}
+
+.login-inputs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4%;
+  width: 50%;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #ccc;
+}
+
+.login-input {
+  margin-bottom: 6%;
+  border: 0px solid #ccc; /* Set border color */
+  border-radius: 13px; /* Set border radius */
+  padding: 10px; /* Add padding */
+  padding-left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Add shadow */
+}
+.login-no-acc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-no-acc p {
+  cursor: default;
+  padding-top: 10px;
+  font-size: 15px;
+  line-height: 32px;
+}
+.signup-link {
+  text-decoration: none;
+  color: #6c194d;
+  font-size: 15px;
+  margin-top: -7%;
+  font-weight: 800;
+}
+.left-side.login button {
+  margin-top: 7%;
+  background-color: #6c194d;
+  border: 0px;
+  color: white;
+  padding: 14px 35px;
+  border-radius: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition for color, background-color, and border-color */
+}
+
+.left-side.login button:hover {
+  background-color: #8e1f65;
+  color: #ffffff;
+  border-color: #ffffff;
+}
 .right-side.login {
   width: 60%;
   overflow: hidden; /* Ensure the image stays within the container */
