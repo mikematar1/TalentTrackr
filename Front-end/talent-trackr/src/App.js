@@ -6,6 +6,7 @@ import About from "./Components/About";
 import Login from "./Components/Login";
 import Navbar from "./Navigation/Navbar";
 import SignUpMain from "./Components/SignUpMain";
+import SignUpRecruiter from "./Components/SignUpRecruiter";
 import SelectType from "./Components/SelectType";
 
 function App() {
@@ -61,6 +62,14 @@ function App() {
             element={
               <>
                 <SelectType />
+              </>
+            }
+          />
+          <Route
+            path="/signuprecruiter"
+            element={
+              <>
+                <SignUpRecruiter />
               </>
             }
           />

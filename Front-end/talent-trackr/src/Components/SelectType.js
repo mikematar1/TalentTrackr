@@ -30,10 +30,10 @@ const SelectType = () => {
             <h1>Who are you?</h1>
           </div>
           <div className="signup-box-btns">
-            <Link to="/seekersignup">
+            <Link to="/signupseeker">
               <button className="select-btn">Job Seeker</button>
             </Link>
-            <Link to="/recruitersignup">
+            <Link to="/signuprecruiter">
               <button className="select-btn">Job Recruiter</button>
             </Link>
           </div>
