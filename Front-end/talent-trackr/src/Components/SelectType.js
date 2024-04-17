@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const SignUpMain = () => {
+const SelectType = () => {
   const [loaded, setLoaded] = useState(false);
 
   // Simulate loading delay
@@ -25,25 +25,22 @@ const SignUpMain = () => {
     <div className={`signup-container ${loaded ? "loaded" : ""}`}>
       <div className="signup main">
         <img className="login-img" src="/title.png" alt="logo" />
-        <p className="login-p">Please fill in your information</p>
-        <div className="login-inputs">
-          <input type="text" placeholder="First Name" className="login-input" />
-          <input type="text" placeholder="Last Name" className="login-input" />
-          <input type="email" placeholder="Email" className="login-input" />
-          <input
-            type="password"
-            placeholder="Password"
-            className="login-input"
-          />
-        </div>
-        <div className="login-btn-ctn">
-          <Link to="/selecttype">
-            <button className="login-btn">Next</button>
-          </Link>
+        <div className="signup-box">
+          <div className="signup-box-h1">
+            <h1>Who are you?</h1>
+          </div>
+          <div className="signup-box-btns">
+            <Link to="/seekersignup">
+              <button className="select-btn">Job Seeker</button>
+            </Link>
+            <Link to="/recruitersignup">
+              <button className="select-btn">Job Recruiter</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default SignUpMain;
+export default SelectType;

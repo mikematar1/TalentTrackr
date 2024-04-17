@@ -4,9 +4,9 @@ import Home from "./Components/Home";
 import Companies from "./Components/Companies";
 import About from "./Components/About";
 import Login from "./Components/Login";
-
 import Navbar from "./Navigation/Navbar";
 import SignUpMain from "./Components/SignUpMain";
+import SelectType from "./Components/SelectType";
 
 function App() {
   return (
@@ -53,6 +53,14 @@ function App() {
             element={
               <>
                 <SignUpMain />
+              </>
+            }
+          />
+          <Route
+            path="/selecttype"
+            element={
+              <>
+                <SelectType />
               </>
             }
           />
