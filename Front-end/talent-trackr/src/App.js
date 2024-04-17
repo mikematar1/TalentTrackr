@@ -8,6 +8,7 @@ import Navbar from "./Navigation/Navbar";
 import SignUpMain from "./Components/SignUpMain";
 import SignUpRecruiter from "./Components/SignUpRecruiter";
 import SelectType from "./Components/SelectType";
+import VerificationRecruiter from "./Components/VerificationRecruiter";
 
 function App() {
   return (
@@ -70,6 +71,14 @@ function App() {
             element={
               <>
                 <SignUpRecruiter />
+              </>
+            }
+          />
+          <Route
+            path="/verificationrecruiter"
+            element={
+              <>
+                <VerificationRecruiter />
               </>
             }
           />
