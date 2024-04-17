@@ -137,6 +137,7 @@ body {
 .home-container.loaded,
 .login-container.loaded,
 .companies-container.loaded,
+.signup-container.loaded,
 .about-container.loaded {
   opacity: 1; /* Set opacity to 1 when loaded */
   transform: translateY(0); /* Set translation to 0 when loaded */
@@ -477,12 +478,12 @@ body {
   width: 40%; /* Adjust width as needed */
 }
 
-.left-side.login img {
+.login-img {
   width: 50%;
   border-radius: 15px;
   transition: transform 0.5s ease; /* Add transition for smooth zoom effect */
 }
-.left-side.login > p {
+.login-p {
   cursor: default;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -528,7 +529,7 @@ body {
   margin-top: -7%;
   font-weight: 800;
 }
-.left-side.login button {
+.login-btn {
   margin-top: 7%;
   background-color: #6c194d;
   border: 0px;
@@ -540,7 +541,7 @@ body {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition for color, background-color, and border-color */
 }
 
-.left-side.login button:hover {
+.login-btn:hover {
   background-color: #8e1f65;
   color: #ffffff;
   border-color: #ffffff;
@@ -562,9 +563,39 @@ body {
 .right-side.login img:hover {
   transform: scale(1.1); /* Scale the image by 10% when hovered */
 }
+.login-btn-ctn {
+  margin-top: 5%;
+}
 
 /* End of Login */
 
 /* Start of Signup */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  padding-right: 20px;
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateY(50px); /* Initially set translation */
+  transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
+}
+.signup.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup.main img {
+  width: 50%;
+  border-radius: 15px;
+  transition: transform 0.5s ease; /* Add transition for smooth zoom effect */
+}
+.signup.main > p {
+  cursor: default;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 17px;
+  line-height: 32px;
+}
 
 /* End of Signup */

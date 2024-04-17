@@ -24,10 +24,10 @@ const Login = () => {
   return (
     <div className={`login-container ${loaded ? "loaded" : ""}`}>
       <div className="left-side login">
-        <img src="/title.png" alt="logo" />
-        <p>Log in to access your account</p>
+        <img className="login-img" src="/title.png" alt="logo" />
+        <p className="login-p">Log in to access your account</p>
         <div className="login-inputs">
-          <input type="text" placeholder="Email" className="login-input" />
+          <input type="email" placeholder="Email" className="login-input" />
           <input
             type="password"
             placeholder="Password"
@@ -40,7 +40,7 @@ const Login = () => {
             Sign Up
           </Link>
         </div>
-        <button>Sign In</button>
+        <button className="login-btn">Sign In</button>
       </div>
 
       <div className="right-side login">

@@ -21,7 +21,29 @@ const SignUpMain = () => {
     }
   }, [loaded]);
 
-  return <div className={`login-container ${loaded ? "loaded" : ""}`}></div>;
+  return (
+    <div className={`signup-container ${loaded ? "loaded" : ""}`}>
+      <div className="signup main">
+        <img className="login-img" src="/title.png" alt="logo" />
+        <p className="login-p">Please fill in your information</p>
+        <div className="login-inputs">
+          <input type="text" placeholder="First Name" className="login-input" />
+          <input type="text" placeholder="Last Name" className="login-input" />
+          <input type="email" placeholder="Email" className="login-input" />
+          <input
+            type="password"
+            placeholder="Password"
+            className="login-input"
+          />
+        </div>
+        <div className="login-btn-ctn">
+          <Link to="/selectpage">
+            <button className="login-btn">Next</button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SignUpMain;
