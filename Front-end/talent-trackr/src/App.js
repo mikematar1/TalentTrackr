@@ -9,6 +9,7 @@ import SignUpMain from "./Components/SignUpMain";
 import SignUpRecruiter from "./Components/SignUpRecruiter";
 import SelectType from "./Components/SelectType";
 import VerificationRecruiter from "./Components/VerificationRecruiter";
+import SignUpSeeker from "./Components/SignUpSeeker";
 
 function App() {
   return (
@@ -79,6 +80,14 @@ function App() {
             element={
               <>
                 <VerificationRecruiter />
+              </>
+            }
+          />
+          <Route
+            path="/signupseeker"
+            element={
+              <>
+                <SignUpSeeker />
               </>
             }
           />
