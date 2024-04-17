@@ -41,7 +41,7 @@ const Companies = () => {
       }, 5000); // Change the interval time as needed (in milliseconds)
       return () => clearInterval(interval);
     }
-  }, [loaded, totalPages]);
+  }, [currentPage, loaded, totalPages]);
 
   const handleClickDot = (page) => {
     setCurrentPage(page);
