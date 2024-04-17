@@ -6,6 +6,7 @@ import About from "./Components/About";
 import Login from "./Components/Login";
 
 import Navbar from "./Navigation/Navbar";
+import SignUpMain from "./Components/SignUpMain";
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
             element={
               <>
                 <Login />
+              </>
+            }
+          />
+          <Route
+            path="/signupmain"
+            element={
+              <>
+                <SignUpMain />
               </>
             }
           />
