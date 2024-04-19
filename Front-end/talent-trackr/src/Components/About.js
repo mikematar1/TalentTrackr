@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Footer from "../Global/Footer";
 
 const About = () => {
   const [loaded, setLoaded] = useState(false);
@@ -34,6 +35,7 @@ const About = () => {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "visible";
+      window.scrollTo(0, 0); // Scroll to the top when loaded
     }
   }, [loaded]);
 
@@ -52,62 +54,67 @@ const About = () => {
   };
 
   return (
-    <div className={`about-container ${loaded ? "loaded" : ""}`}>
-      <div className="about-title">
-        <h1>Contact Us</h1>
-        <p>
-          We’re excited to welcome you to our website! Reach out to us if you
-          have any specific questions.
-        </p>
-      </div>
-      <div className="about-input">
-        <div className="input-row">
-          <input type="text" placeholder="Name" className="name-input" />
-          <input type="email" placeholder="Email" className="email-input" />
+    <>
+      <div className={`about-container ${loaded ? "loaded" : ""}`}>
+        <div className="about-title">
+          <h1>Contact Us</h1>
+          <p>
+            We’re excited to welcome you to our website! Reach out to us if you
+            have any specific questions.
+          </p>
         </div>
-        <textarea
-          rows="5"
-          placeholder="Message"
-          className="message-input"
-        ></textarea>
-        <div className="about-button">
-          <button className="send-button">Send</button>
+        <div className="about-input">
+          <div className="input-row">
+            <input type="text" placeholder="Name" className="name-input" />
+            <input type="email" placeholder="Email" className="email-input" />
+          </div>
+          <textarea
+            rows="5"
+            placeholder="Message"
+            className="message-input"
+          ></textarea>
+          <div className="about-button">
+            <button className="send-button">Send</button>
+          </div>
         </div>
-      </div>
-      <div className="about-title reviews">
-        <h1>Reviews</h1>
-      </div>
-      <div className="slideshow reviews">
-        {reviews
-          .slice(
-            (currentPage - 1) * reviewsPerPage,
-            currentPage * reviewsPerPage
-          )
-          .map((review, index) => (
-            <div
-              key={index}
-              className={index === 0 ? "slide reviews active" : "slide reviews"}
-            >
-              <div className="reviews-profile-picture">
-                <img src="/profile-user.png" alt="logo" />
+        <div className="about-title reviews">
+          <h1>Reviews</h1>
+        </div>
+        <div className="slideshow reviews">
+          {reviews
+            .slice(
+              (currentPage - 1) * reviewsPerPage,
+              currentPage * reviewsPerPage
+            )
+            .map((review, index) => (
+              <div
+                key={index}
+                className={
+                  index === 0 ? "slide reviews active" : "slide reviews"
+                }
+              >
+                <div className="reviews-profile-picture">
+                  <img src="/profile-user.png" alt="logo" />
+                </div>
+                <h1 className="reviews-name">{review.name}</h1>
+                <p className="reviews-message">{review.message}</p>
               </div>
-              <h1 className="reviews-name">{review.name}</h1>
-              <p className="reviews-message">{review.message}</p>
-            </div>
-          ))}
-      </div>
-      {totalPages > 1 && (
-        <div className="pagination-dots">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <span
-              key={index}
-              className={currentPage === index + 1 ? "dot active" : "dot"}
-              onClick={() => handleClickDot(index + 1)}
-            ></span>
-          ))}
+            ))}
         </div>
-      )}
-    </div>
+        {totalPages > 1 && (
+          <div className="pagination-dots">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <span
+                key={index}
+                className={currentPage === index + 1 ? "dot active" : "dot"}
+                onClick={() => handleClickDot(index + 1)}
+              ></span>
+            ))}
+          </div>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 };
 
