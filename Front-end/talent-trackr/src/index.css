@@ -120,6 +120,16 @@ body {
   color: #ffffff;
   border-color: #ffffff;
 }
+.navbar-right img {
+  width: 50px;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-right img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
 
 /* End of navbar */
 
