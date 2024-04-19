@@ -49,7 +49,7 @@ const Login = () => {
 
     // Redirect based on user type
     if (userType === "seeker") {
-      navigate("/seeker");
+      navigate("/seekerhome");
     } else {
       navigate("/recruiter");
     }

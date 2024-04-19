@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../Global/Footer";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [loaded, setLoaded] = useState(false);
@@ -33,7 +34,9 @@ const Home = () => {
               organization or searching for the perfect career opportunity,
               we’ve got you covered.
             </p>
-            <button>Contact Us</button>
+            <Link to="/about">
+              <button> Contact us</button>
+            </Link>
           </div>
         </div>
 
