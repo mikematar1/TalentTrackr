@@ -495,7 +495,7 @@ body {
 .login-inputs {
   display: flex;
   flex-direction: column;
-  margin-top: 4%;
+  margin-top: 2%;
   width: 50%;
 }
 
@@ -566,6 +566,14 @@ body {
 }
 .login-btn-ctn {
   margin-top: 5%;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+.error-space {
+  height: 30px;
 }
 
 /* End of Login */
