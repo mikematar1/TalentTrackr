@@ -162,6 +162,7 @@ body {
   padding-left: 12px;
 }
 
+.seeker-title h1,
 .about-title h1,
 .companies-title h1,
 .left-column h1 {
@@ -765,3 +766,81 @@ body {
   }
 }
 /* End of Footer */
+
+/* Start of Seeker home */
+.home-container.seeker {
+  flex-direction: column;
+  align-items: center;
+}
+
+.seeker-page {
+  width: 85%;
+}
+.seeker-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -2%;
+}
+.seeker-title button {
+  background-color: transparent;
+  border: 1px solid #020202;
+  color: #000000;
+  padding: 10px 30px;
+  height: 40%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition for color, background-color, and border-color */
+}
+
+.seeker-title button:hover {
+  background-color: #020202;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.job-listing {
+  display: flex;
+  width: 315px;
+  height: 130px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.job-listings-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 1%;
+}
+.job-card {
+  width: 80%;
+  padding-left: 10px;
+}
+
+.job-title {
+  font-size: 14px;
+  font-weight: medium;
+}
+
+.type-salary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.type-box {
+  position: relative;
+  display: inline-block; /* Use inline-block to adjust width based on content */
+  padding: 5px 10px; /* Adjust padding as needed */
+  background-color: rgba(8, 228, 8, 0.2); /* Use rgba to set opacity */
+}
+
+.type-box p {
+  position: relative; /* Ensure text is positioned relative to its container */
+  z-index: 1; /* Ensure text is above the background */
+}
+
+/* End of Seeker home */
