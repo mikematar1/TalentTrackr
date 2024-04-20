@@ -823,7 +823,6 @@ body {
 }
 
 .job-title {
-  cursor: default;
   font-size: 14px;
   font-weight: medium;
 }
@@ -842,7 +841,6 @@ body {
 .salary p {
   color: #767f8c;
   font-size: 11px;
-  cursor: default;
   margin-top: auto;
 }
 .type-box {
@@ -856,7 +854,6 @@ body {
 }
 
 .type-box p {
-  cursor: default;
   position: relative; /* Ensure text is positioned relative to its container */
   z-index: 1; /* Ensure text is above the background */
   font-size: 11px;
@@ -879,7 +876,6 @@ body {
 .circle p {
   font-size: 13px;
   color: #0ba02c;
-  cursor: default;
 }
 
 .green {
