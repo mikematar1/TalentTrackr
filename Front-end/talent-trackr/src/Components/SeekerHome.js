@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { IoLocationOutline } from "react-icons/io5";
 
 const SeekerHome = () => {
   const [loaded, setLoaded] = useState(false);
@@ -55,6 +56,23 @@ const SeekerHome = () => {
                   <p id="percentage" style={{ color: getColor() }}>
                     {percentage}%
                   </p>
+                </div>
+              </div>
+              <div className="company-loc">
+                <img src="/job-icon.png" alt="logo1" />
+                <div className="name-loc">
+                  <p className="job-title company">EA Sports</p>
+                  <div className="salary company">
+                    <IoLocationOutline
+                      style={{
+                        color: "#767f8c",
+                        fontSize: "15px",
+                        paddingLeft: "4%",
+                        paddingBottom: "5%",
+                      }}
+                    />
+                    <p>Beirut, Lebanon</p>
+                  </div>
                 </div>
               </div>
             </div>

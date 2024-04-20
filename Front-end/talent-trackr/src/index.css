@@ -819,6 +819,7 @@ body {
 .job-card {
   width: 100%;
   padding-left: 10px;
+  cursor: pointer;
 }
 
 .job-title {
@@ -832,6 +833,11 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
+  height: 30%;
+}
+.salary {
+  display: flex;
+  flex-direction: row;
 }
 .salary p {
   color: #767f8c;
@@ -882,6 +888,34 @@ body {
 
 .red {
   border: 4px solid red;
+}
+
+.company-loc {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: -5%;
+  height: 40%;
+}
+
+.company-loc img {
+  width: 50px;
+  height: 50px;
+}
+
+.name-loc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+}
+.job-title.company {
+  padding-left: 5%;
+}
+
+.salary.company {
+  margin-top: -5%;
 }
 
 /* End of Seeker home */
