@@ -819,6 +819,7 @@ body {
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin-top: 1%;
+  height: 65vh;
 }
 .job-card {
   width: 100%;
@@ -921,6 +922,45 @@ body {
 
 .salary.company {
   margin-top: -5%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin: 0 5px;
+  outline: none;
+  transition: transform 0.3s ease; /* Add transition for smoother animation */
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination button svg {
+  width: 20px;
+  height: 20px;
+  color: #333; /* Adjust the color as needed */
+}
+.pagination span {
+  cursor: default;
+}
+
+.pagination button:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
+.pagination button:hover svg {
+  color: #6c194d; /* Adjust the hover color as needed */
 }
 
 /* End of Seeker home */

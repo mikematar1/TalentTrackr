@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const SeekerHome = () => {
   const [loaded, setLoaded] = useState(false);
@@ -79,14 +80,14 @@ const SeekerHome = () => {
             disabled={currentPage === 1}
             onClick={() => handlePageChange(currentPage - 1)}
           >
-            Previous
+            <FaArrowLeft />
           </button>
           <span>{currentPage}</span>
           <button
             disabled={currentPage === totalPages}
             onClick={() => handlePageChange(currentPage + 1)}
           >
-            Next
+            <FaArrowRight />
           </button>
         </div>
       </div>
