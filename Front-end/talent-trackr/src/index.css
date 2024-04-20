@@ -808,6 +808,10 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   margin-bottom: 20px;
+  transition: transform 0.2s ease; /* Add a transition for smooth effect */
+}
+.job-listing:hover {
+  transform: scale(1.05); /* Increase scale on hover */
 }
 .job-listings-container {
   display: flex;
@@ -820,6 +824,11 @@ body {
   width: 100%;
   padding-left: 10px;
   cursor: pointer;
+  transition: transform 0.2s ease; /* Add a transition for smooth effect */
+}
+
+.job-card:hover {
+  transform: scale(1); /* Increase scale on hover */
 }
 
 .job-title {
