@@ -817,11 +817,12 @@ body {
   margin-top: 1%;
 }
 .job-card {
-  width: 80%;
+  width: 100%;
   padding-left: 10px;
 }
 
 .job-title {
+  cursor: default;
   font-size: 14px;
   font-weight: medium;
 }
@@ -829,18 +830,58 @@ body {
 .type-salary {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.salary p {
+  color: #767f8c;
+  font-size: 11px;
+  cursor: default;
+  margin-top: auto;
 }
 .type-box {
   position: relative;
-  display: inline-block; /* Use inline-block to adjust width based on content */
-  padding: 5px 10px; /* Adjust padding as needed */
-  background-color: rgba(8, 228, 8, 0.2); /* Use rgba to set opacity */
+  display: inline-flex; /* Use inline-flex to fit the box exactly to the content */
+  padding: 2px 5px; /* Adjust padding as needed */
+  background-color: #0ba02b11; /* Use rgba to set opacity */
+  border-radius: 5px;
+  height: 0%;
+  margin-top: -1%;
 }
 
 .type-box p {
+  cursor: default;
   position: relative; /* Ensure text is positioned relative to its container */
   z-index: 1; /* Ensure text is above the background */
+  font-size: 11px;
+  color: #0ba02c;
+  margin: 0;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 9%;
+  background-color: white;
+  border: 4px solid #0ba02c;
+}
+
+.circle p {
+  font-size: 13px;
+  color: #0ba02c;
+  cursor: default;
+}
+
+.green {
+  border: 4px solid #0ba02c;
+}
+
+.red {
+  border: 4px solid red;
 }
 
 /* End of Seeker home */
