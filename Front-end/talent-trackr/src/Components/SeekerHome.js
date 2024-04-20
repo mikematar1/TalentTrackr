@@ -15,36 +15,27 @@ const SeekerHome = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Simulated job listings
-  const simulatedJobListings = [
-    { id: 1, title: "Job 1" },
-    { id: 2, title: "Job 2" },
-    { id: 3, title: "Job 3" },
-    { id: 4, title: "Job 4" },
-    { id: 5, title: "Job 5" },
-    { id: 6, title: "Job 6" },
-    { id: 7, title: "Job 7" },
-    { id: 8, title: "Job 8" },
-    { id: 9, title: "Job 9" },
-    { id: 10, title: "Job 10" },
-  ];
-
   // Number of job listings per page
   const listingsPerPage = 9;
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(10 / listingsPerPage); // 10 is the total number of jobs
 
   // Update job listings based on the current page
   useEffect(() => {
     const startIndex = (currentPage - 1) * listingsPerPage;
     const endIndex = Math.min(
       startIndex + listingsPerPage,
-      simulatedJobListings.length
+      10 // Total number of jobs
     );
-    const slicedJobListings = simulatedJobListings.slice(startIndex, endIndex);
+    const slicedJobListings = Array.from(
+      { length: endIndex - startIndex },
+      (_, i) => {
+        return { id: i + startIndex + 1, title: `Job ${i + startIndex + 1}` };
+      }
+    );
     setJobListings(slicedJobListings);
-  }, [currentPage]);
-
-  // Calculate total number of pages
-  const totalPages = Math.ceil(simulatedJobListings.length / listingsPerPage);
+  }, [currentPage, listingsPerPage]);
 
   // Apply overflow: hidden to body during transition
   useEffect(() => {
