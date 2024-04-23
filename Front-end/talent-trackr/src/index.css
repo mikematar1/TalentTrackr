@@ -981,4 +981,41 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25); /* Enhance shadow on hover */
 }
 
+.job-modal-overlay {
+  position: fixed; /* Overlay stays in place */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the modal */
+  z-index: 1000; /* High z-index to ensure it's on top */
+}
+
+.job-modal {
+  background: white; /* Modal has a white background */
+  padding: 20px; /* Padding for content */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Add shadow for depth */
+  width: 900px; /* Set a fixed width for consistency */
+  height: 400px;
+  text-align: center; /* Center-align text */
+}
+
+.job-modal button {
+  background: #6c194d; /* Button color */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px; /* Rounded button corners */
+  padding: 10px; /* Padding for the button */
+  cursor: pointer;
+  margin-top: 20px; /* Space between text and button */
+  transition: background 0.3s ease; /* Transition effect for hover */
+}
+
+.job-modal button:hover {
+  background: #500f3d; /* Darker shade on hover */
+}
+
 /* End of Seeker home */

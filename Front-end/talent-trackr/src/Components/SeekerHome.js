@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import JobModal from "../Global/JobModal"; // Import the modal component
 
 const SeekerHome = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [jobListings, setJobListings] = useState([]);
-  const [filterTerm, setFilterTerm] = useState(""); // New state for the filter term
+  const [filterTerm, setFilterTerm] = useState("");
+  const [selectedJob, setSelectedJob] = useState(null);
 
   // Simulate loading delay
   useEffect(() => {
@@ -117,7 +119,9 @@ const SeekerHome = () => {
       percentage: 10,
     },
   ];
-
+  const handleJobClick = (job) => {
+    setSelectedJob(job); // Set the selected job to display in the modal
+  };
   // Number of job listings per page
   const listingsPerPage = 9;
 
@@ -166,12 +170,17 @@ const SeekerHome = () => {
             type="text"
             placeholder="Filter by job title..."
             value={filterTerm}
-            onChange={(e) => setFilterTerm(e.target.value)} // Update filter term on change
+            onChange={(e) => setFilterTerm(e.target.value)}
           />
         </div>
         <div className="job-listings-container">
           {jobListings.map((job) => (
-            <JobListing key={job.id} job={job} />
+            <div
+              key={job.id}
+              onClick={() => handleJobClick(job)} // Open modal on job click
+            >
+              <JobListing key={job.id} job={job} />
+            </div>
           ))}
         </div>
         <div className="pagination">
@@ -190,6 +199,9 @@ const SeekerHome = () => {
           </button>
         </div>
       </div>
+      {selectedJob && (
+        <JobModal job={selectedJob} onClose={() => setSelectedJob(null)} />
+      )}
     </div>
   );
 };
