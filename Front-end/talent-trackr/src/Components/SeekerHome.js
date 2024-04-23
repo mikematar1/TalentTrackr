@@ -27,6 +27,8 @@ const SeekerHome = () => {
       salary: "$20,000 - $25,000",
       location: "Beirut, Lebanon",
       percentage: 87,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 2,
@@ -36,6 +38,8 @@ const SeekerHome = () => {
       salary: "$80,000 - $100,000",
       location: "San Francisco, CA",
       percentage: 47,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 3,
@@ -45,6 +49,8 @@ const SeekerHome = () => {
       salary: "$60,000 - $70,000",
       location: "Menlo Park, CA",
       percentage: 58,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 4,
@@ -54,6 +60,8 @@ const SeekerHome = () => {
       salary: "$55,000 - $65,000",
       location: "Cupertino, CA",
       percentage: 96,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 5,
@@ -63,6 +71,8 @@ const SeekerHome = () => {
       salary: "$30,000 - $35,000",
       location: "New York, NY",
       percentage: 29,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 6,
@@ -72,6 +82,8 @@ const SeekerHome = () => {
       salary: "$90,000 - $110,000",
       location: "Seattle, WA",
       percentage: 27,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 7,
@@ -81,6 +93,8 @@ const SeekerHome = () => {
       salary: "$70,000 - $80,000",
       location: "Seattle, WA",
       percentage: 50,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 8,
@@ -90,6 +104,8 @@ const SeekerHome = () => {
       salary: "$60,000 - $75,000",
       location: "Seoul, South Korea",
       percentage: 69,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 9,
@@ -99,6 +115,8 @@ const SeekerHome = () => {
       salary: "$110,000 - $120,000",
       location: "Austin, TX",
       percentage: 83,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 10,
@@ -108,6 +126,8 @@ const SeekerHome = () => {
       salary: "$75,000 - $85,000",
       location: "Raleigh, NC",
       percentage: 80,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
     {
       id: 11,
@@ -117,6 +137,8 @@ const SeekerHome = () => {
       salary: "$40,000 - $50,000",
       location: "Stockholm, Sweden",
       percentage: 10,
+      description:
+        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
   ];
   const handleJobClick = (job) => {

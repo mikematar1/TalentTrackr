@@ -994,6 +994,8 @@ body {
 }
 
 .job-modal {
+  display: flex;
+  cursor: default;
   background: white; /* Modal has a white background */
   padding: 20px; /* Padding for content */
   border-radius: 10px; /* Rounded corners */
@@ -1014,8 +1016,23 @@ body {
   transition: background 0.3s ease; /* Transition effect for hover */
 }
 
+.job-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
 .job-modal button:hover {
   background: #500f3d; /* Darker shade on hover */
+}
+.job-modal-header > img {
+  width: 200px;
+  height: 200px;
+}
+
+.job-modal-header {
+  width: 100%;
 }
 
 /* End of Seeker home */
