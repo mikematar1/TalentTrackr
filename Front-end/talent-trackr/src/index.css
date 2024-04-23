@@ -963,4 +963,22 @@ body {
   color: #6c194d; /* Adjust the hover color as needed */
 }
 
+.filter-input {
+  border: 1px solid #ccc; /* Border with lighter color */
+  border-radius: 13px; /* Same border radius as the other inputs */
+  padding: 10px; /* Consistent padding */
+  padding-left: 20px; /* Space for text */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+  transition: box-shadow 0.2s ease-in-out; /* Smooth transition for focus effect */
+}
+
+.filter-input:focus {
+  outline: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Enhance shadow on focus */
+}
+
+.filter-input:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25); /* Enhance shadow on hover */
+}
+
 /* End of Seeker home */

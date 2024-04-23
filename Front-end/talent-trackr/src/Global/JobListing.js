@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { IoLocationOutline } from "react-icons/io5";
 
-const JobListing = () => {
-  const [percentage] = useState(100); // Default percentage value
+const JobListing = ({ job }) => {
+  const { title, company, salary, type, location, percentage } = job; // Default to 100%
 
   const getColor = () => {
     const lightness = 20 + (percentage / 100) * 40; // Adjust lightness between 30 and 70
@@ -14,13 +13,13 @@ const JobListing = () => {
   return (
     <div className="job-listing">
       <div className="job-card">
-        <p className="job-title">Junior Graphic Designer</p>
+        <p className="job-title">{title}</p> {/* Job title */}
         <div className="type-salary">
           <div className="type-box">
-            <p>INTERNSHIP</p>
+            <p>{type}</p> {/* Job type */}
           </div>
           <div className="salary">
-            <p>Salary: $20,000 - $25,000</p>
+            <p>Salary: {salary}</p> {/* Salary */}
           </div>
           <div
             className="circle"
@@ -33,9 +32,9 @@ const JobListing = () => {
           </div>
         </div>
         <div className="company-loc">
-          <img src="/job-icon.png" alt="logo1" />
+          <img src="/job-icon.png" alt="logo" />
           <div className="name-loc">
-            <p className="job-title company">EA Sports</p>
+            <p className="job-title company">{company}</p> {/* Company name */}
             <div className="salary company">
               <IoLocationOutline
                 style={{
@@ -45,7 +44,7 @@ const JobListing = () => {
                   paddingBottom: "5%",
                 }}
               />
-              <p>Beirut, Lebanon</p>
+              <p>{location}</p> {/* Location */}
             </div>
           </div>
         </div>

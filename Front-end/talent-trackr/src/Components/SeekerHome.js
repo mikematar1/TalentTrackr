@@ -6,6 +6,7 @@ const SeekerHome = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [jobListings, setJobListings] = useState([]);
+  const [filterTerm, setFilterTerm] = useState(""); // New state for the filter term
 
   // Simulate loading delay
   useEffect(() => {
@@ -15,27 +16,128 @@ const SeekerHome = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const simulatedJobListings = [
+    {
+      id: 1,
+      title: "Junior Graphic Designer",
+      company: "EA Sports",
+      type: "Internship",
+      salary: "$20,000 - $25,000",
+      location: "Beirut, Lebanon",
+      percentage: 87,
+    },
+    {
+      id: 2,
+      title: "Senior Software Engineer",
+      company: "Google",
+      type: "Full-time",
+      salary: "$80,000 - $100,000",
+      location: "San Francisco, CA",
+      percentage: 47,
+    },
+    {
+      id: 3,
+      title: "Data Scientist",
+      company: "Facebook",
+      type: "Contract",
+      salary: "$60,000 - $70,000",
+      location: "Menlo Park, CA",
+      percentage: 58,
+    },
+    {
+      id: 4,
+      title: "Marketing Specialist",
+      company: "Apple",
+      type: "Full-time",
+      salary: "$55,000 - $65,000",
+      location: "Cupertino, CA",
+      percentage: 96,
+    },
+    {
+      id: 5,
+      title: "Content Writer",
+      company: "BuzzFeed",
+      type: "Part-time",
+      salary: "$30,000 - $35,000",
+      location: "New York, NY",
+      percentage: 29,
+    },
+    {
+      id: 6,
+      title: "Product Manager",
+      company: "Microsoft",
+      type: "Full-time",
+      salary: "$90,000 - $110,000",
+      location: "Seattle, WA",
+      percentage: 27,
+    },
+    {
+      id: 7,
+      title: "UX Designer",
+      company: "Amazon",
+      type: "Contract",
+      salary: "$70,000 - $80,000",
+      location: "Seattle, WA",
+      percentage: 50,
+    },
+    {
+      id: 8,
+      title: "Quality Assurance Engineer",
+      company: "Samsung",
+      type: "Full-time",
+      salary: "$60,000 - $75,000",
+      location: "Seoul, South Korea",
+      percentage: 69,
+    },
+    {
+      id: 9,
+      title: "Machine Learning Engineer",
+      company: "Tesla",
+      type: "Full-time",
+      salary: "$110,000 - $120,000",
+      location: "Austin, TX",
+      percentage: 83,
+    },
+    {
+      id: 10,
+      title: "DevOps Engineer",
+      company: "Red Hat",
+      type: "Full-time",
+      salary: "$75,000 - $85,000",
+      location: "Raleigh, NC",
+      percentage: 80,
+    },
+    {
+      id: 11,
+      title: "Front-End Developer",
+      company: "Spotify",
+      type: "Part-time",
+      salary: "$40,000 - $50,000",
+      location: "Stockholm, Sweden",
+      percentage: 10,
+    },
+  ];
+
   // Number of job listings per page
   const listingsPerPage = 9;
 
-  // Calculate total number of pages
-  const totalPages = Math.ceil(10 / listingsPerPage); // 10 is the total number of jobs
+  // Apply the filter term to the job listings
+  const filteredJobListings = simulatedJobListings.filter((job) =>
+    job.title.toLowerCase().includes(filterTerm.toLowerCase())
+  );
 
-  // Update job listings based on the current page
+  // Calculate total number of pages for filtered job listings
+  const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
+
+  // Update job listings based on the current page and filter term
   useEffect(() => {
     const startIndex = (currentPage - 1) * listingsPerPage;
     const endIndex = Math.min(
       startIndex + listingsPerPage,
-      10 // Total number of jobs
+      filteredJobListings.length
     );
-    const slicedJobListings = Array.from(
-      { length: endIndex - startIndex },
-      (_, i) => {
-        return { id: i + startIndex + 1, title: `Job ${i + startIndex + 1}` };
-      }
-    );
-    setJobListings(slicedJobListings);
-  }, [currentPage, listingsPerPage]);
+    setJobListings(filteredJobListings.slice(startIndex, endIndex));
+  }, [currentPage, listingsPerPage, filteredJobListings]); // Add filteredJobListings to dependencies
 
   // Apply overflow: hidden to body during transition
   useEffect(() => {
@@ -59,7 +161,13 @@ const SeekerHome = () => {
       <div className="seeker-page">
         <div className="seeker-title">
           <h1>Recommended Opportunities</h1>
-          <button>Filter</button>
+          <input
+            className="filter-input"
+            type="text"
+            placeholder="Filter by job title..."
+            value={filterTerm}
+            onChange={(e) => setFilterTerm(e.target.value)} // Update filter term on change
+          />
         </div>
         <div className="job-listings-container">
           {jobListings.map((job) => (
