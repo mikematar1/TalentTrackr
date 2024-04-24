@@ -12,6 +12,7 @@ import SelectType from "./Components/SelectType";
 import VerificationRecruiter from "./Components/VerificationRecruiter";
 import SignUpSeeker from "./Components/SignUpSeeker";
 import SeekerHome from "./Components/SeekerHome";
+import ProfileSeeker from "./Components/ProfileSeeker";
 
 function App() {
   return (
@@ -98,6 +99,14 @@ function App() {
             <>
               <NavbarSeeker />
               <SeekerHome />
+            </>
+          }
+        />
+        <Route
+          path="/seekerprofile"
+          element={
+            <>
+              <ProfileSeeker />
             </>
           }
         />

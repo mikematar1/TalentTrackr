@@ -12,7 +12,9 @@ const NavbarSeeker = () => {
       </div>
       <div className="navbar-middle"></div>
       <div className="navbar-right">
-        <img src="/profile-user.png" alt="logo" />
+        <Link to="/seekerprofile">
+          <img src="/profile-user.png" alt="Profile" />
+        </Link>
       </div>
     </nav>
   );
