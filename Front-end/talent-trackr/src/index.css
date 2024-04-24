@@ -524,6 +524,30 @@ body {
   padding-left: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Add shadow */
 }
+.custom-file-button {
+  /* Same style as .login-input */
+  display: flex;
+  flex-direction: column;
+  border: 0px solid #ccc; /* Set border color */
+  border-radius: 13px; /* Set border radius */
+  padding: 10px; /* Add padding */
+  padding-left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Add shadow */
+  background-color: white; /* Ensure the background is white */
+  text-align: start; /* Center-align the text */
+  cursor: pointer; /* Change cursor to indicate clickability */
+}
+
+.hidden-file-input {
+  margin-top: -7%;
+  z-index: -10;
+}
+
+.custom-file-button-text {
+  color: #787878; /* Text color for the custom button */
+  font-size: 12.5px;
+}
+
 .login-no-acc {
   display: flex;
   flex-direction: column;
