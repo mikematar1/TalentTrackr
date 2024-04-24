@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const SignUpRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
+  const [fileName, setFileName] = useState(""); // State to store the file name
 
-  // Simulate loading delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true);
@@ -12,14 +12,17 @@ const SignUpRecruiter = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Apply overflow: hidden to body during transition
-  useEffect(() => {
-    if (!loaded) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
+  // Handle the file input change event to update the file name
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name); // Set the state to the file name
     }
-  }, [loaded]);
+  };
+
+  const handleClick = () => {
+    document.getElementById("file-input").click(); // Trigger file input click
+  };
 
   return (
     <div className={`signup-container ${loaded ? "loaded" : ""}`}>
@@ -30,7 +33,7 @@ const SignUpRecruiter = () => {
           <input type="text" placeholder="Name" className="login-input" />
           <input
             type="text"
-            placeholder="Linkedin URL"
+            placeholder="LinkedIn URL"
             className="login-input"
           />
           <input
@@ -38,13 +41,23 @@ const SignUpRecruiter = () => {
             placeholder="Description"
             className="login-input"
           />
-          <input
-            type="file"
-            accept="image/*"
-            placeholder="Company Logo"
-            className="login-input"
-          />
+
+          {/* Custom file input button for image upload */}
+          <div className="custom-file-button" onClick={handleClick}>
+            <span className="custom-file-button-text">
+              {fileName ? fileName : "Upload Company Logo"}{" "}
+              {/* Display selected file name or default text */}
+            </span>
+            <input
+              type="file"
+              id="file-input"
+              accept="image/*" // Accept all image types
+              className="hidden-file-input"
+              onChange={handleFileChange} // Handle file change
+            />
+          </div>
         </div>
+
         <div className="login-btn-ctn">
           <Link to="/verificationrecruiter">
             <button className="login-btn">Sign Up</button>

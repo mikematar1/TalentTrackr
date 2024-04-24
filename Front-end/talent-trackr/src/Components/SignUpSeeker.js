@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const SignUpSeeker = () => {
   const [loaded, setLoaded] = useState(false);
+  const [fileName, setFileName] = useState(""); // State for storing the file name
 
-  // Simulate loading delay
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true);
@@ -12,14 +12,16 @@ const SignUpSeeker = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Apply overflow: hidden to body during transition
-  useEffect(() => {
-    if (!loaded) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Get the first file selected
+    if (file) {
+      setFileName(file.name); // Set the state to the file name
     }
-  }, [loaded]);
+  };
+
+  const handleClick = () => {
+    document.getElementById("file-input").click(); // Trigger file input click
+  };
 
   return (
     <div className={`signup-container ${loaded ? "loaded" : ""}`}>
@@ -28,28 +30,36 @@ const SignUpSeeker = () => {
         <p className="login-p">Please fill in your information</p>
         <div className="login-inputs">
           <input
-            type="text"
+            type="date"
             placeholder="Date of Birth"
             className="login-input"
           />
           <input
             type="text"
-            placeholder="Linkedin URL"
+            placeholder="LinkedIn URL"
             className="login-input"
           />
           <input
-            type="email"
-            placeholder="What are you seeking"
+            type="text"
+            placeholder="What are you seeking?"
             className="login-input"
           />
-          <input type="text" placeholder="Skills" className="login-input" />
-          <input
-            type="file"
-            accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            placeholder="Resume"
-            className="login-input"
-          />
+
+          <div className="custom-file-button" onClick={handleClick}>
+            <span className="custom-file-button-text">
+              {fileName ? fileName : "Upload Resume"}{" "}
+              {/* Conditionally render the text */}
+            </span>
+            <input
+              type="file"
+              id="file-input"
+              className="hidden-file-input"
+              accept=".pdf,.doc,.docx"
+              onChange={handleFileChange} // Handle the file change event
+            />
+          </div>
         </div>
+
         <div className="login-btn-ctn">
           <Link to="/seekerhome">
             <button className="login-btn">Sign Up</button>

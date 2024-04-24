@@ -120,15 +120,26 @@ body {
   color: #ffffff;
   border-color: #ffffff;
 }
+.navbar-right img {
+  width: 50px;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-right img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
 
 /* End of navbar */
 
 /* Start of home */
 .home-container {
   display: flex;
-  margin-top: 5%;
+  margin-top: 8%;
   justify-content: space-between;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   opacity: 0; /* Initially set opacity to 0 */
   transform: translateY(50px); /* Initially set translation */
   transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
@@ -151,6 +162,7 @@ body {
   padding-left: 12px;
 }
 
+.seeker-title h1,
 .about-title h1,
 .companies-title h1,
 .left-column h1 {
@@ -495,7 +507,7 @@ body {
 .login-inputs {
   display: flex;
   flex-direction: column;
-  margin-top: 4%;
+  margin-top: 2%;
   width: 50%;
 }
 
@@ -512,6 +524,30 @@ body {
   padding-left: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Add shadow */
 }
+.custom-file-button {
+  /* Same style as .login-input */
+  display: flex;
+  flex-direction: column;
+  border: 0px solid #ccc; /* Set border color */
+  border-radius: 13px; /* Set border radius */
+  padding: 10px; /* Add padding */
+  padding-left: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Add shadow */
+  background-color: white; /* Ensure the background is white */
+  text-align: start; /* Center-align the text */
+  cursor: pointer; /* Change cursor to indicate clickability */
+}
+
+.hidden-file-input {
+  margin-top: -7%;
+  z-index: -10;
+}
+
+.custom-file-button-text {
+  color: #787878; /* Text color for the custom button */
+  font-size: 12.5px;
+}
+
 .login-no-acc {
   display: flex;
   flex-direction: column;
@@ -566,6 +602,14 @@ body {
 }
 .login-btn-ctn {
   margin-top: 5%;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+.error-space {
+  height: 30px;
 }
 
 /* End of Login */
@@ -639,3 +683,416 @@ body {
 }
 
 /* End of Signup */
+
+/* Start of Footer */
+.footer-link {
+  color: white;
+}
+
+.footer {
+  margin-top: 5%;
+  background: #222;
+  padding: 2rem 0;
+}
+
+.footer-content {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  color: #fff;
+  margin-top: 1em;
+  margin-right: 1em;
+}
+
+.footer-col h4 {
+  text-transform: capitalize;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+
+.footer-col ul li {
+  list-style-type: none;
+  margin-bottom: 0.5rem;
+}
+
+.footer-col ul li a {
+  color: #ececec;
+}
+
+.footer-col ul li a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  width: 80vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.footer-bottom p {
+  color: #ececec;
+}
+
+.social-icons {
+  display: flex;
+}
+
+.social-icons li {
+  margin-right: 10px;
+}
+
+.footer-col p {
+  font-size: 0.7em;
+  margin-bottom: 0.8em;
+  margin-top: -1em;
+}
+
+.newsletter-form {
+  display: flex;
+  align-items: center;
+}
+.news-input {
+  padding: 0.6em 1em;
+  border: none;
+}
+
+.news-input:focus {
+  outline: none;
+}
+
+.news-btn {
+  padding: 0.6em 1em;
+  background-color: #aca0a0;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 776px) {
+  .footer-content {
+    width: 90vw;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .footer-content {
+    width: 95vw;
+    max-width: 1170px;
+  }
+}
+/* End of Footer */
+
+/* Start of Seeker home */
+.home-container.seeker {
+  flex-direction: column;
+  align-items: center;
+}
+
+.seeker-page {
+  width: 85%;
+}
+.seeker-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -2%;
+}
+.seeker-title button {
+  background-color: transparent;
+  border: 1px solid #020202;
+  color: #000000;
+  padding: 10px 30px;
+  height: 40%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add transition for color, background-color, and border-color */
+}
+
+.seeker-title button:hover {
+  background-color: #020202;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.job-listing {
+  display: flex;
+  width: 315px;
+  height: 130px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease; /* Add a transition for smooth effect */
+}
+.job-listing:hover {
+  transform: scale(1.05); /* Increase scale on hover */
+}
+.job-listings-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 1%;
+  height: 65vh;
+}
+.job-card {
+  width: 100%;
+  padding-left: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease; /* Add a transition for smooth effect */
+}
+
+.job-card:hover {
+  transform: scale(1); /* Increase scale on hover */
+}
+
+.job-title {
+  font-size: 14px;
+  font-weight: medium;
+}
+
+.type-salary {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 30%;
+}
+.salary {
+  display: flex;
+  flex-direction: row;
+}
+.salary p {
+  color: #767f8c;
+  font-size: 11px;
+  margin-top: auto;
+}
+.type-box {
+  position: relative;
+  display: inline-flex; /* Use inline-flex to fit the box exactly to the content */
+  padding: 2px 5px; /* Adjust padding as needed */
+  background-color: #0ba02b11; /* Use rgba to set opacity */
+  border-radius: 5px;
+  height: 0%;
+  margin-top: -1%;
+}
+
+.type-box p {
+  position: relative; /* Ensure text is positioned relative to its container */
+  z-index: 1; /* Ensure text is above the background */
+  font-size: 11px;
+  color: #0ba02c;
+  margin: 0;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 9%;
+  background-color: white;
+  border: 4px solid #0ba02c;
+}
+
+.circle p {
+  font-size: 13px;
+  color: #0ba02c;
+}
+
+.green {
+  border: 4px solid #0ba02c;
+}
+
+.red {
+  border: 4px solid red;
+}
+
+.company-loc {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: -5%;
+  height: 40%;
+}
+
+.company-loc img {
+  width: 50px;
+  height: 50px;
+}
+
+.name-loc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+}
+.job-title.company {
+  padding-left: 5%;
+}
+
+.salary.company {
+  margin-top: -5%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin: 0 5px;
+  outline: none;
+  transition: transform 0.3s ease; /* Add transition for smoother animation */
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination button svg {
+  width: 20px;
+  height: 20px;
+  color: #333; /* Adjust the color as needed */
+}
+.pagination span {
+  cursor: default;
+}
+
+.pagination button:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
+.pagination button:hover svg {
+  color: #6c194d; /* Adjust the hover color as needed */
+}
+
+.filter-input {
+  border: 1px solid #ccc; /* Border with lighter color */
+  border-radius: 13px; /* Same border radius as the other inputs */
+  padding: 10px; /* Consistent padding */
+  padding-left: 20px; /* Space for text */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+  transition: box-shadow 0.2s ease-in-out; /* Smooth transition for focus effect */
+}
+
+.filter-input:focus {
+  outline: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Enhance shadow on focus */
+}
+
+.filter-input:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25); /* Enhance shadow on hover */
+}
+
+.job-modal-overlay {
+  position: fixed; /* Overlay stays in place */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the modal */
+  z-index: 1000; /* High z-index to ensure it's on top */
+}
+
+.job-modal {
+  display: flex;
+  cursor: default;
+  background: white; /* Modal has a white background */
+  padding: 20px; /* Padding for content */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Add shadow for depth */
+  width: 900px; /* Set a fixed width for consistency */
+  height: 400px;
+  text-align: center; /* Center-align text */
+}
+
+.job-modal button {
+  background: #6c194d; /* Button color */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px; /* Rounded button corners */
+  padding: 10px; /* Padding for the button */
+  cursor: pointer;
+  margin-top: 20px; /* Space between text and button */
+  transition: background 0.3s ease; /* Transition effect for hover */
+}
+
+.job-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.job-modal button:hover {
+  background: #500f3d; /* Darker shade on hover */
+}
+.job-modal-header > img {
+  width: 200px;
+  height: 200px;
+}
+
+.job-modal-header {
+  width: 100%;
+}
+
+/* End of Seeker home */
+
+/* Start of Seeker Profile */
+.profile-edit {
+  width: 60%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 13px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.login-btn {
+  background: #6c194d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.login-inputs-profile {
+  display: flex;
+  justify-content: center;
+}
+.login-input.profile {
+  margin-bottom: 5%;
+  width: 70%;
+}
+
+.login-btn:hover {
+  background: #500f3d;
+}
+.custom-file-button.profile {
+  width: 70%;
+}
+
+/* End of Seeker Profile */
