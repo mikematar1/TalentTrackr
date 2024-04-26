@@ -90,14 +90,14 @@ class AuthController extends Controller
 
             ]);
             // COMPUTE LOGO_BASE64 INTO AN IMAGE URL POINT TO AMAZON S3 STORAGE
-            $base64Image = $request->logo_base64;
-            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
-            $filename = uniqid() . '.png';
-            $folderPath = 'companylogo/';
+            // $base64Image = $request->logo_base64;
+            // $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+            // $filename = uniqid() . '.png';
+            // $folderPath = 'companylogo/';
 
-            Storage::disk('s3')->put($folderPath . $filename, $imageData);
-            $url = Storage::disk('s3')->url($folderPath . $filename);
-
+            // Storage::disk('s3')->put($folderPath . $filename, $imageData);
+            // $url = Storage::disk('s3')->url($folderPath . $filename);
+            $url="Fewqfqwef";
             $company=Company::create([
                 "company_name"=>$request->company_name,
                 "company_linkedin"=>$request->company_linkedin,
@@ -110,23 +110,21 @@ class AuthController extends Controller
                 "user_id"=>$user->id,
                 "verified"=>false
             ]);
-            return response()->json([
-                "status"=>"success",
-                "company_date"=>$company,
-                "user_data"=>$user
-            ]);
+
         }else if($type==1){
             // seeker
             $request->validate([
                 'dob' => 'required|string|max:255',
-                'looking_for' => 'required|string|max:255',
+                'looking_for' => 'required|integer',
                 'resume'=>'required|string'
 
             ]);
+            $seekerController = new SeekerController();
+            $resumeid=$seekerController->uploadResume($request->resume,$user->id);
+
             Seeker::create([
                 'dob'=>$request->dob,
                 'looking_for'=>$request->looking_for,
-                'resume'=>$request->resume,
                 "skills"=>"",
                 "linkedin"=>"",
                 "user_id"=>$user->id

@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('seekers', function (Blueprint $table) {
-            $table->id();
             $table->date("dob");
             $table->integer("looking_for"); //internship,part-time,full-time (0,1,2)
-            $table->string("resume",1000);
             $table->string("skills",1000);
             $table->string("linkedin");
             $table->integer("user_id");
