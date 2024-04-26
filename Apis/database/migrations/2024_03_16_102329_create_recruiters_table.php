@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('recruiters', function (Blueprint $table) {
-            $table->id();
             $table->integer("company_id");
             $table->integer("user_id");
             $table->boolean("verified");

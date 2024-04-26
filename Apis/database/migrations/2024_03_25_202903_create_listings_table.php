@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
-            $table->string("position_name");
-            $table->string("position_description");
-            $table->string("required_skills");
+            $table->string('job_listing_json_object', 10000)->nullable();
             $table->integer("matches");
             $table->integer("recruiter_id");
             $table->timestamps();

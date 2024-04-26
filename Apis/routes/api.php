@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\RecruiterController;
 use App\Http\Controllers\SeekerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,17 +29,28 @@ Route::group(["prefix" => "v0.1"], function () {
         });
     });
     Route::group(["prefix"=>"seeker"],function(){
-
+        Route::post("edit",[SeekerController::class,"editInformation"]);
     });
 
     Route::group(["prefix"=>"recruiter"],function(){
-
+        Route::group(["prefix"=>"listing"],function(){
+            Route::post("add",[RecruiterController::class,"addListing"]);
+            Route::get("delete",[RecruiterController::class,"deleteListing"]);
+        });
     });
 
     Route::group(["prefix"=>"admin"],function(){
+        Route::group(["prefix"=>"recruiter"],function(){
+            Route::post("verify/{recruiterid}",[AdminController::class,"verifyRecruiter"]);
+            Route::get("getunverified",[AdminController::class,"getUnverifiedRecruiters"]);
 
+        });
     });
-    Route::post("parser",[SeekerController::class,"testmatch"]);
+    Route::group(["prefix"=>"listings"],function(){
+        Route::get("/",[ListingController::class,"getListings"]);
+        Route::get("recruiter/{recruiterid}",[ListingController::class,"getRecruiterListings"]);
+    });
+    Route::post("tester",[SeekerController::class,"testingmatch"]);
 
 
 });

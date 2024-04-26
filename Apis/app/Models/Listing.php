@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Listing extends Model
 {
     use HasFactory;
-    protected $fillable =["position_name","position_description","required_skills","matches","recruiter_id"];
+    protected $fillable =["job_listing_json_object","matches","recruiter_id"];
 }
