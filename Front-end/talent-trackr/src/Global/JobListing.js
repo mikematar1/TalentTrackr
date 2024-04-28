@@ -1,13 +1,13 @@
 import React from "react";
 import { IoLocationOutline } from "react-icons/io5";
 
-const JobListing = ({ job }) => {
-  const { title, company, salary, type, location, percentage } = job; // Default to 100%
+const JobListing = ({ job, userType }) => {
+  const { title, company, salary, type, location, percentage } = job;
 
   const getColor = () => {
-    const lightness = 20 + (percentage / 100) * 40; // Adjust lightness between 30 and 70
-    const hue = (percentage / 100) * 120; // Hue ranges from 0 to 120 (red to green)
-    return `hsl(${hue}, 100%, ${lightness}%)`; // Use HSL color model for smoother gradient
+    const lightness = 20 + (percentage / 100) * 40;
+    const hue = (percentage / 100) * 120; // Hue ranges from 0 (red) to 120 (green)
+    return `hsl(${hue}, 100%, ${lightness}%)`;
   };
 
   return (
@@ -21,15 +21,13 @@ const JobListing = ({ job }) => {
           <div className="salary">
             <p>Salary: {salary}</p> {/* Salary */}
           </div>
-          <div
-            className="circle"
-            id="circle"
-            style={{ borderColor: getColor() }}
-          >
-            <p id="percentage" style={{ color: getColor() }}>
-              {percentage}%
-            </p>
-          </div>
+
+          {userType === "seeker" && ( // Only display if userType is 'seeker'
+            <div className="circle" style={{ borderColor: getColor() }}>
+              <p style={{ color: getColor() }}>{percentage}%</p>{" "}
+              {/* Percentage */}
+            </div>
+          )}
         </div>
         <div className="company-loc">
           <img src="/job-icon.png" alt="logo" />

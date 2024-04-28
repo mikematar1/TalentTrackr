@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const ProfileSeeker = () => {
+const ProfileRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
   const [profileData, setProfileData] = useState({
-    fullName: "Seeker",
-    email: "seeker@example.com",
-    dateOfBirth: "1990-01-01",
+    fullName: "Recruiter",
+    email: "recruiter@example.com",
+    description: "This is the companie's description",
     linkedIn: "https://www.linkedin.com",
-    resume: null, // Handle the uploaded file
   });
-
-  const handleClick = () => {
-    document.getElementById("file-input").click(); // Trigger file input click
-  };
 
   const handleLogout = () => {};
 
@@ -28,13 +23,6 @@ const ProfileSeeker = () => {
     setProfileData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    setProfileData((prevData) => ({
-      ...prevData,
-      resume: e.target.files[0], // Store the uploaded file
     }));
   };
 
@@ -66,11 +54,11 @@ const ProfileSeeker = () => {
               onChange={handleInputChange}
             />
             <input
-              type="date"
-              name="dateOfBirth"
-              placeholder="Date of Birth"
+              type="text"
+              name="description"
+              placeholder="Description"
               className="login-input profile"
-              value={profileData.dateOfBirth}
+              value={profileData.description}
               onChange={handleInputChange}
             />
             <input
@@ -81,18 +69,6 @@ const ProfileSeeker = () => {
               value={profileData.linkedIn}
               onChange={handleInputChange}
             />
-            <div className="custom-file-button profile" onClick={handleClick}>
-              <span className="custom-file-button-text">
-                {profileData.resume ? profileData.resume.name : "Upload Resume"}
-              </span>
-              <input
-                type="file"
-                id="file-input"
-                className="hidden-file-input"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange} // Handle the file change event
-              />
-            </div>
           </div>
         </div>
 
@@ -102,4 +78,4 @@ const ProfileSeeker = () => {
   );
 };
 
-export default ProfileSeeker;
+export default ProfileRecruiter;

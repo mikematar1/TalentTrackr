@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaPlus } from "react-icons/fa";
 import JobModal from "../Global/JobModal"; // Import the modal component
+import { useNavigate } from "react-router-dom";
 
-const SeekerHome = () => {
+const HomeRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [jobListings, setJobListings] = useState([]);
   const [filterTerm, setFilterTerm] = useState("");
   const [selectedJob, setSelectedJob] = useState(null);
+  let navigate = useNavigate();
 
   // Simulate loading delay
   useEffect(() => {
@@ -181,19 +183,27 @@ const SeekerHome = () => {
       setCurrentPage(pageNumber);
     }
   };
+  const handleAddJobClick = () => {
+    navigate("/addjob");
+  };
 
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
       <div className="seeker-page">
-        <div className="seeker-title">
-          <h1>Recommended Opportunities</h1>
-          <input
-            className="filter-input"
-            type="text"
-            placeholder="Filter by job title..."
-            value={filterTerm}
-            onChange={(e) => setFilterTerm(e.target.value)}
-          />
+        <div className="recruiter-title">
+          <h1>Job Listings</h1>
+          <div className="recruiter-btn-filter">
+            <button onClick={handleAddJobClick}>
+              <FaPlus />
+            </button>
+            <input
+              className="filter-input"
+              type="text"
+              placeholder="Filter by job title..."
+              value={filterTerm}
+              onChange={(e) => setFilterTerm(e.target.value)}
+            />
+          </div>
         </div>
         <div className="job-listings-container">
           {jobListings.map((job) => (
@@ -201,7 +211,7 @@ const SeekerHome = () => {
               key={job.id}
               onClick={() => handleJobClick(job)} // Open modal on job click
             >
-              <JobListing key={job.id} job={job} />
+              <JobListing key={job.id} job={job} userType={"recruiter"} />
             </div>
           ))}
         </div>
@@ -228,4 +238,4 @@ const SeekerHome = () => {
   );
 };
 
-export default SeekerHome;
+export default HomeRecruiter;

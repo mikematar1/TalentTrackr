@@ -45,13 +45,20 @@ const Login = () => {
     }
 
     // For demonstration, assuming user is either "seeker" or "recruiter"
-    const userType = email === "seeker@example.com" ? "seeker" : "recruiter";
+    const userType =
+      email === "seeker@example.com"
+        ? "seeker"
+        : email === "recruiter@example.com"
+        ? "recruiter"
+        : "admin";
 
     // Redirect based on user type
     if (userType === "seeker") {
       navigate("/seekerhome");
+    } else if (userType === "recruiter") {
+      navigate("/recruiterhome");
     } else {
-      navigate("/recruiter");
+      navigate("adminhome");
     }
   };
 
