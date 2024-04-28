@@ -51,7 +51,7 @@ const Login = () => {
     if (userType === "seeker") {
       navigate("/seekerhome");
     } else {
-      navigate("/recruiter");
+      navigate("/recruiterhome");
     }
   };
 

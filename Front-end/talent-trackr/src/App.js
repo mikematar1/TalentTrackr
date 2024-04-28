@@ -6,12 +6,14 @@ import About from "./Components/About";
 import Login from "./Components/Login";
 import Navbar from "./Navigation/Navbar";
 import NavbarSeeker from "./Navigation/NavbarSeeker";
+import NavbarRecruiter from "./Navigation/NavbarRecruiter";
 import SignUpMain from "./Components/SignUpMain";
 import SignUpRecruiter from "./Components/SignUpRecruiter";
 import SelectType from "./Components/SelectType";
 import VerificationRecruiter from "./Components/VerificationRecruiter";
 import SignUpSeeker from "./Components/SignUpSeeker";
 import HomeSeeker from "./Components/HomeSeeker";
+import HomeRecruiter from "./Components/HomeRecruiter";
 import ProfileSeeker from "./Components/ProfileSeeker";
 
 function App() {
@@ -107,6 +109,15 @@ function App() {
           element={
             <>
               <ProfileSeeker />
+            </>
+          }
+        />
+        <Route
+          path="/recruiterhome"
+          element={
+            <>
+              <NavbarRecruiter />
+              <HomeRecruiter />
             </>
           }
         />
