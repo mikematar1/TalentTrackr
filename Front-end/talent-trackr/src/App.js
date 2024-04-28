@@ -11,7 +11,7 @@ import SignUpRecruiter from "./Components/SignUpRecruiter";
 import SelectType from "./Components/SelectType";
 import VerificationRecruiter from "./Components/VerificationRecruiter";
 import SignUpSeeker from "./Components/SignUpSeeker";
-import SeekerHome from "./Components/SeekerHome";
+import HomeSeeker from "./Components/HomeSeeker";
 import ProfileSeeker from "./Components/ProfileSeeker";
 
 function App() {
@@ -98,7 +98,7 @@ function App() {
           element={
             <>
               <NavbarSeeker />
-              <SeekerHome />
+              <HomeSeeker />
             </>
           }
         />

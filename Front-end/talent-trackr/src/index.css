@@ -1094,5 +1094,24 @@ body {
 .custom-file-button.profile {
   width: 70%;
 }
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  background: #f44336; /* Red color for the logout button */
+  color: white; /* White text color */
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #d32f2f; /* Darker red on hover */
+}
 
 /* End of Seeker Profile */

@@ -14,7 +14,8 @@ const ProfileSeeker = () => {
     document.getElementById("file-input").click(); // Trigger file input click
   };
 
-  // Simulate loading delay
+  const handleLogout = () => {};
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true);
@@ -40,7 +41,12 @@ const ProfileSeeker = () => {
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
       <div className="profile-edit">
-        <h1>Edit Profile</h1>
+        <div className="profile-header">
+          <h1>Edit Profile</h1>
+          <button className="logout-btn" onClick={handleLogout}>
+            Log out
+          </button>
+        </div>
         <div className="login-inputs-profile">
           <div className="login-inputs">
             <input
