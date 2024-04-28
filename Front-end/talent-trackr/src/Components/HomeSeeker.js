@@ -3,7 +3,7 @@ import JobListing from "../Global/JobListing";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import JobModal from "../Global/JobModal"; // Import the modal component
 
-const SeekerHome = () => {
+const HomeSeeker = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [jobListings, setJobListings] = useState([]);
@@ -228,4 +228,4 @@ const SeekerHome = () => {
   );
 };
 
-export default SeekerHome;
+export default HomeSeeker;
