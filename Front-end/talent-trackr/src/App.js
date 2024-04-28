@@ -15,6 +15,7 @@ import SignUpSeeker from "./Components/SignUpSeeker";
 import HomeSeeker from "./Components/HomeSeeker";
 import HomeRecruiter from "./Components/HomeRecruiter";
 import ProfileSeeker from "./Components/ProfileSeeker";
+import ProfileRecruiter from "./Components/ProfileRecruiter";
 
 function App() {
   return (
@@ -118,6 +119,14 @@ function App() {
             <>
               <NavbarRecruiter />
               <HomeRecruiter />
+            </>
+          }
+        />
+        <Route
+          path="/recruiterprofile"
+          element={
+            <>
+              <ProfileRecruiter />
             </>
           }
         />
