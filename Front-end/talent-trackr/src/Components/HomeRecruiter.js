@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaPlus } from "react-icons/fa";
 import JobModal from "../Global/JobModal"; // Import the modal component
 
 const HomeRecruiter = () => {
@@ -181,19 +181,28 @@ const HomeRecruiter = () => {
       setCurrentPage(pageNumber);
     }
   };
+  const handleAddJobClick = () => {
+    // Functionality to add a new job (e.g., open a modal or navigate to another page)
+    console.log("Add new job");
+  };
 
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
       <div className="seeker-page">
-        <div className="seeker-title">
+        <div className="recruiter-title">
           <h1>Job Listings</h1>
-          <input
-            className="filter-input"
-            type="text"
-            placeholder="Filter by job title..."
-            value={filterTerm}
-            onChange={(e) => setFilterTerm(e.target.value)}
-          />
+          <div className="recruiter-btn-filter">
+            <button onClick={handleAddJobClick}>
+              <FaPlus />
+            </button>
+            <input
+              className="filter-input"
+              type="text"
+              placeholder="Filter by job title..."
+              value={filterTerm}
+              onChange={(e) => setFilterTerm(e.target.value)}
+            />
+          </div>
         </div>
         <div className="job-listings-container">
           {jobListings.map((job) => (
