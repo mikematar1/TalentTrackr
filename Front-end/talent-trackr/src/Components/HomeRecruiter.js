@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
 import { FaArrowLeft, FaArrowRight, FaPlus } from "react-icons/fa";
 import JobModal from "../Global/JobModal"; // Import the modal component
+import { useNavigate } from "react-router-dom";
 
 const HomeRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
@@ -9,6 +10,7 @@ const HomeRecruiter = () => {
   const [jobListings, setJobListings] = useState([]);
   const [filterTerm, setFilterTerm] = useState("");
   const [selectedJob, setSelectedJob] = useState(null);
+  let navigate = useNavigate();
 
   // Simulate loading delay
   useEffect(() => {
@@ -182,8 +184,7 @@ const HomeRecruiter = () => {
     }
   };
   const handleAddJobClick = () => {
-    // Functionality to add a new job (e.g., open a modal or navigate to another page)
-    console.log("Add new job");
+    navigate("/addjob");
   };
 
   return (

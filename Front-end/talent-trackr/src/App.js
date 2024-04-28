@@ -16,6 +16,7 @@ import HomeSeeker from "./Components/HomeSeeker";
 import HomeRecruiter from "./Components/HomeRecruiter";
 import ProfileSeeker from "./Components/ProfileSeeker";
 import ProfileRecruiter from "./Components/ProfileRecruiter";
+import AddJob from "./Components/AddJob";
 
 function App() {
   return (
@@ -127,6 +128,14 @@ function App() {
           element={
             <>
               <ProfileRecruiter />
+            </>
+          }
+        />
+        <Route
+          path="/addjob"
+          element={
+            <>
+              <AddJob />
             </>
           }
         />
