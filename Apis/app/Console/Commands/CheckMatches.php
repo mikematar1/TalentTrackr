@@ -35,12 +35,7 @@ class CheckMatches extends Command
             $listings = Listing::all();
             foreach ($listings as $listing) {
 
-                $jobdata = [
-                    "JobTitle"=>$listing->position_name,
-                    "JobDescription"=>$listing->position_description,
-                    "Skills"=>explode("//",$listing->required_skills),
-
-                ];
+                $jobdata = json_decode($listing->job_listing_json_object);
 
                 $data = ["JobData" => $jobdata,"IndexIdsToSearchInto"=>$indeces];
 
@@ -66,14 +61,17 @@ class CheckMatches extends Command
                 curl_close($curl);
                 $result=json_decode($result);
                 $result = $result->Value;
-                echo(count($result->Matches));
                 foreach($result->Matches as $match){
+                    if(ListingMatchesSeeker::where("listing_id","=",$listing->id)->where("seeker_id","=",$match->IndexId)->exists()){
 
-                    ListingMatchesSeeker::create([
-                        "listing_id"=>$listing->id,
-                        "seeker_id"=>$match->IndexId,
-                        "match_percentage"=>$match->SovScore
-                    ]);
+                    }else{
+                        ListingMatchesSeeker::create([
+                            "listing_id"=>$listing->id,
+                            "seeker_id"=>$match->IndexId,
+                            "match_percentage"=>$match->WeightedScore
+                        ]);
+                    }
+
                 }
             }
         } catch (\Exception $e) {
