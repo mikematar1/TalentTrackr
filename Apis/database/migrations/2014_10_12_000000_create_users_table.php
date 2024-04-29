@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("last_name");
             $table->string("email");
             $table->string("password");
-            $table->integer("user_type"); //recruiter,seeker,admin (0,1,2)
+            $table->integer("user_type"); //recruiter,seeker (0,1)
             $table->timestamps();
         });
     }

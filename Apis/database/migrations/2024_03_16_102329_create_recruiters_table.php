@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('recruiters', function (Blueprint $table) {
             $table->integer("company_id");
             $table->integer("user_id");
-            $table->boolean("verified");
             $table->timestamps();
         });
     }

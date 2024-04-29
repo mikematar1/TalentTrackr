@@ -11,7 +11,6 @@ class Recruiter extends Model
     protected $primaryKey = 'user_id';
     protected $fillable = [
         'company_id',
-        'user_id',
-        'verified'
+        'user_id'
     ];
 }

@@ -40,14 +40,9 @@ class AuthController extends Controller
                                 ->where("recruiters.user_id","=",$user->id)->get();
 
 
-        }else if($user->user_type==0){
+        }else if($user->user_type==1){
             //seeker
             $details = Seeker::find($user->id);
-        }else if($user->user_type==0){
-            //admin
-            $details=null;
-        }else{
-
         }
 
 
@@ -107,15 +102,13 @@ class AuthController extends Controller
             ]);
             $recruiter = Recruiter::create([
                 "company_id"=>$company->id,
-                "user_id"=>$user->id,
-                "verified"=>false
+                "user_id"=>$user->id
             ]);
 
         }else if($type==1){
             // seeker
             $request->validate([
                 'dob' => 'required|string|max:255',
-                'looking_for' => 'required|integer',
                 'resume'=>'required|string'
 
             ]);
@@ -124,8 +117,6 @@ class AuthController extends Controller
 
             Seeker::create([
                 'dob'=>$request->dob,
-                'looking_for'=>$request->looking_for,
-                "skills"=>"",
                 "linkedin"=>"",
                 "user_id"=>$user->id
             ]);

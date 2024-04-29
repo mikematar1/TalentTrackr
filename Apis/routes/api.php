@@ -39,19 +39,11 @@ Route::group(["prefix" => "v0.1"], function () {
         });
     });
 
-    Route::group(["prefix"=>"admin"],function(){
-        Route::group(["prefix"=>"recruiter"],function(){
-            Route::post("verify/{recruiterid}",[AdminController::class,"verifyRecruiter"]);
-            Route::get("getunverified",[AdminController::class,"getUnverifiedRecruiters"]);
-
-        });
-    });
     Route::group(["prefix"=>"listings"],function(){
         Route::get("/",[ListingController::class,"getListings"]);
         Route::get("recruiter/{recruiterid}",[ListingController::class,"getRecruiterListings"]);
     });
-    Route::post("tester",[SeekerController::class,"testingmatch"]);
-
+    Route::get("tester",[SeekerController::class,"testingmatch"]);
 
 });
 

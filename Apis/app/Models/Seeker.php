@@ -11,9 +11,7 @@ class Seeker extends Model
     protected $primaryKey = 'user_id';
     protected $fillable = [
         'dob',
-        'looking_for',
         'resume',
-        'skills',
         'linkedin',
         'user_id'
     ];
