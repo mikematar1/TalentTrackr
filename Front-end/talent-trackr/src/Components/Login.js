@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import FetchCred from "../api-client/Auth/FetchCred";
 
 const Login = () => {
   const [loaded, setLoaded] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   let navigate = useNavigate();
 
   // Simulate loading delay
@@ -14,6 +17,16 @@ const Login = () => {
     }, 200);
     return () => clearTimeout(timer);
   }, []);
+
+  //Validators
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 6;
+  };
 
   // Apply overflow: hidden to body during transition
   useEffect(() => {
@@ -25,54 +38,56 @@ const Login = () => {
   }, [loaded]);
 
   // Function to handle login
-  const handleLogin = () => {
-    // Simulate authentication (replace with actual authentication logic)
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+  const handleLogin = (event) => {
+    event.preventDefault();
+    setError("");
 
-    // Reset error messages
-    setEmailError("");
-    setPasswordError("");
-
-    // Check for empty fields
     if (!email) {
-      setEmailError("Please enter your email");
-      return;
-    }
-    if (!password) {
-      setPasswordError("Please enter your password");
+      setError("Please enter your email");
       return;
     }
 
-    // For demonstration, assuming user is either "seeker" or "recruiter"
-    const userType =
-      email === "seeker@example.com"
-        ? "seeker"
-        : email === "recruiter@example.com"
-        ? "recruiter"
-        : "admin";
-
-    // Redirect based on user type
-    if (userType === "seeker") {
-      navigate("/seekerhome");
-    } else if (userType === "recruiter") {
-      navigate("/recruiterhome");
-    } else {
-      navigate("adminhome");
+    if (!validateEmail(email)) {
+      setError("Invalid email format.");
+      return;
     }
+    if (!validatePassword(password)) {
+      if (!password) {
+        setError("Please enter your password");
+        return;
+      }
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+    const data = { email, password };
+    let response = FetchCred(data);
+    response.then((res) => {
+      console.log(res);
+    });
+
+    // const userType =
+    //   email === "seeker@example.com"
+    //     ? "seeker"
+    //     : email === "recruiter@example.com"
+    //     ? "recruiter"
+    //     : "admin";
+
+    // // Redirect based on user type
+    // if (userType === "seeker") {
+    //   navigate("/seekerhome");
+    // } else if (userType === "recruiter") {
+    //   navigate("/recruiterhome");
+    // } else {
+    //   navigate("adminhome");
+    // }
   };
 
   // Function to handle Enter key press
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      handleLogin();
+      handleLogin(event);
     }
-  };
-
-  // Function to handle input focus
-  const handleInputFocus = () => {
-    setEmailError("");
-    setPasswordError("");
   };
 
   return (
@@ -87,21 +102,26 @@ const Login = () => {
             type="email"
             placeholder="Email"
             className="login-input"
+            onChange={(e) => setEmail(e.target.value)}
             onKeyDown={handleKeyPress}
-            onFocus={handleInputFocus}
+            onFocus={() => {
+              setError("");
+            }}
           />
           <input
             id="password"
             type="password"
             placeholder="Password"
             className="login-input"
+            onChange={(e) => setPassword(e.target.value)}
             onKeyDown={handleKeyPress}
-            onFocus={handleInputFocus}
+            onFocus={() => {
+              setError("");
+            }}
           />
         </div>
         <div className="error-space">
-          {emailError && <p className="error-message">{emailError}</p>}
-          {passwordError && <p className="error-message">{passwordError}</p>}
+          {error && <p className="error-message">{error}</p>}
         </div>
 
         <div className="login-no-acc">
