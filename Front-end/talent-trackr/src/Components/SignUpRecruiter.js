@@ -59,7 +59,7 @@ const SignUpRecruiter = () => {
         </div>
 
         <div className="login-btn-ctn">
-          <Link to="/verificationrecruiter">
+          <Link to="/recruiterhome">
             <button className="login-btn">Sign Up</button>
           </Link>
         </div>

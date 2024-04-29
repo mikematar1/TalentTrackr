@@ -39,11 +39,6 @@ const SignUpSeeker = () => {
             placeholder="LinkedIn URL"
             className="login-input"
           />
-          <input
-            type="text"
-            placeholder="What are you seeking?"
-            className="login-input"
-          />
 
           <div className="custom-file-button" onClick={handleClick}>
             <span className="custom-file-button-text">

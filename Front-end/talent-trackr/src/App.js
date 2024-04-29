@@ -10,7 +10,6 @@ import NavbarRecruiter from "./Navigation/NavbarRecruiter";
 import SignUpMain from "./Components/SignUpMain";
 import SignUpRecruiter from "./Components/SignUpRecruiter";
 import SelectType from "./Components/SelectType";
-import VerificationRecruiter from "./Components/VerificationRecruiter";
 import SignUpSeeker from "./Components/SignUpSeeker";
 import HomeSeeker from "./Components/HomeSeeker";
 import HomeRecruiter from "./Components/HomeRecruiter";
@@ -81,14 +80,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/verificationrecruiter"
-          element={
-            <>
-              <VerificationRecruiter />
-            </>
-          }
-        />
+
         <Route
           path="/signupseeker"
           element={
