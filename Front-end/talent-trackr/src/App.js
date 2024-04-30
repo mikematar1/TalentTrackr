@@ -16,6 +16,7 @@ import HomeRecruiter from "./Components/HomeRecruiter";
 import ProfileSeeker from "./Components/ProfileSeeker";
 import ProfileRecruiter from "./Components/ProfileRecruiter";
 import AddJob from "./Components/AddJob";
+import PrivateRoute from "./Navigation/PrivateRoute";
 
 function App() {
   return (
@@ -90,47 +91,79 @@ function App() {
           }
         />
         <Route
-          path="/seekerhome"
-          element={
-            <>
-              <NavbarSeeker />
-              <HomeSeeker />
-            </>
-          }
-        />
+          exact
+          path="/"
+          element={<PrivateRoute requiredUserType="seeker" />}
+        >
+          <Route
+            path="/seekerhome"
+            element={
+              <>
+                <NavbarSeeker />
+                <HomeSeeker />
+              </>
+            }
+          />
+        </Route>
+
         <Route
-          path="/seekerprofile"
-          element={
-            <>
-              <ProfileSeeker />
-            </>
-          }
-        />
+          exact
+          path="/"
+          element={<PrivateRoute requiredUserType="seeker" />}
+        >
+          <Route
+            path="/seekerprofile"
+            element={
+              <>
+                <ProfileSeeker />
+              </>
+            }
+          />
+        </Route>
+
         <Route
-          path="/recruiterhome"
-          element={
-            <>
-              <NavbarRecruiter />
-              <HomeRecruiter />
-            </>
-          }
-        />
+          exact
+          path="/"
+          element={<PrivateRoute requiredUserType="recruiter" />}
+        >
+          <Route
+            path="/recruiterhome"
+            element={
+              <>
+                <NavbarRecruiter />
+                <HomeRecruiter />
+              </>
+            }
+          />
+        </Route>
         <Route
-          path="/recruiterprofile"
-          element={
-            <>
-              <ProfileRecruiter />
-            </>
-          }
-        />
+          exact
+          path="/"
+          element={<PrivateRoute requiredUserType="recruiter" />}
+        >
+          <Route
+            path="/recruiterprofile"
+            element={
+              <>
+                <ProfileRecruiter />
+              </>
+            }
+          />
+        </Route>
         <Route
-          path="/addjob"
-          element={
-            <>
-              <AddJob />
-            </>
-          }
-        />
+          exact
+          path="/"
+          element={<PrivateRoute requiredUserType="recruiter" />}
+        >
+          <Route
+            path="/addjob"
+            element={
+              <>
+                <AddJob />
+              </>
+            }
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

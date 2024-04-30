@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSeeker = () => {
   const [loaded, setLoaded] = useState(false);
@@ -9,12 +10,16 @@ const ProfileSeeker = () => {
     linkedIn: "https://www.linkedin.com",
     resume: null, // Handle the uploaded file
   });
+  let navigate = useNavigate();
 
   const handleClick = () => {
     document.getElementById("file-input").click(); // Trigger file input click
   };
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
