@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SignUpRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
   const [fileName, setFileName] = useState(""); // State to store the file name
+  const location = useLocation();
+  let navigate = useNavigate();
+
+  const { data } = location.state || {}; // Destructure the data object from the location's state
 
   useEffect(() => {
     const timer = setTimeout(() => {

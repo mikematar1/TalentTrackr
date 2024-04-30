@@ -3,10 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 const SignUpMain = () => {
   const [loaded, setLoaded] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState(
+    localStorage.getItem("firstName") || ""
+  );
+  const [lastName, setLastName] = useState(
+    localStorage.getItem("lastName") || ""
+  );
+  const [email, setEmail] = useState(localStorage.getItem("email") || "");
+  const [password, setPassword] = useState(
+    localStorage.getItem("password") || ""
+  );
   const [error, setError] = useState("");
 
   let navigate = useNavigate();
@@ -27,6 +33,13 @@ const SignUpMain = () => {
       document.body.style.overflow = "visible";
     }
   }, [loaded]);
+
+  useEffect(() => {
+    localStorage.setItem("firstName", firstName);
+    localStorage.setItem("lastName", lastName);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+  }, [firstName, lastName, email, password]);
 
   //Validators
   const validateEmail = (email) => {
