@@ -17,79 +17,84 @@ import ProfileSeeker from "./Components/ProfileSeeker";
 import ProfileRecruiter from "./Components/ProfileRecruiter";
 import AddJob from "./Components/AddJob";
 import PrivateRoute from "./Navigation/PrivateRoute";
+import PublicRoute from "./Navigation/PublicRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Navbar />
-              <Home />
-            </>
-          }
-        />
-        <Route
-          path="/companies"
-          element={
-            <>
-              <Navbar />
-              <Companies />
-            </>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <>
-              <Navbar />
-              <About />
-            </>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <>
-              <Login />
-            </>
-          }
-        />
-        <Route
-          path="/signupmain"
-          element={
-            <>
-              <SignUpMain />
-            </>
-          }
-        />
-        <Route
-          path="/selecttype"
-          element={
-            <>
-              <SelectType />
-            </>
-          }
-        />
-        <Route
-          path="/signuprecruiter"
-          element={
-            <>
-              <SignUpRecruiter />
-            </>
-          }
-        />
+        <Route exact path="/" element={<PublicRoute />}>
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar />
+                <Home />
+              </>
+            }
+          />
 
-        <Route
-          path="/signupseeker"
-          element={
-            <>
-              <SignUpSeeker />
-            </>
-          }
-        />
+          <Route
+            path="/companies"
+            element={
+              <>
+                <Navbar />
+                <Companies />
+              </>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <>
+                <Navbar />
+                <About />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Login />
+              </>
+            }
+          />
+          <Route
+            path="/signupmain"
+            element={
+              <>
+                <SignUpMain />
+              </>
+            }
+          />
+          <Route
+            path="/selecttype"
+            element={
+              <>
+                <SelectType />
+              </>
+            }
+          />
+          <Route
+            path="/signuprecruiter"
+            element={
+              <>
+                <SignUpRecruiter />
+              </>
+            }
+          />
+
+          <Route
+            path="/signupseeker"
+            element={
+              <>
+                <SignUpSeeker />
+              </>
+            }
+          />
+        </Route>
+
         <Route
           exact
           path="/"
@@ -104,13 +109,7 @@ function App() {
               </>
             }
           />
-        </Route>
 
-        <Route
-          exact
-          path="/"
-          element={<PrivateRoute requiredUserType="seeker" />}
-        >
           <Route
             path="/seekerprofile"
             element={
@@ -135,12 +134,7 @@ function App() {
               </>
             }
           />
-        </Route>
-        <Route
-          exact
-          path="/"
-          element={<PrivateRoute requiredUserType="recruiter" />}
-        >
+
           <Route
             path="/recruiterprofile"
             element={
@@ -149,12 +143,6 @@ function App() {
               </>
             }
           />
-        </Route>
-        <Route
-          exact
-          path="/"
-          element={<PrivateRoute requiredUserType="recruiter" />}
-        >
           <Route
             path="/addjob"
             element={
