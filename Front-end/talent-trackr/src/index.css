@@ -537,6 +537,7 @@ body {
   background-color: white; /* Ensure the background is white */
   text-align: start; /* Center-align the text */
   cursor: pointer; /* Change cursor to indicate clickability */
+  margin-bottom: 5%;
 }
 
 .hidden-file-input {

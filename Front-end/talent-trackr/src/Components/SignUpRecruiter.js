@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Register from "../api-client/Auth/Register";
 
 const SignUpRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
-  const [fileName, setFileName] = useState(""); // State to store the file name
+  const [companyName, setCompanyName] = useState(""); // State for company name
+  const [linkedinURL, setLinkedinURL] = useState(""); // State for LinkedIn URL
+  const [description, setDescription] = useState(""); // State for company description
+  const [fileName, setFileName] = useState(""); // State for uploaded file name
+  const [logo_url, setLogoUrl] = useState(""); // State to store base64-encoded image
+  const [error, setError] = useState(""); // State for error messages
   const location = useLocation();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const { data } = location.state || {}; // Destructure the data object from the location's state
+  const { data } = location.state || {}; // Destructure data from the previous page
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -16,16 +23,99 @@ const SignUpRecruiter = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle the file input change event to update the file name
+  const validateURL = (url) => {
+    const urlPattern = new RegExp(
+      "^(https?:\\/\\/)?(www\\.)?linkedin\\.com\\/.*$" // Simple LinkedIn URL pattern
+    );
+    return urlPattern.test(url); // Returns true if it matches
+  };
+
+  const validateName = (name) => {
+    return name.length > 3;
+  };
+
+  const validateDescription = (desc) => {
+    return desc.length <= 100 && desc.length > 10;
+  };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setFileName(file.name); // Set the state to the file name
+      setFileName(file.name); // Update the file name state
+
+      // Convert the file to base64
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setLogoUrl(e.target.result); // Store the base64-encoded image
+      };
+      reader.readAsDataURL(file); // Trigger the reading process
     }
   };
 
   const handleClick = () => {
-    document.getElementById("file-input").click(); // Trigger file input click
+    setError("");
+    document.getElementById("file-input").click(); // Trigger the hidden file input
+  };
+
+  const handleSignUp = () => {
+    setError("");
+
+    if (!companyName) {
+      setError("Please enter your company's name.");
+      return;
+    }
+    if (!validateName(companyName)) {
+      setError("Please enter a valid name.");
+      return;
+    }
+
+    if (!linkedinURL) {
+      setError("Please enter your company's LinkedIn URL.");
+      return;
+    }
+
+    if (!validateURL(linkedinURL)) {
+      setError("Please enter a valid LinkedIn profile URL.");
+      return;
+    }
+
+    if (!description) {
+      setError("Please enter your company's description.");
+      return;
+    }
+    if (!validateDescription(description)) {
+      setError("Please enter a valid description.");
+      return;
+    }
+    if (!fileName) {
+      setError("Please provide your company's logo.");
+      return;
+    }
+
+    const data_recruiter = {
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      type: 0,
+      password: data.password,
+      company_name: companyName,
+      company_linkedin: linkedinURL,
+      description,
+      logo_url,
+    };
+
+    let response = Register(data_recruiter);
+    response.then((res) => {
+      if (res.status === 422) {
+        setError("The email has already been taken");
+      } else {
+        let token = res.data.authorisation.token;
+        localStorage.setItem("token", "Bearer " + token);
+        localStorage.setItem("usertype", res.data.user.user_type);
+        axios.defaults.headers.common["Authorization"] = "Bearer" + token;
+        navigate("/recruiterhome");
+      }
+    });
   };
 
   return (
@@ -34,23 +124,42 @@ const SignUpRecruiter = () => {
         <img className="login-img" src="/title.png" alt="logo" />
         <p className="login-p">Please fill in your company's information</p>
         <div className="login-inputs">
-          <input type="text" placeholder="Name" className="login-input" />
+          <input
+            type="text"
+            placeholder="Company Name"
+            className="login-input"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            onFocus={() => {
+              setError("");
+            }}
+          />
           <input
             type="text"
             placeholder="LinkedIn URL"
             className="login-input"
+            value={linkedinURL}
+            onChange={(e) => setLinkedinURL(e.target.value)}
+            onFocus={() => {
+              setError("");
+            }}
           />
           <input
             type="text"
-            placeholder="Description"
+            placeholder="Company Description"
             className="login-input"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            onFocus={() => {
+              setError("");
+            }}
           />
 
           {/* Custom file input button for image upload */}
           <div className="custom-file-button" onClick={handleClick}>
             <span className="custom-file-button-text">
-              {fileName ? fileName : "Upload Company Logo"}{" "}
-              {/* Display selected file name or default text */}
+              {fileName || "Upload Company Logo"}{" "}
+              {/* Display file name or default */}
             </span>
             <input
               type="file"
@@ -62,10 +171,14 @@ const SignUpRecruiter = () => {
           </div>
         </div>
 
+        <div className="error-space">
+          {error && <p className="error-message">{error}</p>}
+        </div>
+
         <div className="login-btn-ctn">
-          <Link to="/recruiterhome">
-            <button className="login-btn">Sign Up</button>
-          </Link>
+          <button onClick={handleSignUp} className="login-btn">
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
