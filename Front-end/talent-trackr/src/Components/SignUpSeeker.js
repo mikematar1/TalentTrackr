@@ -52,7 +52,6 @@ const SignUpSeeker = () => {
 
     // Check if age is exactly 18 years old
     if (age.getUTCFullYear() - 1970 === ageLimit) {
-      const birthYear = inputDate.getFullYear();
       const todayYear = new Date().getFullYear();
       const isLeapYear = new Date(todayYear, 1, 29).getMonth() === 1;
 
