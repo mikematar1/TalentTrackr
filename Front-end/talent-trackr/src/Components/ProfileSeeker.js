@@ -9,8 +9,11 @@ const ProfileSeeker = () => {
     dateOfBirth: "1990-01-01",
     linkedIn: "https://www.linkedin.com",
     password: "micho123",
-    resume: null, // Handle the uploaded file
+    resume: null, // Initial state for resume
   });
+  const [password, setPassword] = useState(profileData.password); // Track password separately
+  const [fileChanged, setFileChanged] = useState(false); // Track if file is changed
+
   let navigate = useNavigate();
 
   const handleClick = () => {
@@ -23,7 +26,7 @@ const ProfileSeeker = () => {
     localStorage.removeItem("firstName");
     localStorage.removeItem("lastName");
     localStorage.removeItem("email");
-    navigate("/");
+    navigate("/"); // Redirect to home on logout
   };
 
   useEffect(() => {
@@ -34,10 +37,19 @@ const ProfileSeeker = () => {
   }, []);
 
   const handleFileChange = (e) => {
-    setProfileData((prevData) => ({
-      ...prevData,
-      resume: e.target.files[0], // Store the uploaded file
-    }));
+    const file = e.target.files[0];
+    if (file) {
+      setProfileData((prevData) => ({
+        ...prevData,
+        resume: file, // Store the new file
+      }));
+      setFileChanged(true); // Mark that file has been changed
+    }
+  };
+
+  const isButtonDisabled = () => {
+    // Disable button if neither the password nor file has been changed
+    return password === profileData.password && !fileChanged;
   };
 
   return (
@@ -87,8 +99,9 @@ const ProfileSeeker = () => {
               type="password"
               name="password"
               placeholder="Change Password"
-              className="login-input profile-password "
-              value={profileData.password}
+              className="login-input profile-password"
+              value={password} // Use the password state
+              onChange={(e) => setPassword(e.target.value)} // Track password changes
             />
             <div className="custom-file-button profile" onClick={handleClick}>
               <span className="custom-file-button-text">
@@ -99,13 +112,21 @@ const ProfileSeeker = () => {
                 id="file-input"
                 className="hidden-file-input"
                 accept=".pdf,.doc,.docx"
-                onChange={handleFileChange} // Handle the file change event
+                onChange={handleFileChange} // Handle file change
               />
             </div>
           </div>
         </div>
 
-        <button className="login-btn">Save Changes</button>
+        <button
+          className="login-btn"
+          disabled={isButtonDisabled()}
+          style={{
+            opacity: isButtonDisabled() ? 0.7 : 1,
+          }}
+        >
+          Save Changes
+        </button>
       </div>
     </div>
   );

@@ -919,11 +919,10 @@ body {
 .type-box {
   position: relative;
   display: inline-flex; /* Use inline-flex to fit the box exactly to the content */
-  padding: 2px 5px; /* Adjust padding as needed */
+  padding: 7px 5px; /* Adjust padding as needed */
   background-color: #0ba02b11; /* Use rgba to set opacity */
   border-radius: 5px;
   height: 0%;
-  margin-top: -1%;
 }
 
 .type-box p {
@@ -932,6 +931,7 @@ body {
   font-size: 11px;
   color: #0ba02c;
   margin: 0;
+  margin-top: -14%;
 }
 
 .circle {
