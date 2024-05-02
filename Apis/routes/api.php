@@ -29,18 +29,21 @@ Route::group(["prefix" => "v0.1"], function () {
         });
     });
     Route::group(["prefix"=>"seeker"],function(){
+        Route::middleware(['auth', 'check.seeker'])->group(function () {
         Route::post("edit",[SeekerController::class,"editInformation"]);
         Route::get("get",[SeekerController::class,"getInformation"]);
         Route::get("getmatches",[SeekerController::class,"getMatches"]);
+        });
     });
 
     Route::group(["prefix"=>"recruiter"],function(){
-        Route::group(["prefix"=>"listing"],function(){
-            Route::post("add",[RecruiterController::class,"addListing"]);
-            Route::get("delete",[RecruiterController::class,"deleteListing"]);
+        Route::middleware(['auth', 'check.recruiter'])->group(function () {
+            Route::group(["prefix"=>"listing"],function(){
+                Route::post("add",[RecruiterController::class,"addListing"]);
+                Route::get("delete/{listingid}",[RecruiterController::class,"deleteListing"]);
+            });
+            Route::get("get",[RecruiterController::class,"getInformation"]);
         });
-        Route::get("get",[RecruiterController::class,"getInformation"]);
-
     });
 
     Route::group(["prefix"=>"listings"],function(){

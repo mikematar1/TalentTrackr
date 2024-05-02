@@ -109,7 +109,8 @@ class AuthController extends Controller
             // seeker
             $request->validate([
                 'dob' => 'required|string|max:255',
-                'resume'=>'required|string'
+                'resume'=>'required|string',
+                "linkedin"=>'required|string'
 
             ]);
             $seekerController = new SeekerController();
@@ -117,7 +118,7 @@ class AuthController extends Controller
 
             Seeker::create([
                 'dob'=>$request->dob,
-                "linkedin"=>"",
+                "linkedin"=>$request->linkedin,
                 "user_id"=>$user->id
             ]);
         }
