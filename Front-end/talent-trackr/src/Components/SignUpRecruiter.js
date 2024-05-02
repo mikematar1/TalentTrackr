@@ -9,7 +9,7 @@ const SignUpRecruiter = () => {
   const [linkedinURL, setLinkedinURL] = useState(""); // State for LinkedIn URL
   const [description, setDescription] = useState(""); // State for company description
   const [fileName, setFileName] = useState(""); // State for uploaded file name
-  const [logo_url, setLogoUrl] = useState(""); // State to store base64-encoded image
+  const [logo_base64, setLogoUrl] = useState(""); // State to store base64-encoded image
   const [error, setError] = useState(""); // State for error messages
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,14 +41,20 @@ const SignUpRecruiter = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setFileName(file.name); // Update the file name state
+      setFileName(file.name); // Store the file name
 
       // Convert the file to base64
       const reader = new FileReader();
       reader.onload = (e) => {
-        setLogoUrl(e.target.result); // Store the base64-encoded image
+        const base64Data = e.target.result;
+
+        // Extract the base64 content by splitting on the first comma
+        const base64Only = base64Data.split(",")[1]; // Get the base64 part
+
+        setLogoUrl(base64Only); // Store only the base64-encoded data
       };
-      reader.readAsDataURL(file); // Trigger the reading process
+
+      reader.readAsDataURL(file); // Start reading the file to get the base64 data
     }
   };
 
@@ -101,7 +107,7 @@ const SignUpRecruiter = () => {
       company_name: companyName,
       company_linkedin: linkedinURL,
       description,
-      logo_url,
+      logo_base64,
     };
 
     let response = Register(data_recruiter);
@@ -111,7 +117,7 @@ const SignUpRecruiter = () => {
       } else {
         let token = res.data.authorisation.token;
         localStorage.setItem("token", "Bearer " + token);
-        localStorage.setItem("usertype", res.data.user.user_type);
+        localStorage.setItem("usertype", 0);
         axios.defaults.headers.common["Authorization"] = "Bearer" + token;
         navigate("/recruiterhome");
       }

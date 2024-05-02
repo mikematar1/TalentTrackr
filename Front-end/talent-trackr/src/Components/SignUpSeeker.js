@@ -70,14 +70,20 @@ const SignUpSeeker = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setFileName(file.name); // Update the file name state
+      setFileName(file.name); // Store the file name
 
       // Convert the file to base64
       const reader = new FileReader();
       reader.onload = (e) => {
-        setResume(e.target.result); // Store the base64-encoded image
+        const base64Data = e.target.result;
+
+        // Extract the base64 content by splitting on the first comma
+        const base64Only = base64Data.split(",")[1]; // Get the base64 part
+
+        setResume(base64Only); // Store only the base64-encoded data
       };
-      reader.readAsDataURL(file); // Trigger the reading process
+
+      reader.readAsDataURL(file); // Start reading the file to get the base64 data
     }
   };
 
@@ -126,11 +132,16 @@ const SignUpSeeker = () => {
       if (res.status === 422) {
         setError("The email has already been taken");
       } else {
-        let token = res.data.authorisation.token;
-        localStorage.setItem("token", "Bearer " + token);
-        localStorage.setItem("usertype", res.data.user.user_type);
-        axios.defaults.headers.common["Authorization"] = "Bearer" + token;
-        navigate("/seekerhome");
+        const splitText = res.data.split("INDEXING DONE");
+        if (splitText.length > 1) {
+          const extractedText = splitText[1].trim(); // Get the text after "INDEXING DONE" and trim leading/trailing spaces
+          const parsedData = JSON.parse(extractedText);
+          let token = parsedData.authorisation.token;
+          localStorage.setItem("token", "Bearer " + token);
+          localStorage.setItem("usertype", 1);
+          axios.defaults.headers.common["Authorization"] = "Bearer" + token;
+          navigate("/seekerhome");
+        }
       }
     });
   };
