@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\Resume;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,5 +50,13 @@ class RecruiterController extends Controller
     public function deleteListing($listingid){
         Listing::find($listingid)->delete();
         return "succcess";
+    }
+    public function getInformation(){
+        $user=Auth::user();
+        $userdetails = User::where("id","=",$user->id)
+                        ->join("recruiters","recruiters.user_id","=","users.id")
+                        ->join("companies","companies.id","=","recruiters.company_id")
+                        ->first();
+        return $userdetails;
     }
 }
