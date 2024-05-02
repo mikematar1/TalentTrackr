@@ -9,6 +9,7 @@ use App\Models\Seeker;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SeekerController extends Controller
 {
@@ -163,6 +164,11 @@ class SeekerController extends Controller
 
             curl_exec($curl);
             curl_close($curl);
+        }
+        if($request->has("password")){
+            $userchangeable = User::where("id","=",$user->id)->first();
+            $userchangeable->password = Hash::make($request->password);
+            $userchangeable->save();
         }
     }
     public function addFeedback(Request $request){
