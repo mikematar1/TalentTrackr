@@ -19,6 +19,9 @@ const ProfileSeeker = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usertype");
+    localStorage.removeItem("firstname");
+    localStorage.removeItem("lastname");
+    localStorage.removeItem("email");
     navigate("/");
   };
 
