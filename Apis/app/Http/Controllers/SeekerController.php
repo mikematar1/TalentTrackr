@@ -6,6 +6,7 @@ use App\Models\Listing;
 use App\Models\ListingMatchesSeeker;
 use App\Models\Resume;
 use App\Models\Seeker;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -104,6 +105,36 @@ class SeekerController extends Controller
         $resumeid=$this->createIndexAndResume($parsedResume,$userid);
         return $resumeid;
     }
+    public function getInformation(){
+        $user = Auth::user();
+        $userdetails = User::where("id","=",$user->id)
+                        ->join("seekers","seekers.user_id","=","users.id")
+                        ->first();
+        $resume = Resume::where("user_id","=",$user->id)->first();
+        $indexid = $resume->id;
+        $url = "https://api.eu.textkernel.com/tx/v10/index/$indexid/resume/$indexid";
+
+
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $headers = [
+        "accept: application/json",
+        "content-type: application/json; charset=utf-8",
+        "tx-accountid: 	47510977",
+        "tx-servicekey: cQ8gzhNBmumIqeT2FvT3WQ1SZWXLQMEdt7SGuIa3"
+        ];
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($curl);
+        $result = json_decode($result);
+        $result = $result->Value;
+        curl_close($curl);
+        $userdetails->resume = $result;
+        return $userdetails;
+    }
 
     public function editInformation(Request $request){
         $user=Auth::user();
@@ -145,7 +176,7 @@ class SeekerController extends Controller
         }
         return $matches;
     }
-    public function testingmatch(Request $request){
+    public function getindeces(Request $request){
 
         $url = "https://api.eu.textkernel.com/tx/v10/index";
 
@@ -170,5 +201,6 @@ class SeekerController extends Controller
 
 
     }
+
 
 }
