@@ -8,8 +8,12 @@ const ProfileSeeker = () => {
     email: "seeker@example.com",
     dateOfBirth: "1990-01-01",
     linkedIn: "https://www.linkedin.com",
-    resume: null, // Handle the uploaded file
+    password: "micho123",
+    resume: null, // Initial state for resume
   });
+  const [password, setPassword] = useState(profileData.password); // Track password separately
+  const [fileChanged, setFileChanged] = useState(false); // Track if file is changed
+
   let navigate = useNavigate();
 
   const handleClick = () => {
@@ -22,7 +26,7 @@ const ProfileSeeker = () => {
     localStorage.removeItem("firstName");
     localStorage.removeItem("lastName");
     localStorage.removeItem("email");
-    navigate("/");
+    navigate("/"); // Redirect to home on logout
   };
 
   useEffect(() => {
@@ -32,19 +36,20 @@ const ProfileSeeker = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileData((prevData) => ({
+        ...prevData,
+        resume: file, // Store the new file
+      }));
+      setFileChanged(true); // Mark that file has been changed
+    }
   };
 
-  const handleFileChange = (e) => {
-    setProfileData((prevData) => ({
-      ...prevData,
-      resume: e.target.files[0], // Store the uploaded file
-    }));
+  const isButtonDisabled = () => {
+    // Disable button if neither the password nor file has been changed
+    return password === profileData.password && !fileChanged;
   };
 
   return (
@@ -64,7 +69,7 @@ const ProfileSeeker = () => {
               placeholder="Full Name"
               className="login-input profile"
               value={profileData.fullName}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
             />
             <input
               type="email"
@@ -72,7 +77,7 @@ const ProfileSeeker = () => {
               placeholder="Email"
               className="login-input profile"
               value={profileData.email}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
             />
             <input
               type="date"
@@ -80,7 +85,7 @@ const ProfileSeeker = () => {
               placeholder="Date of Birth"
               className="login-input profile"
               value={profileData.dateOfBirth}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
             />
             <input
               type="text"
@@ -88,7 +93,15 @@ const ProfileSeeker = () => {
               placeholder="LinkedIn URL"
               className="login-input profile"
               value={profileData.linkedIn}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Change Password"
+              className="login-input profile-password"
+              value={password} // Use the password state
+              onChange={(e) => setPassword(e.target.value)} // Track password changes
             />
             <div className="custom-file-button profile" onClick={handleClick}>
               <span className="custom-file-button-text">
@@ -99,13 +112,21 @@ const ProfileSeeker = () => {
                 id="file-input"
                 className="hidden-file-input"
                 accept=".pdf,.doc,.docx"
-                onChange={handleFileChange} // Handle the file change event
+                onChange={handleFileChange} // Handle file change
               />
             </div>
           </div>
         </div>
 
-        <button className="login-btn">Save Changes</button>
+        <button
+          className="login-btn"
+          disabled={isButtonDisabled()}
+          style={{
+            opacity: isButtonDisabled() ? 0.7 : 1,
+          }}
+        >
+          Save Changes
+        </button>
       </div>
     </div>
   );
