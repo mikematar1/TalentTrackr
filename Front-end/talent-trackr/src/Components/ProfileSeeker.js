@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import GetProfile from "../api-client/ProfileSeeker/GetProfile";
+import EditProfile from "../api-client/ProfileSeeker/EditProfile";
 
 const ProfileSeeker = () => {
   const [loaded, setLoaded] = useState(false);
@@ -10,6 +11,7 @@ const ProfileSeeker = () => {
   const [dob, setDob] = useState("");
   const [linkedIn, setLinkedIn] = useState("");
   const [file, setFile] = useState(null);
+  const [resume, setResume] = useState(null);
   const [password, setPassword] = useState("temppass"); // Track password separately
   const [fileChanged, setFileChanged] = useState(false); // Track if file is changed
   const [loading, setLoading] = useState(true);
@@ -43,6 +45,38 @@ const ProfileSeeker = () => {
     document.getElementById("file-input").click(); // Trigger file input click
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoaded(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFile(file.name);
+
+      // Convert the file to base64
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Data = e.target.result;
+
+        // Extract the base64 content by splitting on the first comma
+        const base64Only = base64Data.split(",")[1]; // Get the base64 part
+
+        setResume(base64Only); // Store only the base64-encoded data
+      };
+
+      reader.readAsDataURL(file); // Start reading the file to get the base64 data
+    }
+  };
+
+  const isButtonDisabled = () => {
+    const isPasswordInvalid = password === "" || password.length < 6;
+    return isPasswordInvalid || (!fileChanged && password === "temppass");
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usertype");
@@ -52,25 +86,7 @@ const ProfileSeeker = () => {
     navigate("/"); // Redirect to home on logout
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 200);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFile(file);
-      setFileChanged(true); // Mark that file has been changed
-    }
-  };
-
-  const isButtonDisabled = () => {
-    const isPasswordInvalid = password === "" || password.length < 6;
-    return isPasswordInvalid || (!fileChanged && password === "temppass");
-  };
+  const handleEditProfile = () => {};
 
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
@@ -146,6 +162,7 @@ const ProfileSeeker = () => {
 
           <button
             className="login-btn"
+            onClick={handleEditProfile}
             disabled={isButtonDisabled()}
             style={{
               opacity: isButtonDisabled() ? 0.7 : 1,
