@@ -120,15 +120,6 @@ class AuthController extends Controller
                 "linkedin"=>"",
                 "user_id"=>$user->id
             ]);
-        }else if($type==2){
-            Admin::create([
-                "user_id"=>$user->id
-            ]);
-        }else{
-            return response()->json([
-                'status'=>'error',
-                'message'=>'user type not found'
-            ]);
         }
         $token = Auth::login($user);
         return response()->json([

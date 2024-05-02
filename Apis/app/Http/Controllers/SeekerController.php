@@ -44,7 +44,6 @@ class SeekerController extends Controller
         curl_close($curl);
         $result = json_decode($result);
         $result=$result->Value->ResumeData;
-        echo("PARSING DONE");
         return $result;
     }
     public function createIndexAndResume($parsedResume,$userid){
@@ -70,7 +69,7 @@ class SeekerController extends Controller
 
         curl_exec($curl);
         curl_close($curl);
-        echo("INDEXING DONE");
+
 
         $data = ["ResumeData" => $parsedResume];
         $resumeid = $indexid;
@@ -146,40 +145,29 @@ class SeekerController extends Controller
         return $matches;
     }
     public function testingmatch(Request $request){
-        $indeces=Resume::pluck('id')->toArray();
-        $listings = Listing::all();
-        $results=[];
-        foreach ($listings as $listing) {
 
-            $jobdata = json_decode($listing->job_listing_json_object);
-
-            $data = ["JobData" => $jobdata,"IndexIdsToSearchInto"=>$indeces];
-
-            $url = "https://api.eu.textkernel.com/tx/v10/matcher/joborder";
+        $url = "https://api.eu.textkernel.com/tx/v10/index";
 
 
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        $curl = curl_init();
 
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
-            $headers = [
-            "accept: application/json",
-            "content-type: application/json; charset=utf-8",
-            "tx-accountid: 	47510977",
-            "tx-servicekey: cQ8gzhNBmumIqeT2FvT3WQ1SZWXLQMEdt7SGuIa3"
-            ];
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $headers = [
+        "accept: application/json",
+        "content-type: application/json; charset=utf-8",
+        "tx-accountid: 	47510977",
+        "tx-servicekey: cQ8gzhNBmumIqeT2FvT3WQ1SZWXLQMEdt7SGuIa3"
+        ];
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-            $result = curl_exec($curl);
-            curl_close($curl);
-            $result=json_decode($result);
-            $result = $result->Value;
-            $results[]=$result;
-        }
-        return $results;
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return $result;
+
+
+
     }
 
 }
