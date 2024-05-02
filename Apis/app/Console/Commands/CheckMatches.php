@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Listing;
 use App\Models\ListingMatchesSeeker;
 use App\Models\Resume;
+use App\Models\Seeker;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -65,9 +66,10 @@ class CheckMatches extends Command
                     if(ListingMatchesSeeker::where("listing_id","=",$listing->id)->where("seeker_id","=",$match->IndexId)->exists()){
 
                     }else{
+                        $resume = Resume::find($match->IndexId);
                         ListingMatchesSeeker::create([
                             "listing_id"=>$listing->id,
-                            "seeker_id"=>$match->IndexId,
+                            "seeker_id"=>$resume->user_id,
                             "match_percentage"=>$match->WeightedScore
                         ]);
                     }

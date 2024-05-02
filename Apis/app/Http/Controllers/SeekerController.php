@@ -137,6 +137,14 @@ class SeekerController extends Controller
     public function addFeedback(Request $request){
 
     }
+    public function getMatches(){
+        $user=Auth::user();
+        $matches=ListingMatchesSeeker::where("seeker_id","=",$user->id)->join("listings","listings.id","=","listing_matches_seekers.listing_id")->get();
+        foreach($matches as $match){
+            $match->listing_details = json_decode($match->job_listing_json_object);
+        }
+        return $matches;
+    }
     public function testingmatch(Request $request){
         $indeces=Resume::pluck('id')->toArray();
         $listings = Listing::all();
