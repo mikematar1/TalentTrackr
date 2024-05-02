@@ -23,7 +23,6 @@ const Login = () => {
     localStorage.removeItem("firstName");
     localStorage.removeItem("lastName");
     localStorage.removeItem("email");
-    localStorage.removeItem("password");
   }, []);
 
   //Validators

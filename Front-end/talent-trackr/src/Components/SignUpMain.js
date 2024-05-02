@@ -38,8 +38,7 @@ const SignUpMain = () => {
     localStorage.setItem("firstName", firstName);
     localStorage.setItem("lastName", lastName);
     localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-  }, [firstName, lastName, email, password]);
+  }, [firstName, lastName, email]);
 
   //Validators
   const validateEmail = (email) => {

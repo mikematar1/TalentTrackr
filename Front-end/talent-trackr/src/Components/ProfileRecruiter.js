@@ -14,6 +14,9 @@ const ProfileRecruiter = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usertype");
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
     navigate("/");
   };
 
