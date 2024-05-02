@@ -30,6 +30,7 @@ Route::group(["prefix" => "v0.1"], function () {
     });
     Route::group(["prefix"=>"seeker"],function(){
         Route::post("edit",[SeekerController::class,"editInformation"]);
+        Route::get("getmatches",[SeekerController::class,"getMatches"]);
     });
 
     Route::group(["prefix"=>"recruiter"],function(){
@@ -37,6 +38,7 @@ Route::group(["prefix" => "v0.1"], function () {
             Route::post("add",[RecruiterController::class,"addListing"]);
             Route::get("delete",[RecruiterController::class,"deleteListing"]);
         });
+
     });
 
     Route::group(["prefix"=>"listings"],function(){
