@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FetchCred from "../api-client/Auth/FetchCred";
+import axios from "axios";
 
 const Login = () => {
   const [loaded, setLoaded] = useState(false);
@@ -16,6 +17,13 @@ const Login = () => {
       setLoaded(true);
     }, 200);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
   }, []);
 
   //Validators
@@ -63,24 +71,28 @@ const Login = () => {
     const data = { email, password };
     let response = FetchCred(data);
     response.then((res) => {
-      console.log(res);
+      if (res.data.status === "error") {
+        setError("Wrong credentials, Try again");
+      } else {
+        let token = res.data.authorisation.token;
+        localStorage.setItem("token", "Bearer " + token);
+        localStorage.setItem("usertype", res.data.user.user_type);
+
+        axios.defaults.headers.common["Authorization"] = "Bearer" + token;
+        const userType =
+          res.data.user.user_type === 1
+            ? "seeker"
+            : res.data.user.user_type === 0
+            ? "recruiter"
+            : "nouser";
+
+        if (userType === "seeker") {
+          navigate("/seekerhome");
+        } else if (userType === "recruiter") {
+          navigate("/recruiterhome");
+        }
+      }
     });
-
-    // const userType =
-    //   email === "seeker@example.com"
-    //     ? "seeker"
-    //     : email === "recruiter@example.com"
-    //     ? "recruiter"
-    //     : "admin";
-
-    // // Redirect based on user type
-    // if (userType === "seeker") {
-    //   navigate("/seekerhome");
-    // } else if (userType === "recruiter") {
-    //   navigate("/recruiterhome");
-    // } else {
-    //   navigate("adminhome");
-    // }
   };
 
   // Function to handle Enter key press

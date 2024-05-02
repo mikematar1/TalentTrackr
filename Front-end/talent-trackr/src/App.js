@@ -10,135 +10,148 @@ import NavbarRecruiter from "./Navigation/NavbarRecruiter";
 import SignUpMain from "./Components/SignUpMain";
 import SignUpRecruiter from "./Components/SignUpRecruiter";
 import SelectType from "./Components/SelectType";
-import VerificationRecruiter from "./Components/VerificationRecruiter";
 import SignUpSeeker from "./Components/SignUpSeeker";
 import HomeSeeker from "./Components/HomeSeeker";
 import HomeRecruiter from "./Components/HomeRecruiter";
 import ProfileSeeker from "./Components/ProfileSeeker";
 import ProfileRecruiter from "./Components/ProfileRecruiter";
 import AddJob from "./Components/AddJob";
+import PrivateRoute from "./Navigation/PrivateRoute";
+import PublicRoute from "./Navigation/PublicRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route exact path="/" element={<PublicRoute />}>
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar />
+                <Home />
+              </>
+            }
+          />
+
+          <Route
+            path="/companies"
+            element={
+              <>
+                <Navbar />
+                <Companies />
+              </>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <>
+                <Navbar />
+                <About />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Login />
+              </>
+            }
+          />
+          <Route
+            path="/signupmain"
+            element={
+              <>
+                <SignUpMain />
+              </>
+            }
+          />
+          <Route
+            path="/selecttype"
+            element={
+              <>
+                <SelectType />
+              </>
+            }
+          />
+          <Route
+            path="/signuprecruiter"
+            element={
+              <>
+                <SignUpRecruiter />
+              </>
+            }
+          />
+
+          <Route
+            path="/signupseeker"
+            element={
+              <>
+                <SignUpSeeker />
+              </>
+            }
+          />
+        </Route>
+
         <Route
+          exact
           path="/"
-          element={
-            <>
-              <Navbar />
-              <Home />
-            </>
-          }
-        />
+          element={<PrivateRoute requiredUserType="seeker" />}
+        >
+          <Route
+            path="/seekerhome"
+            element={
+              <>
+                <NavbarSeeker />
+                <HomeSeeker />
+              </>
+            }
+          />
+
+          <Route
+            path="/seekerprofile"
+            element={
+              <>
+                <ProfileSeeker />
+              </>
+            }
+          />
+        </Route>
+
         <Route
-          path="/companies"
-          element={
-            <>
-              <Navbar />
-              <Companies />
-            </>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <>
-              <Navbar />
-              <About />
-            </>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <>
-              <Login />
-            </>
-          }
-        />
-        <Route
-          path="/signupmain"
-          element={
-            <>
-              <SignUpMain />
-            </>
-          }
-        />
-        <Route
-          path="/selecttype"
-          element={
-            <>
-              <SelectType />
-            </>
-          }
-        />
-        <Route
-          path="/signuprecruiter"
-          element={
-            <>
-              <SignUpRecruiter />
-            </>
-          }
-        />
-        <Route
-          path="/verificationrecruiter"
-          element={
-            <>
-              <VerificationRecruiter />
-            </>
-          }
-        />
-        <Route
-          path="/signupseeker"
-          element={
-            <>
-              <SignUpSeeker />
-            </>
-          }
-        />
-        <Route
-          path="/seekerhome"
-          element={
-            <>
-              <NavbarSeeker />
-              <HomeSeeker />
-            </>
-          }
-        />
-        <Route
-          path="/seekerprofile"
-          element={
-            <>
-              <ProfileSeeker />
-            </>
-          }
-        />
-        <Route
-          path="/recruiterhome"
-          element={
-            <>
-              <NavbarRecruiter />
-              <HomeRecruiter />
-            </>
-          }
-        />
-        <Route
-          path="/recruiterprofile"
-          element={
-            <>
-              <ProfileRecruiter />
-            </>
-          }
-        />
-        <Route
-          path="/addjob"
-          element={
-            <>
-              <AddJob />
-            </>
-          }
-        />
+          exact
+          path="/"
+          element={<PrivateRoute requiredUserType="recruiter" />}
+        >
+          <Route
+            path="/recruiterhome"
+            element={
+              <>
+                <NavbarRecruiter />
+                <HomeRecruiter />
+              </>
+            }
+          />
+
+          <Route
+            path="/recruiterprofile"
+            element={
+              <>
+                <ProfileRecruiter />
+              </>
+            }
+          />
+          <Route
+            path="/addjob"
+            element={
+              <>
+                <AddJob />
+              </>
+            }
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

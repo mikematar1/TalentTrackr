@@ -6,7 +6,6 @@ import JobModal from "../Global/JobModal"; // Import the modal component
 const HomeSeeker = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [jobListings, setJobListings] = useState([]);
   const [filterTerm, setFilterTerm] = useState("");
   const [selectedJob, setSelectedJob] = useState(null);
 
@@ -141,31 +140,9 @@ const HomeSeeker = () => {
         "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
     },
   ];
-  const handleJobClick = (job) => {
-    setSelectedJob(job); // Set the selected job to display in the modal
-  };
-  // Number of job listings per page
+
   const listingsPerPage = 9;
 
-  // Apply the filter term to the job listings
-  const filteredJobListings = simulatedJobListings.filter((job) =>
-    job.title.toLowerCase().includes(filterTerm.toLowerCase())
-  );
-
-  // Calculate total number of pages for filtered job listings
-  const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
-
-  // Update job listings based on the current page and filter term
-  useEffect(() => {
-    const startIndex = (currentPage - 1) * listingsPerPage;
-    const endIndex = Math.min(
-      startIndex + listingsPerPage,
-      filteredJobListings.length
-    );
-    setJobListings(filteredJobListings.slice(startIndex, endIndex));
-  }, [currentPage, listingsPerPage, filteredJobListings]); // Add filteredJobListings to dependencies
-
-  // Apply overflow: hidden to body during transition
   useEffect(() => {
     if (!loaded) {
       document.body.style.overflow = "hidden";
@@ -175,11 +152,26 @@ const HomeSeeker = () => {
     }
   }, [loaded]);
 
-  // Handle page change
+  const filteredJobListings = simulatedJobListings.filter((job) =>
+    job.title.toLowerCase().includes(filterTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
+
+  const startIndex = (currentPage - 1) * listingsPerPage;
+  const currentJobListings = filteredJobListings.slice(
+    startIndex,
+    startIndex + listingsPerPage
+  );
+
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
     }
+  };
+
+  const handleJobClick = (job) => {
+    setSelectedJob(job); // Set the selected job to display in the modal
   };
 
   return (
@@ -196,11 +188,8 @@ const HomeSeeker = () => {
           />
         </div>
         <div className="job-listings-container">
-          {jobListings.map((job) => (
-            <div
-              key={job.id}
-              onClick={() => handleJobClick(job)} // Open modal on job click
-            >
+          {currentJobListings.map((job) => (
+            <div key={job.id} onClick={() => handleJobClick(job)}>
               <JobListing key={job.id} job={job} userType={"seeker"} />
             </div>
           ))}

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 const HomeRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [jobListings, setJobListings] = useState([]);
   const [filterTerm, setFilterTerm] = useState("");
   const [selectedJob, setSelectedJob] = useState(null);
   let navigate = useNavigate();
@@ -149,23 +148,29 @@ const HomeRecruiter = () => {
   // Number of job listings per page
   const listingsPerPage = 9;
 
-  // Apply the filter term to the job listings
   const filteredJobListings = simulatedJobListings.filter((job) =>
     job.title.toLowerCase().includes(filterTerm.toLowerCase())
   );
 
-  // Calculate total number of pages for filtered job listings
+  // Calculate total pages
   const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
 
-  // Update job listings based on the current page and filter term
-  useEffect(() => {
-    const startIndex = (currentPage - 1) * listingsPerPage;
-    const endIndex = Math.min(
-      startIndex + listingsPerPage,
-      filteredJobListings.length
-    );
-    setJobListings(filteredJobListings.slice(startIndex, endIndex));
-  }, [currentPage, listingsPerPage, filteredJobListings]); // Add filteredJobListings to dependencies
+  // Calculate job listings for the current page
+  const startIndex = (currentPage - 1) * listingsPerPage;
+  const currentJobListings = filteredJobListings.slice(
+    startIndex,
+    startIndex + listingsPerPage
+  );
+
+  const handleAddJobClick = () => {
+    navigate("/addjob");
+  };
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
 
   // Apply overflow: hidden to body during transition
   useEffect(() => {
@@ -176,16 +181,6 @@ const HomeRecruiter = () => {
       window.scrollTo(0, 0); // Scroll to the top when loaded
     }
   }, [loaded]);
-
-  // Handle page change
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
-  };
-  const handleAddJobClick = () => {
-    navigate("/addjob");
-  };
 
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
@@ -206,7 +201,7 @@ const HomeRecruiter = () => {
           </div>
         </div>
         <div className="job-listings-container">
-          {jobListings.map((job) => (
+          {currentJobListings.map((job) => (
             <div
               key={job.id}
               onClick={() => handleJobClick(job)} // Open modal on job click

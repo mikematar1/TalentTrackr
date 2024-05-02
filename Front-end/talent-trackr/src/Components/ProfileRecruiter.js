@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProfileRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
@@ -8,8 +9,13 @@ const ProfileRecruiter = () => {
     description: "This is the companie's description",
     linkedIn: "https://www.linkedin.com",
   });
+  let navigate = useNavigate();
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usertype");
+    navigate("/");
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
