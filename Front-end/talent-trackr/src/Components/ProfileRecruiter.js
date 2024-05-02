@@ -6,7 +6,7 @@ const ProfileRecruiter = () => {
   const [profileData, setProfileData] = useState({
     fullName: "Recruiter",
     email: "recruiter@example.com",
-    description: "This is the companie's description",
+    description: "This is the company's description",
     linkedIn: "https://www.linkedin.com",
   });
   let navigate = useNavigate();

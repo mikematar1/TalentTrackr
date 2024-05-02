@@ -8,6 +8,7 @@ const ProfileSeeker = () => {
     email: "seeker@example.com",
     dateOfBirth: "1990-01-01",
     linkedIn: "https://www.linkedin.com",
+    password: "micho123",
     resume: null, // Handle the uploaded file
   });
   let navigate = useNavigate();
@@ -31,14 +32,6 @@ const ProfileSeeker = () => {
     }, 200);
     return () => clearTimeout(timer);
   }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const handleFileChange = (e) => {
     setProfileData((prevData) => ({
@@ -64,7 +57,7 @@ const ProfileSeeker = () => {
               placeholder="Full Name"
               className="login-input profile"
               value={profileData.fullName}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
             />
             <input
               type="email"
@@ -72,7 +65,7 @@ const ProfileSeeker = () => {
               placeholder="Email"
               className="login-input profile"
               value={profileData.email}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
             />
             <input
               type="date"
@@ -80,7 +73,7 @@ const ProfileSeeker = () => {
               placeholder="Date of Birth"
               className="login-input profile"
               value={profileData.dateOfBirth}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
             />
             <input
               type="text"
@@ -88,7 +81,14 @@ const ProfileSeeker = () => {
               placeholder="LinkedIn URL"
               className="login-input profile"
               value={profileData.linkedIn}
-              onChange={handleInputChange}
+              readOnly // Make the input read-only
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Change Password"
+              className="login-input profile-password "
+              value={profileData.password}
             />
             <div className="custom-file-button profile" onClick={handleClick}>
               <span className="custom-file-button-text">

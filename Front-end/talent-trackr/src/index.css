@@ -1103,6 +1103,7 @@ body {
 /* Start of Seeker Profile */
 .profile-edit {
   width: 60%;
+  margin-top: -5%;
   background-color: white;
   padding: 20px;
   border-radius: 13px;
@@ -1127,6 +1128,12 @@ body {
   justify-content: center;
 }
 .login-input.profile {
+  margin-bottom: 5%;
+  opacity: 0.5;
+  cursor: not-allowed;
+  width: 70%;
+}
+.login-input.profile-password {
   margin-bottom: 5%;
   width: 70%;
 }
