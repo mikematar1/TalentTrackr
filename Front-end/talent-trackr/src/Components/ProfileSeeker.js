@@ -14,7 +14,9 @@ const ProfileSeeker = () => {
   const [resume, setResume] = useState(null);
   const [password, setPassword] = useState("temppass"); // Track password separately
   const [fileChanged, setFileChanged] = useState(false); // Track if file is changed
+  const [passChanged, setPassChanged] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [changesMade, setChangesMade] = useState(false);
 
   let navigate = useNavigate();
 
@@ -55,7 +57,8 @@ const ProfileSeeker = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setFile(file.name);
+      setFile(file);
+      setFileChanged(true);
 
       // Convert the file to base64
       const reader = new FileReader();
@@ -73,8 +76,8 @@ const ProfileSeeker = () => {
   };
 
   const isButtonDisabled = () => {
-    const isPasswordInvalid = password === "" || password.length < 6;
-    return isPasswordInvalid || (!fileChanged && password === "temppass");
+    const isPasswordValid = passChanged && password.length >= 6; // Check if password has changed and is valid
+    return !fileChanged && !isPasswordValid; // Return true if neither condition is met, false otherwise
   };
 
   const handleLogout = () => {
@@ -86,7 +89,25 @@ const ProfileSeeker = () => {
     navigate("/"); // Redirect to home on logout
   };
 
-  const handleEditProfile = () => {};
+  const handleEditProfile = () => {
+    const data_seeker = {};
+    if (password && password !== "temppass" && password.length >= 6) {
+      data_seeker.password = password;
+    }
+    if (fileChanged) {
+      data_seeker.base64resume = resume;
+    }
+
+    let response = EditProfile(data_seeker);
+    response.then((res) => {
+      setChangesMade(true); // Indicate that changes were made
+      setFileChanged(false);
+      setPassChanged(false);
+      setFile(null);
+      setPassword("temppass");
+      setTimeout(() => setChangesMade(false), 2000); // Hide message after 2 seconds
+    });
+  };
 
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
@@ -142,7 +163,10 @@ const ProfileSeeker = () => {
                 placeholder="Change Password"
                 className="login-input profile-password"
                 value={password} // Use the password state
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value); // Update password state
+                  setPassChanged(true); // Indicate that the password has changed
+                }}
                 onFocus={() => setPassword("")}
               />
               <div className="custom-file-button profile" onClick={handleClick}>
@@ -159,17 +183,23 @@ const ProfileSeeker = () => {
               </div>
             </div>
           </div>
-
-          <button
-            className="login-btn"
-            onClick={handleEditProfile}
-            disabled={isButtonDisabled()}
-            style={{
-              opacity: isButtonDisabled() ? 0.7 : 1,
-            }}
-          >
-            Save Changes
-          </button>
+          <div className="editprofile-changes">
+            <button
+              className="login-btn"
+              onClick={handleEditProfile}
+              disabled={isButtonDisabled()}
+              style={{
+                opacity: isButtonDisabled() ? 0.7 : 1,
+              }}
+            >
+              Save Changes
+            </button>
+            {changesMade && (
+              <div className="change-message">
+                <p>Changes Made</p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
