@@ -44,6 +44,7 @@ class SeekerController extends Controller
         curl_close($curl);
         $result = json_decode($result);
         $result=$result->Value->ResumeData;
+        echo("PARSING DONE");
         return $result;
     }
     public function createIndexAndResume($parsedResume,$userid){
@@ -70,7 +71,7 @@ class SeekerController extends Controller
         curl_exec($curl);
         curl_close($curl);
 
-
+        echo("INDEXING DONE");
         $data = ["ResumeData" => $parsedResume];
         $resumeid = $indexid;
         $url = "https://api.eu.textkernel.com/tx/v10/index/$indexid/resume/$resumeid";
