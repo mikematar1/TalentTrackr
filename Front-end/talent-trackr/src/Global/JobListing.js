@@ -2,7 +2,14 @@ import React from "react";
 import { IoLocationOutline } from "react-icons/io5";
 
 const JobListing = ({ job, userType }) => {
-  const { title, company, salary, type, location, percentage } = job;
+  const title = job.listing_details.JobTitles.MainJobTitle;
+  const type = job.listing_details.EmploymentType;
+  const percentage = job.match_percentage;
+  const location =
+    job.listing_details.CurrentLocation.Municipality +
+    ", " +
+    job.listing_details.CurrentLocation.CountryCode;
+  const { company } = job;
 
   const getColor = () => {
     const lightness = 20 + (percentage / 100) * 40;
@@ -13,13 +20,14 @@ const JobListing = ({ job, userType }) => {
   return (
     <div className="job-listing">
       <div className="job-card">
-        <p className="job-title">{title}</p> {/* Job title */}
+        <p className="job-title">{title}</p>
+        {/* Job title */}
         <div className="type-salary">
           <div className="type-box">
             <p>{type}</p> {/* Job type */}
           </div>
           <div className="salary">
-            <p>Salary: {salary}</p> {/* Salary */}
+            <p>Salary: $5,000 - $10,000</p> {/* Salary */}
           </div>
 
           {userType === "seeker" && ( // Only display if userType is 'seeker'
