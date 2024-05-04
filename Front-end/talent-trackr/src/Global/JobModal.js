@@ -1,7 +1,15 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import { FaTimes } from "react-icons/fa"; // Import the 'X' icon from React Icons
 
 const JobModal = ({ job, onClose }) => {
+  const title = job.listing_details.JobTitles.MainJobTitle;
+  const type = job.listing_details.EmploymentType;
+  const description = job.company_details.description;
+  const company = job.company_details.company_name;
+  const location =
+    job.listing_details.CurrentLocation.Municipality +
+    ", " +
+    job.listing_details.CurrentLocation.CountryCode;
   useEffect(() => {
     // Prevent body scrolling when the modal is open
     document.body.style.overflow = "hidden";
@@ -19,46 +27,34 @@ const JobModal = ({ job, onClose }) => {
         onClick={(e) => e.stopPropagation()} // Prevent overlay click from closing the modal
       >
         <div className="job-modal-header">
-          <h2>{job.title}</h2>
+          <h2>{title}</h2>
           <img src="job-icon.png" alt="logo" />
         </div>
 
         <div className="job-modal-body">
           <p>
-            <strong>Company:</strong> {job.company}
+            <strong>Company:</strong> {company}
           </p>
           <p>
-            <strong>Type:</strong> {job.type}
+            <strong>Type:</strong> {type}
+          </p>
+
+          <p>
+            <strong>Location:</strong> {location}
           </p>
           <p>
-            <strong>Salary:</strong> {job.salary}
-          </p>
-          <p>
-            <strong>Location:</strong> {job.location}
-          </p>
-          <p>
-            <strong>Description:</strong> {job.description}
+            <strong>Description:</strong> {description}
           </p>
         </div>
 
         <div className="job-modal-footer">
-          <button onClick={onClose}>Close</button>
+          <button onClick={onClose} className="close-button">
+            <FaTimes /> {/* 'X' icon */}
+          </button>
         </div>
       </div>
     </div>
   );
-};
-
-JobModal.propTypes = {
-  job: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    company: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    salary: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired, // New description prop
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default JobModal;

@@ -27,7 +27,7 @@ const JobListing = ({ job, userType }) => {
             <p>{type}</p> {/* Job type */}
           </div>
           <div className="salary">
-            <p>Salary: $5,000 - $10,000</p> {/* Salary */}
+            <p>Salary: $5,000 - $10,000</p>
           </div>
 
           {userType === "seeker" && ( // Only display if userType is 'seeker'

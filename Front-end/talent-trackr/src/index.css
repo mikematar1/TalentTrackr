@@ -1097,6 +1097,16 @@ body {
 .job-modal-header {
   width: 100%;
 }
+.close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 1rem; /* Adjust icon size */
+  color: #333; /* Adjust icon color */
+  cursor: pointer; /* Change cursor on hover */
+}
 
 /* End of Seeker home */
 
