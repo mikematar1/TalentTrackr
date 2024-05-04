@@ -75,7 +75,6 @@ const HomeSeeker = () => {
 
   const listingsPerPage = 9;
 
-  console.log(listings);
   useEffect(() => {
     if (!loaded) {
       document.body.style.overflow = "hidden";
@@ -98,6 +97,34 @@ const HomeSeeker = () => {
       filterTerm.toLowerCase()
     )
   );
+
+  const capitalizeFirstLetter = (str) => {
+    return str ? str.charAt(0).toUpperCase() + str.slice(1) : ""; // Capitalize the first letter
+  };
+
+  const formatSkills = (skills) => {
+    if (!skills || skills.length === 0) {
+      return "None specified";
+    }
+
+    const requiredSkills = skills
+      .filter((skill) => skill.Required)
+      .map((skill) => capitalizeFirstLetter(skill.Name));
+
+    if (requiredSkills.length === 0) {
+      return "None specified";
+    }
+
+    const allButLast = requiredSkills.slice(0, -1).join(", ");
+
+    if (requiredSkills.length === 1) {
+      return `${requiredSkills[0]}.`;
+    }
+
+    const lastSkill = requiredSkills[requiredSkills.length - 1];
+
+    return `${allButLast}, and ${lastSkill}`;
+  };
 
   const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
 
@@ -193,7 +220,13 @@ const HomeSeeker = () => {
               </p>
               <p>
                 <strong>Type:</strong>{" "}
-                {selectedJob.listing_details.EmploymentType}
+                {capitalizeFirstLetter(
+                  selectedJob.listing_details.EmploymentType
+                )}
+              </p>
+              <p>
+                <strong>Skills Required:</strong>{" "}
+                {formatSkills(selectedJob.listing_details.Skills.Raw)}
               </p>
 
               <p>
@@ -204,7 +237,7 @@ const HomeSeeker = () => {
               </p>
               <p>
                 <strong>Description:</strong>{" "}
-                {selectedJob.company_details.description}
+                {selectedJob.listing_details.JobDescription}
               </p>
             </div>
 
