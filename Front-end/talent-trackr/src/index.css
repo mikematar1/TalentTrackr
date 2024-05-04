@@ -57,6 +57,7 @@ body {
 
 .logo2 {
   width: 70%;
+  background: "none";
   transition: transform 0.3s ease;
 }
 
@@ -146,6 +147,7 @@ body {
 }
 
 .home-container.loaded,
+.company-container.loaded,
 .login-container.loaded,
 .companies-container.loaded,
 .signup-container.loaded,
@@ -932,6 +934,7 @@ body {
   color: #0ba02c;
   margin: 0;
   margin-top: -14%;
+  text-transform: uppercase;
 }
 
 .circle {
@@ -1044,20 +1047,9 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25); /* Enhance shadow on hover */
 }
 
-.job-modal-overlay {
-  position: fixed; /* Overlay stays in place */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Center the modal */
-  z-index: 1000; /* High z-index to ensure it's on top */
-}
-
 .job-modal {
   display: flex;
+  justify-content: space-between;
   cursor: default;
   background: white; /* Modal has a white background */
   padding: 20px; /* Padding for content */
@@ -1065,7 +1057,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Add shadow for depth */
   width: 900px; /* Set a fixed width for consistency */
   height: 400px;
-  text-align: center; /* Center-align text */
 }
 
 .job-modal button {
@@ -1089,13 +1080,47 @@ body {
 .job-modal button:hover {
   background: #500f3d; /* Darker shade on hover */
 }
-.job-modal-header > img {
+.job-modal-header > img,
+.company-header > img {
   width: 200px;
   height: 200px;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Smooth transition when hovering */
+}
+.job-modal-header > img:hover,
+.company-header > img:hover {
+  transform: scale(1.05); /* Increase the size by 10% when hovered */
 }
 
 .job-modal-header {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-left: 20px;
+}
+.job-modal-footer {
+  display: flex;
+  flex-direction: row;
+  padding-right: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  font-size: 1rem; /* Adjust icon size */
+  color: #333; /* Adjust icon color */
+  cursor: pointer; /* Change cursor on hover */
+}
+.close-button.first {
+  width: 80px;
+  margin-right: 10%;
 }
 
 /* End of Seeker home */
@@ -1205,3 +1230,33 @@ body {
   }
 }
 /* End of buffer */
+
+/* Start of Company */
+.company-container {
+  display: flex;
+  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateY(50px); /* Initially set translation */
+  transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
+}
+
+.company-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 8%;
+}
+.company-header h1 {
+  cursor: default;
+  font-weight: bold;
+  font-size: 55px;
+}
+.job-listings-container.company {
+  height: auto;
+}
+
+/* End of Company */

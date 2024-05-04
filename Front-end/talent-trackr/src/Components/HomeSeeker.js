@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import JobListing from "../Global/JobListing";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import JobModal from "../Global/JobModal"; // Import the modal component
+import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import GetMatches from "../api-client/HomeSeeker/GetMatches";
+import ReactModal from "react-modal";
+import { useNavigate } from "react-router-dom";
 
 const HomeSeeker = () => {
   const [loaded, setLoaded] = useState(false);
@@ -13,6 +14,17 @@ const HomeSeeker = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  let navigate = useNavigate();
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedJob(null); // Reset selected job when closing the modal
+  };
 
   //Token handler
   const token = localStorage.getItem("token");
@@ -42,6 +54,15 @@ const HomeSeeker = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!loaded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+      window.scrollTo(0, 0); // Scroll to the top when loaded
+    }
+  }, [loaded]);
+
   //API
   const {
     status,
@@ -65,20 +86,47 @@ const HomeSeeker = () => {
 
   const listingsPerPage = 9;
 
+  // Disable scrolling when modal is open
   useEffect(() => {
-    if (!loaded) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-      window.scrollTo(0, 0); // Scroll to the top when loaded
-    }
-  }, [loaded]);
+    document.body.style.overflow = isModalOpen ? "hidden" : "visible";
+    return () => {
+      document.body.style.overflow = "visible"; // Reset to default on cleanup
+    };
+  }, [isModalOpen]);
 
   const filteredJobListings = listings.filter((job) =>
     job.listing_details.JobTitles.MainJobTitle.toLowerCase().includes(
       filterTerm.toLowerCase()
     )
   );
+
+  const capitalizeFirstLetter = (str) => {
+    return str ? str.charAt(0).toUpperCase() + str.slice(1) : ""; // Capitalize the first letter
+  };
+
+  const formatSkills = (skills) => {
+    if (!skills || skills.length === 0) {
+      return "None specified";
+    }
+
+    const requiredSkills = skills
+      .filter((skill) => skill.Required)
+      .map((skill) => capitalizeFirstLetter(skill.Name));
+
+    if (requiredSkills.length === 0) {
+      return "None specified";
+    }
+
+    const allButLast = requiredSkills.slice(0, -1).join(", ");
+
+    if (requiredSkills.length === 1) {
+      return `${requiredSkills[0]}.`;
+    }
+
+    const lastSkill = requiredSkills[requiredSkills.length - 1];
+
+    return `${allButLast}, and ${lastSkill}`;
+  };
 
   const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
 
@@ -94,7 +142,14 @@ const HomeSeeker = () => {
     }
   };
   const handleJobClick = (job) => {
-    setSelectedJob(job); // Set the selected job to display in the modal
+    setSelectedJob(job); // Set the selected job
+    openModal(); // Open the modal
+  };
+
+  const handleProfile = (job) => {
+    if (job) {
+      navigate("/companyprofile", { state: { job } });
+    }
   };
 
   return (
@@ -141,9 +196,73 @@ const HomeSeeker = () => {
           </>
         )}
       </div>
-      {selectedJob && (
-        <JobModal job={selectedJob} onClose={() => setSelectedJob(null)} />
-      )}
+      <ReactModal
+        className="custom-modal"
+        isOpen={isModalOpen}
+        style={{
+          overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+          content: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            border: "none",
+            width: "100%",
+            height: "100%",
+            margin: "auto",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: "100",
+          },
+        }}
+      >
+        {selectedJob ? (
+          <div className="job-modal">
+            <div className="job-modal-header">
+              <h2>{selectedJob.listing_details.JobTitles.MainJobTitle}</h2>
+              <img src="job-icon.png" alt="logo" />
+            </div>
+
+            <div className="job-modal-body">
+              <p>
+                <strong>Company:</strong>{" "}
+                {selectedJob.company_details.company_name}
+              </p>
+              <p>
+                <strong>Type:</strong>{" "}
+                {capitalizeFirstLetter(
+                  selectedJob.listing_details.EmploymentType
+                )}
+              </p>
+              <p>
+                <strong>Skills Required:</strong>{" "}
+                {formatSkills(selectedJob.listing_details.Skills.Raw)}
+              </p>
+
+              <p>
+                <strong>Location:</strong>{" "}
+                {selectedJob.listing_details.CurrentLocation.Municipality +
+                  ", " +
+                  selectedJob.listing_details.CurrentLocation.CountryCode}
+              </p>
+              <p>
+                <strong>Description:</strong>{" "}
+                {selectedJob.listing_details.JobDescription}
+              </p>
+            </div>
+
+            <div className="job-modal-footer">
+              <button
+                onClick={() => handleProfile(selectedJob)}
+                className="close-button first"
+              >
+                Profile
+              </button>
+              <button onClick={closeModal} className="close-button">
+                <FaTimes /> {/* 'X' icon */}
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </ReactModal>
     </div>
   );
 };

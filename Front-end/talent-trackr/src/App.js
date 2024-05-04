@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ReactModal from "react-modal";
 
 import Home from "./Components/Home";
 import Companies from "./Components/Companies";
@@ -17,11 +18,13 @@ import HomeSeeker from "./Components/HomeSeeker";
 import HomeRecruiter from "./Components/HomeRecruiter";
 import ProfileSeeker from "./Components/ProfileSeeker";
 import ProfileRecruiter from "./Components/ProfileRecruiter";
+import CompanyProfile from "./Components/CompanyProfile";
 import AddJob from "./Components/AddJob";
 import PrivateRoute from "./Navigation/PrivateRoute";
 import PublicRoute from "./Navigation/PublicRoute";
 
 const queryClient = new QueryClient();
+ReactModal.setAppElement("#root");
 
 function App() {
   return (
@@ -120,6 +123,14 @@ function App() {
               element={
                 <>
                   <ProfileSeeker />
+                </>
+              }
+            />
+            <Route
+              path="/companyprofile"
+              element={
+                <>
+                  <CompanyProfile />
                 </>
               }
             />
