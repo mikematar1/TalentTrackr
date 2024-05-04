@@ -5,11 +5,11 @@ const JobListing = ({ job, userType }) => {
   const title = job.listing_details.JobTitles.MainJobTitle;
   const type = job.listing_details.EmploymentType;
   const percentage = job.match_percentage;
+  const company = job.company_details.company_name;
   const location =
     job.listing_details.CurrentLocation.Municipality +
     ", " +
     job.listing_details.CurrentLocation.CountryCode;
-  const { company } = job;
 
   const getColor = () => {
     const lightness = 20 + (percentage / 100) * 40;
