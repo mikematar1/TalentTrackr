@@ -60,16 +60,18 @@ const CompanyProfile = () => {
         </div>
       ) : (
         <>
-          <div className="company-header">
-            <h1>{job.company_details.company_name}</h1>
-            <img src="job-icon.png" alt="logo" />
-          </div>
-          <div className="job-listings-container">
-            {listings.map((job) => (
-              <div key={job.id}>
-                <JobListing key={job.id} job={job} userType={"seeker"} />
-              </div>
-            ))}
+          <div className="seeker-page">
+            <div className="company-header">
+              <h1>{job.company_details.company_name}</h1>
+              <img src="job-icon.png" alt="logo" />
+            </div>
+            <div className="job-listings-container company">
+              {listings.map((job) => (
+                <div key={job.id}>
+                  <JobListing key={job.id} job={job} userType={"profile"} />
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}

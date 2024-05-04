@@ -5,7 +5,7 @@ const JobListing = ({ job, userType }) => {
   const title = job.listing_details.JobTitles.MainJobTitle;
   const type = job.listing_details.EmploymentType;
   const percentage = job.match_percentage;
-  const company = job.company_details.company_name;
+  const company = job.company_details?.company_name;
   const location =
     job.listing_details.CurrentLocation.Municipality +
     ", " +

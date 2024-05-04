@@ -1233,7 +1233,7 @@ body {
 /* Start of Company */
 .company-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding-left: 20px;
   padding-right: 20px;
   opacity: 0; /* Initially set opacity to 0 */
@@ -1247,11 +1247,15 @@ body {
   align-items: center;
   width: 100%;
   justify-content: center;
+  margin-bottom: 8%;
 }
 .company-header h1 {
   cursor: default;
   font-weight: bold;
   font-size: 55px;
+}
+.job-listings-container.company {
+  height: auto;
 }
 
 /* End of Company */
