@@ -76,7 +76,7 @@ const Login = () => {
         let token = res.data.authorisation.token;
         localStorage.setItem("token", "Bearer " + token);
         localStorage.setItem("usertype", res.data.user.user_type);
-        localStorage.setItem("shouldReload", JSON.stringify(true));
+        localStorage.setItem("shouldReload", "false");
         axios.defaults.headers.common["Authorization"] = "Bearer" + token;
         const userType =
           res.data.user.user_type === 1

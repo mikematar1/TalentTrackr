@@ -57,6 +57,7 @@ body {
 
 .logo2 {
   width: 70%;
+  background: "none";
   transition: transform 0.3s ease;
 }
 
@@ -1045,15 +1046,13 @@ body {
 }
 
 .job-modal-overlay {
-  position: fixed; /* Overlay stays in place */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Center the modal */
-  z-index: 1000; /* High z-index to ensure it's on top */
+  background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+  z-index: 1000; /* High enough to stay on top */
 }
 
 .job-modal {
