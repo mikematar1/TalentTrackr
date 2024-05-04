@@ -167,7 +167,11 @@ const HomeSeeker = () => {
         </div>
         {loading ? (
           <div className="buffer-space">
-            <div className="buffer-loader"></div>
+            <div className="buffer-loader"></div> {/* Loader while loading */}
+          </div>
+        ) : currentJobListings.length === 0 ? (
+          <div className="no-listings-message">
+            <h1>No job matches found</h1>{" "}
           </div>
         ) : (
           <>
