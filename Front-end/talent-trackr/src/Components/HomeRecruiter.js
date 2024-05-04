@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
 import { FaArrowLeft, FaArrowRight, FaPlus } from "react-icons/fa";
-import JobModal from "../Global/JobModal"; // Import the modal component
 import { useNavigate } from "react-router-dom";
 
 const HomeRecruiter = () => {
@@ -226,9 +225,6 @@ const HomeRecruiter = () => {
           </button>
         </div>
       </div>
-      {selectedJob && (
-        <JobModal job={selectedJob} onClose={() => setSelectedJob(null)} />
-      )}
     </div>
   );
 };
