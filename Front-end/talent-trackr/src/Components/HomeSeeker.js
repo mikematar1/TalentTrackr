@@ -54,6 +54,15 @@ const HomeSeeker = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!loaded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+      window.scrollTo(0, 0); // Scroll to the top when loaded
+    }
+  }, [loaded]);
+
   //API
   const {
     status,
@@ -76,15 +85,6 @@ const HomeSeeker = () => {
   }, [listingData, status, error]);
 
   const listingsPerPage = 9;
-
-  useEffect(() => {
-    if (!loaded) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-      window.scrollTo(0, 0); // Scroll to the top when loaded
-    }
-  }, [loaded]);
 
   // Disable scrolling when modal is open
   useEffect(() => {

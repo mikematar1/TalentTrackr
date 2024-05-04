@@ -147,6 +147,7 @@ body {
 }
 
 .home-container.loaded,
+.company-container.loaded,
 .login-container.loaded,
 .companies-container.loaded,
 .signup-container.loaded,
@@ -1226,3 +1227,16 @@ body {
   }
 }
 /* End of buffer */
+
+/* Start of Company */
+.company-container {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateY(50px); /* Initially set translation */
+  transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
+}
+
+/* End of Company */
