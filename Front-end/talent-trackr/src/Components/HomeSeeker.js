@@ -2,8 +2,29 @@ import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import JobModal from "../Global/JobModal"; // Import the modal component
+import { jwtDecode } from "jwt-decode";
 
 const HomeSeeker = () => {
+  //Token handler
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const shouldReload = localStorage.getItem("shouldReload");
+    if (shouldReload === "true") {
+      localStorage.removeItem("shouldReload");
+      window.location.reload(true);
+    }
+  }, []);
+  if (token) {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+
+    if (decoded.exp < currentTime) {
+      localStorage.removeItem("usertype");
+      localStorage.removeItem("token");
+      localStorage.setItem("shouldReload", "true");
+    }
+  }
+
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterTerm, setFilterTerm] = useState("");
