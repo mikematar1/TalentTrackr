@@ -5,6 +5,7 @@ import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import GetMatches from "../api-client/HomeSeeker/GetMatches";
 import ReactModal from "react-modal";
+import { useNavigate } from "react-router-dom";
 
 const HomeSeeker = () => {
   const [loaded, setLoaded] = useState(false);
@@ -14,6 +15,7 @@ const HomeSeeker = () => {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  let navigate = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -144,6 +146,12 @@ const HomeSeeker = () => {
     openModal(); // Open the modal
   };
 
+  const handleProfile = (job) => {
+    if (job) {
+      navigate("/companyprofile", { state: { job } });
+    }
+  };
+
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
       <div className="seeker-page">
@@ -242,6 +250,12 @@ const HomeSeeker = () => {
             </div>
 
             <div className="job-modal-footer">
+              <button
+                onClick={() => handleProfile(selectedJob)}
+                className="close-button first"
+              >
+                Profile
+              </button>
               <button onClick={closeModal} className="close-button">
                 <FaTimes /> {/* 'X' icon */}
               </button>

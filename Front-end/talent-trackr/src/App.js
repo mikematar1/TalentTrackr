@@ -18,6 +18,7 @@ import HomeSeeker from "./Components/HomeSeeker";
 import HomeRecruiter from "./Components/HomeRecruiter";
 import ProfileSeeker from "./Components/ProfileSeeker";
 import ProfileRecruiter from "./Components/ProfileRecruiter";
+import CompanyProfile from "./Components/CompanyProfile";
 import AddJob from "./Components/AddJob";
 import PrivateRoute from "./Navigation/PrivateRoute";
 import PublicRoute from "./Navigation/PublicRoute";
@@ -122,6 +123,14 @@ function App() {
               element={
                 <>
                   <ProfileSeeker />
+                </>
+              }
+            />
+            <Route
+              path="/companyprofile"
+              element={
+                <>
+                  <CompanyProfile />
                 </>
               }
             />

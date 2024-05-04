@@ -1081,6 +1081,11 @@ body {
 .job-modal-header > img {
   width: 200px;
   height: 200px;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Smooth transition when hovering */
+}
+.job-modal-header > img:hover {
+  transform: scale(1.05); /* Increase the size by 10% when hovered */
 }
 
 .job-modal-header {
@@ -1091,17 +1096,27 @@ body {
   padding-left: 20px;
 }
 .job-modal-footer {
+  display: flex;
+  flex-direction: row;
   padding-right: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .close-button {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 30px;
+  height: 30px;
   background: none;
   border: none;
   font-size: 1rem; /* Adjust icon size */
   color: #333; /* Adjust icon color */
   cursor: pointer; /* Change cursor on hover */
+}
+.close-button.first {
+  width: 80px;
+  margin-right: 10%;
 }
 
 /* End of Seeker home */
