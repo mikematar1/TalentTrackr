@@ -1079,13 +1079,15 @@ body {
 .job-modal button:hover {
   background: #500f3d; /* Darker shade on hover */
 }
-.job-modal-header > img {
+.job-modal-header > img,
+.company-header > img {
   width: 200px;
   height: 200px;
   cursor: pointer;
   transition: transform 0.3s ease; /* Smooth transition when hovering */
 }
-.job-modal-header > img:hover {
+.job-modal-header > img:hover,
+.company-header > img:hover {
   transform: scale(1.05); /* Increase the size by 10% when hovered */
 }
 
@@ -1237,6 +1239,19 @@ body {
   opacity: 0; /* Initially set opacity to 0 */
   transform: translateY(50px); /* Initially set translation */
   transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
+}
+
+.company-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+.company-header h1 {
+  cursor: default;
+  font-weight: bold;
+  font-size: 55px;
 }
 
 /* End of Company */
