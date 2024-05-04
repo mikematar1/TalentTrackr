@@ -118,6 +118,10 @@ const SignUpRecruiter = () => {
         let token = res.data.authorisation.token;
         localStorage.setItem("token", "Bearer " + token);
         localStorage.setItem("usertype", 0);
+        localStorage.setItem("shouldReload", "false");
+        localStorage.removeItem("firstName");
+        localStorage.removeItem("lastName");
+        localStorage.removeItem("email");
         axios.defaults.headers.common["Authorization"] = "Bearer" + token;
         navigate("/recruiterhome");
       }

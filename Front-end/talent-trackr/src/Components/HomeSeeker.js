@@ -1,13 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import JobListing from "../Global/JobListing";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import JobModal from "../Global/JobModal"; // Import the modal component
+import { jwtDecode } from "jwt-decode";
+import GetMatches from "../api-client/HomeSeeker/GetMatches";
 
 const HomeSeeker = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterTerm, setFilterTerm] = useState("");
   const [selectedJob, setSelectedJob] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState([]);
+
+  //Token handler
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const shouldReload = localStorage.getItem("shouldReload");
+    if (shouldReload === "true") {
+      localStorage.removeItem("shouldReload");
+      window.location.reload(true);
+    }
+  }, []);
+  if (token) {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+
+    if (decoded.exp < currentTime) {
+      localStorage.removeItem("usertype");
+      localStorage.removeItem("token");
+      localStorage.setItem("shouldReload", "true");
+    }
+  }
 
   // Simulate loading delay
   useEffect(() => {
@@ -17,129 +42,26 @@ const HomeSeeker = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const simulatedJobListings = [
-    {
-      id: 1,
-      title: "Junior Graphic Designer",
-      company: "EA Sports",
-      type: "Internship",
-      salary: "$20,000 - $25,000",
-      location: "Beirut, Lebanon",
-      percentage: 87,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 2,
-      title: "Senior Software Engineer",
-      company: "Google",
-      type: "Full-time",
-      salary: "$80,000 - $100,000",
-      location: "San Francisco, CA",
-      percentage: 47,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 3,
-      title: "Data Scientist",
-      company: "Facebook",
-      type: "Contract",
-      salary: "$60,000 - $70,000",
-      location: "Menlo Park, CA",
-      percentage: 58,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 4,
-      title: "Marketing Specialist",
-      company: "Apple",
-      type: "Full-time",
-      salary: "$55,000 - $65,000",
-      location: "Cupertino, CA",
-      percentage: 96,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 5,
-      title: "Content Writer",
-      company: "BuzzFeed",
-      type: "Part-time",
-      salary: "$30,000 - $35,000",
-      location: "New York, NY",
-      percentage: 29,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 6,
-      title: "Product Manager",
-      company: "Microsoft",
-      type: "Full-time",
-      salary: "$90,000 - $110,000",
-      location: "Seattle, WA",
-      percentage: 27,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 7,
-      title: "UX Designer",
-      company: "Amazon",
-      type: "Contract",
-      salary: "$70,000 - $80,000",
-      location: "Seattle, WA",
-      percentage: 50,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 8,
-      title: "Quality Assurance Engineer",
-      company: "Samsung",
-      type: "Full-time",
-      salary: "$60,000 - $75,000",
-      location: "Seoul, South Korea",
-      percentage: 69,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 9,
-      title: "Machine Learning Engineer",
-      company: "Tesla",
-      type: "Full-time",
-      salary: "$110,000 - $120,000",
-      location: "Austin, TX",
-      percentage: 83,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 10,
-      title: "DevOps Engineer",
-      company: "Red Hat",
-      type: "Full-time",
-      salary: "$75,000 - $85,000",
-      location: "Raleigh, NC",
-      percentage: 80,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 11,
-      title: "Front-End Developer",
-      company: "Spotify",
-      type: "Part-time",
-      salary: "$40,000 - $50,000",
-      location: "Stockholm, Sweden",
-      percentage: 10,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-  ];
+  //API
+  const {
+    status,
+    error,
+    data: listingData,
+  } = useQuery({
+    queryKey: ["listingData"],
+    queryFn: GetMatches,
+    refetchOnWindowFocus: false, // Disable refetch on window focus
+    staleTime: Infinity, // Never re-fetch based on staleness
+    cacheTime: Infinity, // Keep the cache forever
+  });
+  useEffect(() => {
+    if (status === "success" && listingData) {
+      setListings(listingData);
+      setLoading(false);
+    } else if (error) {
+      console.log(error);
+    }
+  }, [listingData, status, error]);
 
   const listingsPerPage = 9;
 
@@ -152,8 +74,10 @@ const HomeSeeker = () => {
     }
   }, [loaded]);
 
-  const filteredJobListings = simulatedJobListings.filter((job) =>
-    job.title.toLowerCase().includes(filterTerm.toLowerCase())
+  const filteredJobListings = listings.filter((job) =>
+    job.listing_details.JobTitles.MainJobTitle.toLowerCase().includes(
+      filterTerm.toLowerCase()
+    )
   );
 
   const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
@@ -169,7 +93,6 @@ const HomeSeeker = () => {
       setCurrentPage(pageNumber);
     }
   };
-
   const handleJobClick = (job) => {
     setSelectedJob(job); // Set the selected job to display in the modal
   };
@@ -187,28 +110,36 @@ const HomeSeeker = () => {
             onChange={(e) => setFilterTerm(e.target.value)}
           />
         </div>
-        <div className="job-listings-container">
-          {currentJobListings.map((job) => (
-            <div key={job.id} onClick={() => handleJobClick(job)}>
-              <JobListing key={job.id} job={job} userType={"seeker"} />
+        {loading ? (
+          <div className="buffer-space">
+            <div className="buffer-loader"></div>
+          </div>
+        ) : (
+          <>
+            <div className="job-listings-container">
+              {currentJobListings.map((job) => (
+                <div key={job.id} onClick={() => handleJobClick(job)}>
+                  <JobListing key={job.id} job={job} userType={"seeker"} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="pagination">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            <FaArrowLeft />
-          </button>
-          <span>{currentPage}</span>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            <FaArrowRight />
-          </button>
-        </div>
+            <div className="pagination">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <FaArrowLeft />
+              </button>
+              <span>{currentPage}</span>
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <FaArrowRight />
+              </button>
+            </div>
+          </>
+        )}
       </div>
       {selectedJob && (
         <JobModal job={selectedJob} onClose={() => setSelectedJob(null)} />
