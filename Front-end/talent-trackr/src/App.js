@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ReactModal from "react-modal";
 
 import Home from "./Components/Home";
 import Companies from "./Components/Companies";
@@ -22,6 +23,7 @@ import PrivateRoute from "./Navigation/PrivateRoute";
 import PublicRoute from "./Navigation/PublicRoute";
 
 const queryClient = new QueryClient();
+ReactModal.setAppElement("#root");
 
 function App() {
   return (
