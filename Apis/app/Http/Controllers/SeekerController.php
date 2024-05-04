@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Listing;
 use App\Models\ListingMatchesSeeker;
+use App\Models\Recruiter;
 use App\Models\Resume;
 use App\Models\Seeker;
 use App\Models\User;
@@ -179,6 +181,9 @@ class SeekerController extends Controller
         $matches=ListingMatchesSeeker::where("seeker_id","=",$user->id)->join("listings","listings.id","=","listing_matches_seekers.listing_id")->get();
         foreach($matches as $match){
             $match->listing_details = json_decode($match->job_listing_json_object);
+            $recruiter = Recruiter::find($match->recruiter_id);
+            $company = Company::find($recruiter->company_id);
+            $match->company_details = $company;
         }
         return $matches;
     }

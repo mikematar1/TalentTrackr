@@ -30,9 +30,9 @@ Route::group(["prefix" => "v0.1"], function () {
     });
     Route::group(["prefix"=>"seeker"],function(){
         Route::middleware(['auth', 'check.seeker'])->group(function () {
-        Route::post("edit",[SeekerController::class,"editInformation"]);
-        Route::get("get",[SeekerController::class,"getInformation"]);
-        Route::get("getmatches",[SeekerController::class,"getMatches"]);
+            Route::post("edit",[SeekerController::class,"editInformation"]);
+            Route::get("get",[SeekerController::class,"getInformation"]);
+            Route::get("getmatches",[SeekerController::class,"getMatches"]);
         });
     });
 
