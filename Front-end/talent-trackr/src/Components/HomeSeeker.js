@@ -4,6 +4,7 @@ import JobListing from "../Global/JobListing";
 import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import GetMatches from "../api-client/HomeSeeker/GetMatches";
+import SendFeedback from "../api-client/HomeSeeker/SendFeedback";
 import ReactModal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
@@ -158,18 +159,24 @@ const HomeSeeker = () => {
 
   const handleFeedback = () => {
     if (feedback.length > 10) {
-      setIsSubmitting(true); // Start loading state
+      const data_seeker = {};
+      data_seeker.review = feedback;
+      let response = SendFeedback(data_seeker);
+      response.then((res) => {
+        console.log(res);
+        setIsSubmitting(true); // Start loading state
 
-      setTimeout(() => {
-        setIsSubmitting(false); // Stop loading state
-        setShowThankYou(true); // Show "Thank You" message
-
-        // Reset after 4 seconds
         setTimeout(() => {
-          setShowThankYou(false);
-          setFeedback(""); // Clear the feedback input
-        }, 4000);
-      }, 1000); // Simulate a 1-second delay for submission
+          setIsSubmitting(false); // Stop loading state
+          setShowThankYou(true); // Show "Thank You" message
+
+          // Reset after 4 seconds
+          setTimeout(() => {
+            setShowThankYou(false);
+            setFeedback(""); // Clear the feedback input
+          }, 4000);
+        }, 1000); // Simulate a 1-second delay for submission
+      });
     }
   };
 
