@@ -15,6 +15,10 @@ const HomeSeeker = () => {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // To track submission
+  const [showThankYou, setShowThankYou] = useState(false); // To show "Thank You"
+
   let navigate = useNavigate();
 
   const openModal = () => {
@@ -152,6 +156,23 @@ const HomeSeeker = () => {
     }
   };
 
+  const handleFeedback = () => {
+    if (feedback.length > 10) {
+      setIsSubmitting(true); // Start loading state
+
+      setTimeout(() => {
+        setIsSubmitting(false); // Stop loading state
+        setShowThankYou(true); // Show "Thank You" message
+
+        // Reset after 4 seconds
+        setTimeout(() => {
+          setShowThankYou(false);
+          setFeedback(""); // Clear the feedback input
+        }, 4000);
+      }, 1000); // Simulate a 1-second delay for submission
+    }
+  };
+
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
       <div className="seeker-page">
@@ -199,6 +220,42 @@ const HomeSeeker = () => {
             </div>
           </>
         )}
+        <div className="seeker-title feedback">
+          <h1>Share your feedback</h1>
+        </div>
+        <div className="feedback-container">
+          {isSubmitting ? (
+            <div className="buffer-space">
+              <div className="buffer-loader"></div> {/* Display loading */}
+            </div>
+          ) : showThankYou ? (
+            <div>
+              <h1>Thank you for your feedback!</h1>{" "}
+            </div>
+          ) : (
+            <>
+              <div className="login-inputs">
+                <input
+                  type="text"
+                  name="Feedback"
+                  placeholder="Feedback"
+                  className="login-input"
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                />
+              </div>
+              <div className="feedback-btn">
+                <button
+                  className="login-btn"
+                  onClick={handleFeedback}
+                  disabled={feedback.length <= 10}
+                >
+                  Send Feedback
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
       <ReactModal
         className="custom-modal"
