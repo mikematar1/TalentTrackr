@@ -7,7 +7,7 @@ const HomeRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterTerm, setFilterTerm] = useState("");
-  const [selectedJob, setSelectedJob] = useState(null);
+  const [setSelectedJob] = useState(null);
   let navigate = useNavigate();
 
   // Simulate loading delay
