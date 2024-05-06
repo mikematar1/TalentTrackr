@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Listing;
+use App\Models\Recruiter;
 use App\Models\Resume;
 use App\Models\User;
+use Google\Cloud\Storage\StorageClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,5 +61,40 @@ class RecruiterController extends Controller
                         ->join("companies","companies.id","=","recruiters.company_id")
                         ->first();
         return $userdetails;
+    }
+    public function editInformation(Request $request){
+        $user = Auth::user();
+        $recruiter = Recruiter::where("user_id","=",$user->id)->first();
+        $company = Company::where("id","=",$recruiter->company_id)->first();
+        if($request->has("logo_base64")){
+            $storage = new StorageClient([
+                'projectId' => 'urban-boutique-hotel',
+                    'keyFilePath' => 'C:\Users\miche\Desktop\TalentTrackr\Apis\talentrackr-399fc-firebase-adminsdk-s7e1o-4cee66f79d.json'
+            ]);
+            $bucket = $storage->bucket('talentrackr-399fc.appspot.com');
+
+            $base64image = $request->logo_base64;
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64image));
+            $filename = $request->company_name . '.png';
+            $foldername = "Businesslogo/";
+            $object = $bucket->upload($imageData, [
+                'name' => $foldername.$filename
+            ]);
+            $url = $object->signedUrl(new \DateTime('+100 years'));
+
+
+            $company_url = $company->logo_url;
+            if (preg_match('/([\w]+.(png|jpg|jpeg|gif))/', $url, $matches)) {
+                $filename = $matches[1];
+                $overallpath = $foldername.$filename;
+                $object = $bucket->object($overallpath);
+                $object->delete();
+
+            }
+            $company->logo_url = $url;
+            $company->save();
+
+
+        }
     }
 }
