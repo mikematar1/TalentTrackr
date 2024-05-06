@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Feedback;
 use App\Models\Listing;
 use App\Models\ListingMatchesSeeker;
 use App\Models\Recruiter;
@@ -174,7 +175,12 @@ class SeekerController extends Controller
         }
     }
     public function addFeedback(Request $request){
-
+        $user = Auth::user();
+        $feedback =Feedback::create([
+            "user_id"=>$user->id,
+            "review"=>$request->review
+        ]);
+        return $feedback;
     }
     public function getMatches(){
         $user=Auth::user();

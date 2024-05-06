@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Google\Cloud\Storage\StorageClient;
 use Illuminate\Support\Facades\Storage;
 class AuthController extends Controller
 {
@@ -84,15 +85,20 @@ class AuthController extends Controller
                 'logo_base64' => 'required|string',
 
             ]);
-            // COMPUTE LOGO_BASE64 INTO AN IMAGE URL POINT TO AMAZON S3 STORAGE
-            // $base64Image = $request->logo_base64;
-            // $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
-            // $filename = uniqid() . '.png';
-            // $folderPath = 'companylogo/';
+            $storage = new StorageClient([
+                'projectId' => 'urban-boutique-hotel',
+                    'keyFilePath' => 'C:\Users\miche\Desktop\TalentTrackr\Apis\talentrackr-399fc-firebase-adminsdk-s7e1o-4cee66f79d.json'
+            ]);
+            $bucket = $storage->bucket('talentrackr-399fc.appspot.com');
 
-            // Storage::disk('s3')->put($folderPath . $filename, $imageData);
-            // $url = Storage::disk('s3')->url($folderPath . $filename);
-            $url="Fewqfqwef";
+            $base64image = $request->logo_base64;
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64image));
+            $filename = $request->company_name . '.png';
+            $foldername = "Businesslogo/";
+            $object = $bucket->upload($imageData, [
+                'name' => $foldername.$filename
+            ]);
+            $url = $object->signedUrl(new \DateTime('+100 years'));
             $company=Company::create([
                 "company_name"=>$request->company_name,
                 "company_linkedin"=>$request->company_linkedin,

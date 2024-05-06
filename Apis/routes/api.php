@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\RecruiterController;
 use App\Http\Controllers\SeekerController;
@@ -33,6 +34,7 @@ Route::group(["prefix" => "v0.1"], function () {
             Route::post("edit",[SeekerController::class,"editInformation"]);
             Route::get("get",[SeekerController::class,"getInformation"]);
             Route::get("getmatches",[SeekerController::class,"getMatches"]);
+            Route::post("addfeedback",[SeekerController::class,"addFeedback"]);
         });
     });
 
@@ -50,7 +52,10 @@ Route::group(["prefix" => "v0.1"], function () {
         Route::get("/",[ListingController::class,"getListings"]);
         Route::get("recruiter/{recruiterid}",[ListingController::class,"getRecruiterListings"]);
     });
-    Route::get("tester",[SeekerController::class,"testingmatch"]);
+    Route::group(["prefix"=>"feedbacks"],function(){
+        Route::get("/",[FeedbackController::class,"getRandomFeedbacks"]);
+    });
+
 
 });
 
