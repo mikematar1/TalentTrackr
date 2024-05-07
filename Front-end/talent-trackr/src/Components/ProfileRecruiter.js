@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import GetProfile from "../api-client/ProfileRecruiter/GetProfile";
+import EditProfile from "../api-client/ProfileRecruiter/EditProfile";
+import { useQuery } from "@tanstack/react-query";
 
 const ProfileRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
