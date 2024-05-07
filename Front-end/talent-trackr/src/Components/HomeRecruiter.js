@@ -1,15 +1,54 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import JobListing from "../Global/JobListing";
 import GetListingsCompany from "../api-client/HomeSeeker/GetListingsCompany";
-import { FaArrowLeft, FaArrowRight, FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaArrowLeft, FaArrowRight, FaPlus, FaTimes } from "react-icons/fa";
+import { jwtDecode } from "jwt-decode";
+import ReactModal from "react-modal";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const HomeRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterTerm, setFilterTerm] = useState("");
-  const [setSelectedJob] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   let navigate = useNavigate();
+
+  const location = useLocation();
+  const { id } = location.state || {}; // Destructure data from the previous page
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedJob(null); // Reset selected job when closing the modal
+  };
+
+  //Token handler
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const shouldReload = localStorage.getItem("shouldReload");
+    if (shouldReload === "true") {
+      localStorage.removeItem("shouldReload");
+      window.location.reload(true);
+    }
+  }, []);
+  if (token) {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+
+    if (decoded.exp < currentTime) {
+      localStorage.removeItem("usertype");
+      localStorage.removeItem("token");
+      localStorage.setItem("shouldReload", "true");
+    }
+  }
 
   // Simulate loading delay
   useEffect(() => {
@@ -19,143 +58,84 @@ const HomeRecruiter = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const simulatedJobListings = [
-    {
-      id: 1,
-      title: "Junior Graphic Designer",
-      company: "EA Sports",
-      type: "Internship",
-      salary: "$20,000 - $25,000",
-      location: "Beirut, Lebanon",
-      percentage: 87,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 2,
-      title: "Senior Software Engineer",
-      company: "Google",
-      type: "Full-time",
-      salary: "$80,000 - $100,000",
-      location: "San Francisco, CA",
-      percentage: 47,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 3,
-      title: "Data Scientist",
-      company: "Facebook",
-      type: "Contract",
-      salary: "$60,000 - $70,000",
-      location: "Menlo Park, CA",
-      percentage: 58,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 4,
-      title: "Marketing Specialist",
-      company: "Apple",
-      type: "Full-time",
-      salary: "$55,000 - $65,000",
-      location: "Cupertino, CA",
-      percentage: 96,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 5,
-      title: "Content Writer",
-      company: "BuzzFeed",
-      type: "Part-time",
-      salary: "$30,000 - $35,000",
-      location: "New York, NY",
-      percentage: 29,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 6,
-      title: "Product Manager",
-      company: "Microsoft",
-      type: "Full-time",
-      salary: "$90,000 - $110,000",
-      location: "Seattle, WA",
-      percentage: 27,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 7,
-      title: "UX Designer",
-      company: "Amazon",
-      type: "Contract",
-      salary: "$70,000 - $80,000",
-      location: "Seattle, WA",
-      percentage: 50,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 8,
-      title: "Quality Assurance Engineer",
-      company: "Samsung",
-      type: "Full-time",
-      salary: "$60,000 - $75,000",
-      location: "Seoul, South Korea",
-      percentage: 69,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 9,
-      title: "Machine Learning Engineer",
-      company: "Tesla",
-      type: "Full-time",
-      salary: "$110,000 - $120,000",
-      location: "Austin, TX",
-      percentage: 83,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 10,
-      title: "DevOps Engineer",
-      company: "Red Hat",
-      type: "Full-time",
-      salary: "$75,000 - $85,000",
-      location: "Raleigh, NC",
-      percentage: 80,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-    {
-      id: 11,
-      title: "Front-End Developer",
-      company: "Spotify",
-      type: "Part-time",
-      salary: "$40,000 - $50,000",
-      location: "Stockholm, Sweden",
-      percentage: 10,
-      description:
-        "As a Junior Graphic Designer, you will work with a team to create engaging designs for digital and print media. This position is ideal for those looking to build their portfolio and gain hands-on experience.",
-    },
-  ];
-  const handleJobClick = (job) => {
-    setSelectedJob(job); // Set the selected job to display in the modal
-  };
+  // Apply overflow: hidden to body during transition
+  useEffect(() => {
+    if (!loaded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+      window.scrollTo(0, 0); // Scroll to the top when loaded
+    }
+  }, [loaded]);
+
+  //API
+  const {
+    status,
+    error,
+    data: listingRecruiterData,
+  } = useQuery({
+    queryKey: ["listingRecruiterData", id], // Pass the id to the queryKey
+    queryFn: ({ queryKey }) => GetListingsCompany(queryKey[1]), // Extract the id from queryKey and pass it to GetListingsCompany
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
+  useEffect(() => {
+    if (status === "success" && listingRecruiterData) {
+      setListings(listingRecruiterData);
+      setLoading(false);
+    } else if (error) {
+      console.log(error);
+    }
+  }, [listingRecruiterData, status, error]);
+
   // Number of job listings per page
   const listingsPerPage = 9;
 
-  const filteredJobListings = simulatedJobListings.filter((job) =>
-    job.title.toLowerCase().includes(filterTerm.toLowerCase())
+  // Disable scrolling when modal is open
+  useEffect(() => {
+    document.body.style.overflow = isModalOpen ? "hidden" : "visible";
+    return () => {
+      document.body.style.overflow = "visible"; // Reset to default on cleanup
+    };
+  }, [isModalOpen]);
+
+  const filteredJobListings = listings.filter((job) =>
+    job.listing_details.JobTitles.MainJobTitle.toLowerCase().includes(
+      filterTerm.toLowerCase()
+    )
   );
 
-  // Calculate total pages
+  const capitalizeFirstLetter = (str) => {
+    return str ? str.charAt(0).toUpperCase() + str.slice(1) : ""; // Capitalize the first letter
+  };
+
+  const formatSkills = (skills) => {
+    if (!skills || skills.length === 0) {
+      return "None specified";
+    }
+
+    const requiredSkills = skills
+      .filter((skill) => skill.Required)
+      .map((skill) => capitalizeFirstLetter(skill.Name));
+
+    if (requiredSkills.length === 0) {
+      return "None specified";
+    }
+
+    const allButLast = requiredSkills.slice(0, -1).join(", ");
+
+    if (requiredSkills.length === 1) {
+      return `${requiredSkills[0]}.`;
+    }
+
+    const lastSkill = requiredSkills[requiredSkills.length - 1];
+
+    return `${allButLast}, and ${lastSkill}`;
+  };
+
   const totalPages = Math.ceil(filteredJobListings.length / listingsPerPage);
 
-  // Calculate job listings for the current page
   const startIndex = (currentPage - 1) * listingsPerPage;
   const currentJobListings = filteredJobListings.slice(
     startIndex,
@@ -172,15 +152,14 @@ const HomeRecruiter = () => {
     }
   };
 
-  // Apply overflow: hidden to body during transition
-  useEffect(() => {
-    if (!loaded) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-      window.scrollTo(0, 0); // Scroll to the top when loaded
-    }
-  }, [loaded]);
+  const handleJobClick = (job) => {
+    setSelectedJob(job); // Set the selected job
+    openModal(); // Open the modal
+  };
+
+  const handleMatches = (job) => {
+    console.log(job);
+  };
 
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
@@ -200,32 +179,104 @@ const HomeRecruiter = () => {
             />
           </div>
         </div>
-        <div className="job-listings-container">
-          {currentJobListings.map((job) => (
-            <div
-              key={job.id}
-              onClick={() => handleJobClick(job)} // Open modal on job click
-            >
-              {/* <JobListing job={job} userType={"recruiter"} /> */}
+        {loading ? (
+          <div className="buffer-space">
+            <div className="buffer-loader"></div> {/* Loader while loading */}
+          </div>
+        ) : currentJobListings.length === 0 ? (
+          <div className="no-listings-message">
+            <h1>No job matches found</h1>{" "}
+          </div>
+        ) : (
+          <>
+            <div className="job-listings-container">
+              {currentJobListings.map((job) => (
+                <div key={job.id} onClick={() => handleJobClick(job)}>
+                  <JobListing key={job.id} job={job} userType={"recruiter"} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="pagination">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            <FaArrowLeft />
-          </button>
-          <span>{currentPage}</span>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            <FaArrowRight />
-          </button>
-        </div>
+            <div className="pagination">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <FaArrowLeft />
+              </button>
+              <span>{currentPage}</span>
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <FaArrowRight />
+              </button>
+            </div>
+          </>
+        )}
       </div>
+      <ReactModal
+        className="custom-modal"
+        isOpen={isModalOpen}
+        style={{
+          overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+          content: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            border: "none",
+            width: "100%",
+            height: "100%",
+            margin: "auto",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: "100",
+          },
+        }}
+      >
+        {selectedJob ? (
+          <div className="job-modal">
+            <div className="job-modal-header">
+              <h2>{selectedJob.listing_details.JobTitles.MainJobTitle}</h2>
+              <img src="job-icon.png" alt="logo" />
+            </div>
+
+            <div className="job-modal-body">
+              <p>
+                <strong>Type:</strong>{" "}
+                {capitalizeFirstLetter(
+                  selectedJob.listing_details.EmploymentType
+                )}
+              </p>
+              <p>
+                <strong>Skills Required:</strong>{" "}
+                {formatSkills(selectedJob.listing_details.Skills.Raw)}
+              </p>
+
+              <p>
+                <strong>Location:</strong>{" "}
+                {selectedJob.listing_details.CurrentLocation.Municipality +
+                  ", " +
+                  selectedJob.listing_details.CurrentLocation.CountryCode}
+              </p>
+              <p>
+                <strong>Description:</strong>{" "}
+                {selectedJob.listing_details.JobDescription}
+              </p>
+            </div>
+
+            <div className="job-modal-footer">
+              <button
+                onClick={() => handleMatches(selectedJob)}
+                className="close-button first"
+              >
+                Matches
+              </button>
+              <button onClick={closeModal} className="close-button">
+                <FaTimes /> {/* 'X' icon */}
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </ReactModal>
     </div>
   );
 };
