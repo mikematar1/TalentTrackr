@@ -83,9 +83,7 @@ const ProfileSeeker = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usertype");
-    localStorage.removeItem("firstName");
-    localStorage.removeItem("lastName");
-    localStorage.removeItem("email");
+    localStorage.removeItem("shouldReload");
     navigate("/"); // Redirect to home on logout
   };
 
