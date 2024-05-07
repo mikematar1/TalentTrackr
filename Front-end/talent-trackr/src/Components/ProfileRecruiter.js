@@ -23,6 +23,30 @@ const ProfileRecruiter = () => {
   });
   let navigate = useNavigate();
 
+  const {
+    status,
+    error,
+    data: profileRecruiterData,
+  } = useQuery({
+    queryKey: ["profileRecruiterData"],
+    queryFn: GetProfile,
+    refetchOnWindowFocus: false, // Disable refetch on window focus
+    staleTime: Infinity, // Never re-fetch based on staleness
+    cacheTime: Infinity, // Keep the cache forever
+  });
+  useEffect(() => {
+    if (status === "success" && profileRecruiterData) {
+      console.log(profileRecruiterData);
+      // setUsername(profileRecruiterData.first_name + " " + profileRecruiterData.last_name);
+      // setEmail(profileData.email);
+      // setDob(profileData.dob);
+      // setLinkedIn(profileData.linkedin);
+      setLoading(false);
+    } else if (error) {
+      console.log(error);
+    }
+  }, [profileRecruiterData, status, error]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usertype");
@@ -76,80 +100,86 @@ const ProfileRecruiter = () => {
 
   return (
     <div className={`home-container seeker ${loaded ? "loaded" : ""}`}>
-      <div className="profile-edit">
-        <div className="profile-header">
-          <h1>Edit Profile</h1>
-          <button className="logout-btn" onClick={handleLogout}>
-            Log out
-          </button>
+      {loading ? (
+        <div className="buffer-space">
+          <div className="buffer-loader"></div>
         </div>
-        <div className="login-inputs-profile">
-          <div className="login-inputs">
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              className="login-input profile"
-              value={profileData.fullName}
-              readOnly
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="login-input profile"
-              value={profileData.email}
-              readOnly
-            />
-            <input
-              type="text"
-              name="description"
-              placeholder="Description"
-              className="login-input profile"
-              value={profileData.description}
-              readOnly
-            />
-            <input
-              type="text"
-              name="linkedIn"
-              placeholder="LinkedIn URL"
-              className="login-input profile"
-              value={profileData.linkedIn}
-              readOnly
-            />
-            <div className="custom-file-button profile" onClick={handleClick}>
-              <span className="custom-file-button-text">
-                {file ? file.name : "Change Logo"}
-              </span>
+      ) : (
+        <div className="profile-edit">
+          <div className="profile-header">
+            <h1>Edit Profile</h1>
+            <button className="logout-btn" onClick={handleLogout}>
+              Log out
+            </button>
+          </div>
+          <div className="login-inputs-profile">
+            <div className="login-inputs">
               <input
-                type="file"
-                id="file-input"
-                accept="image/*" // Accept all image types
-                className="hidden-file-input"
-                onChange={handleFileChange} // Handle file change
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                className="login-input profile"
+                value={profileData.fullName}
+                readOnly
               />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="login-input profile"
+                value={profileData.email}
+                readOnly
+              />
+              <input
+                type="text"
+                name="description"
+                placeholder="Description"
+                className="login-input profile"
+                value={profileData.description}
+                readOnly
+              />
+              <input
+                type="text"
+                name="linkedIn"
+                placeholder="LinkedIn URL"
+                className="login-input profile"
+                value={profileData.linkedIn}
+                readOnly
+              />
+              <div className="custom-file-button profile" onClick={handleClick}>
+                <span className="custom-file-button-text">
+                  {file ? file.name : "Change Logo"}
+                </span>
+                <input
+                  type="file"
+                  id="file-input"
+                  accept="image/*" // Accept all image types
+                  className="hidden-file-input"
+                  onChange={handleFileChange} // Handle file change
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="editprofile-changes">
-          <button
-            className="login-btn"
-            onClick={handleEditProfile}
-            disabled={isButtonDisabled()}
-            style={{
-              opacity: isButtonDisabled() ? 0.7 : 1,
-            }}
-          >
-            Save Changes
-          </button>
-          {changesMade && (
-            <div className="change-message">
-              <p>Changes Made</p>
-            </div>
-          )}
+          <div className="editprofile-changes">
+            <button
+              className="login-btn"
+              onClick={handleEditProfile}
+              disabled={isButtonDisabled()}
+              style={{
+                opacity: isButtonDisabled() ? 0.7 : 1,
+              }}
+            >
+              Save Changes
+            </button>
+            {changesMade && (
+              <div className="change-message">
+                <p>Changes Made</p>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
