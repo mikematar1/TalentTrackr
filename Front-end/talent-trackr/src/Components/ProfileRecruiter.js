@@ -91,11 +91,19 @@ const ProfileRecruiter = () => {
   };
 
   const handleEditProfile = () => {
-    setChangesMade(true);
-    setFileChanged(false);
-    setFile(null);
-    setTimeout(() => setChangesMade(false), 2000); // Hide message after 2 seconds
-    localStorage.setItem("shouldReload", true);
+    const data_recruiter = {};
+    if (fileChanged) {
+      data_recruiter.logo_base64 = logo_base64;
+    }
+
+    let response = EditProfile(data_recruiter);
+    response.then((res) => {
+      setChangesMade(true);
+      setFileChanged(false);
+      setFile(null);
+      setTimeout(() => setChangesMade(false), 2000); // Hide message after 2 seconds
+      localStorage.setItem("shouldReload", true);
+    });
   };
 
   return (
