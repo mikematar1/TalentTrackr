@@ -3,6 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
+  const [file, setFile] = useState(""); // State for uploaded file name
+  const [logo_base64, setLogoUrl] = useState(""); // State to store base64-encoded image
+  const [fileChanged, setFileChanged] = useState(false); // Track if file is changed
+  const [loading, setLoading] = useState(true);
+  const [changesMade, setChangesMade] = useState(false);
   const [profileData, setProfileData] = useState({
     fullName: "Recruiter",
     email: "recruiter@example.com",
@@ -26,12 +35,40 @@ const ProfileRecruiter = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleClick = () => {
+    document.getElementById("file-input").click(); // Trigger file input click
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFile(file); // Store the file name
+      setFileChanged(true);
+
+      // Convert the file to base64
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Data = e.target.result;
+
+        // Extract the base64 content by splitting on the first comma
+        const base64Only = base64Data.split(",")[1]; // Get the base64 part
+
+        setLogoUrl(base64Only); // Store only the base64-encoded data
+      };
+
+      reader.readAsDataURL(file); // Start reading the file to get the base64 data
+    }
+  };
+  const isButtonDisabled = () => {
+    return !fileChanged;
+  };
+
+  const handleEditProfile = () => {
+    setChangesMade(true);
+    setFileChanged(false);
+    setFile(null);
+    setTimeout(() => setChangesMade(false), 2000); // Hide message after 2 seconds
+    localStorage.setItem("shouldReload", true);
   };
 
   return (
@@ -51,7 +88,7 @@ const ProfileRecruiter = () => {
               placeholder="Full Name"
               className="login-input profile"
               value={profileData.fullName}
-              onChange={handleInputChange}
+              readOnly
             />
             <input
               type="email"
@@ -59,7 +96,7 @@ const ProfileRecruiter = () => {
               placeholder="Email"
               className="login-input profile"
               value={profileData.email}
-              onChange={handleInputChange}
+              readOnly
             />
             <input
               type="text"
@@ -67,7 +104,7 @@ const ProfileRecruiter = () => {
               placeholder="Description"
               className="login-input profile"
               value={profileData.description}
-              onChange={handleInputChange}
+              readOnly
             />
             <input
               type="text"
@@ -75,12 +112,40 @@ const ProfileRecruiter = () => {
               placeholder="LinkedIn URL"
               className="login-input profile"
               value={profileData.linkedIn}
-              onChange={handleInputChange}
+              readOnly
             />
+            <div className="custom-file-button profile" onClick={handleClick}>
+              <span className="custom-file-button-text">
+                {file ? file.name : "Change Logo"}
+              </span>
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*" // Accept all image types
+                className="hidden-file-input"
+                onChange={handleFileChange} // Handle file change
+              />
+            </div>
           </div>
         </div>
 
-        <button className="login-btn">Save Changes</button>
+        <div className="editprofile-changes">
+          <button
+            className="login-btn"
+            onClick={handleEditProfile}
+            disabled={isButtonDisabled()}
+            style={{
+              opacity: isButtonDisabled() ? 0.7 : 1,
+            }}
+          >
+            Save Changes
+          </button>
+          {changesMade && (
+            <div className="change-message">
+              <p>Changes Made</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
