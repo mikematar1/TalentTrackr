@@ -55,10 +55,10 @@ class RecruiterController extends Controller
         return "succcess";
     }
     public function getInformation(){
-        $user=Auth::user();
-        $userdetails = User::where("id","=",$user->id)
-                        ->join("recruiters","recruiters.user_id","=","users.id")
-                        ->join("companies","companies.id","=","recruiters.company_id")
+        $user = Auth::user();
+        $userdetails = User::where("users.id", "=", $user->id)
+                        ->join("recruiters", "recruiters.user_id", "=", "users.id")
+                        ->join("companies", "companies.id", "=", "recruiters.company_id")
                         ->first();
         return $userdetails;
     }
