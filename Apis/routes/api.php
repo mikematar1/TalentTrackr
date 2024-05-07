@@ -43,7 +43,9 @@ Route::group(["prefix" => "v0.1"], function () {
             Route::group(["prefix"=>"listing"],function(){
                 Route::post("add",[RecruiterController::class,"addListing"]);
                 Route::get("delete/{listingid}",[RecruiterController::class,"deleteListing"]);
+
             });
+            Route::post("edit",[RecruiterController::class,"editInformation"]);
             Route::get("get",[RecruiterController::class,"getInformation"]);
         });
     });
