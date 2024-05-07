@@ -119,12 +119,12 @@ const SignUpRecruiter = () => {
         localStorage.setItem("token", "Bearer " + token);
         localStorage.setItem("usertype", 0);
         localStorage.setItem("shouldReload", "false");
+        localStorage.setItem("id", res.data.user.id);
         localStorage.removeItem("firstName");
         localStorage.removeItem("lastName");
         localStorage.removeItem("email");
         axios.defaults.headers.common["Authorization"] = "Bearer" + token;
-        const id = res.data.user.id;
-        navigate("/recruiterhome", { state: { id } });
+        navigate("/recruiterhome");
       }
     });
   };
