@@ -123,7 +123,8 @@ const SignUpRecruiter = () => {
         localStorage.removeItem("lastName");
         localStorage.removeItem("email");
         axios.defaults.headers.common["Authorization"] = "Bearer" + token;
-        navigate("/recruiterhome");
+        const id = res.data.user.id;
+        navigate("/recruiterhome", { state: { id } });
       }
     });
   };

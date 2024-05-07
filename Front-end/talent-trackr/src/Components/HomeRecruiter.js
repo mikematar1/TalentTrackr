@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobListing from "../Global/JobListing";
+import GetListingsCompany from "../api-client/HomeSeeker/GetListingsCompany";
 import { FaArrowLeft, FaArrowRight, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
