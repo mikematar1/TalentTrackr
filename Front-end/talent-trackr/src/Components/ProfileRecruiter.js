@@ -15,12 +15,6 @@ const ProfileRecruiter = () => {
   const [fileChanged, setFileChanged] = useState(false); // Track if file is changed
   const [loading, setLoading] = useState(true);
   const [changesMade, setChangesMade] = useState(false);
-  const [profileData, setProfileData] = useState({
-    fullName: "Recruiter",
-    email: "recruiter@example.com",
-    description: "This is the company's description",
-    linkedIn: "https://www.linkedin.com",
-  });
   let navigate = useNavigate();
 
   const {
@@ -36,11 +30,10 @@ const ProfileRecruiter = () => {
   });
   useEffect(() => {
     if (status === "success" && profileRecruiterData) {
-      console.log(profileRecruiterData);
-      // setUsername(profileRecruiterData.first_name + " " + profileRecruiterData.last_name);
-      // setEmail(profileData.email);
-      // setDob(profileData.dob);
-      // setLinkedIn(profileData.linkedin);
+      setUsername(profileRecruiterData.company_name);
+      setEmail(profileRecruiterData.email);
+      setDescription(profileRecruiterData.description);
+      setLinkedIn(profileRecruiterData.company_linkedin);
       setLoading(false);
     } else if (error) {
       console.log(error);
@@ -127,7 +120,7 @@ const ProfileRecruiter = () => {
                 name="fullName"
                 placeholder="Full Name"
                 className="login-input profile"
-                value={profileData.fullName}
+                value={username}
                 readOnly
               />
               <input
@@ -135,7 +128,7 @@ const ProfileRecruiter = () => {
                 name="email"
                 placeholder="Email"
                 className="login-input profile"
-                value={profileData.email}
+                value={email}
                 readOnly
               />
               <input
@@ -143,7 +136,7 @@ const ProfileRecruiter = () => {
                 name="description"
                 placeholder="Description"
                 className="login-input profile"
-                value={profileData.description}
+                value={description}
                 readOnly
               />
               <input
@@ -151,7 +144,7 @@ const ProfileRecruiter = () => {
                 name="linkedIn"
                 placeholder="LinkedIn URL"
                 className="login-input profile"
-                value={profileData.linkedIn}
+                value={linkedIn}
                 readOnly
               />
               <div className="custom-file-button profile" onClick={handleClick}>
