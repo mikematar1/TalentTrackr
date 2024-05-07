@@ -205,7 +205,7 @@ const HomeRecruiter = () => {
               key={job.id}
               onClick={() => handleJobClick(job)} // Open modal on job click
             >
-              <JobListing key={job.id} job={job} userType={"recruiter"} />
+              {/* <JobListing job={job} userType={"recruiter"} /> */}
             </div>
           ))}
         </div>

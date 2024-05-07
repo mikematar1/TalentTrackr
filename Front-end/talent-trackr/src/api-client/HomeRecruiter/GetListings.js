@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export default async function GetMatches() {
+export default async function GetListings(id) {
   return axios({
     method: "get",
-    url: "http://127.0.0.1:8000/api/v0.1/seeker/getmatches",
+    url: `http://127.0.0.1:8000/api/v0.1/listings/recruiter/${id}`,
     headers: { Authorization: localStorage.getItem("token") },
   })
     .then((res) => {
