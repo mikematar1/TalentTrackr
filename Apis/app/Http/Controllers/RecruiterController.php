@@ -69,7 +69,7 @@ class RecruiterController extends Controller
         if($request->has("logo_base64")){
             $storage = new StorageClient([
                 'projectId' => 'urban-boutique-hotel',
-                    'keyFilePath' => 'C:\Users\miche\Desktop\TalentTrackr\Apis\talentrackr-399fc-firebase-adminsdk-s7e1o-4cee66f79d.json'
+                    'keyFilePath' => 'C:\Users\miche\Downloads\Capstone Project\TalentTrackr\Apis\talentrackr-399fc-firebase-adminsdk-s7e1o-4cee66f79d.json'
             ]);
             $bucket = $storage->bucket('talentrackr-399fc.appspot.com');
 
