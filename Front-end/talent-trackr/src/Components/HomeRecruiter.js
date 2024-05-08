@@ -302,10 +302,7 @@ const HomeRecruiter = () => {
                 {isMatchesView ? "Back" : "Matches"}{" "}
                 {/* Change text based on state */}
               </button>
-              <button
-                onClick={() => setSelectedJob(null)}
-                className="close-button"
-              >
+              <button onClick={() => closeModal()} className="close-button">
                 <FaTimes /> {/* Close the modal */}
               </button>
             </div>
