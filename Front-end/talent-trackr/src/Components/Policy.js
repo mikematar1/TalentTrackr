@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const Policy = () => {
   const [loaded, setLoaded] = useState(false);
-  const [policies, setPolicies] = useState([
+  const [policies] = useState([
     {
       id: 1,
       title: "Information We Collect",
