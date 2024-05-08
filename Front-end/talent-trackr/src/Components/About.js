@@ -159,7 +159,9 @@ const About = () => {
           </>
         )}
       </div>
-      <Footer />
+      <div className={`footer-container ${loaded ? "loaded" : ""}`}>
+        <Footer />
+      </div>
     </>
   );
 };

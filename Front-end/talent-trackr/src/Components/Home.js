@@ -61,7 +61,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className={`footer-container ${loaded ? "loaded" : ""}`}>
+        <Footer />
+      </div>
     </>
   );
 };

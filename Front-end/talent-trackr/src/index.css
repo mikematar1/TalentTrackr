@@ -146,6 +146,8 @@ body {
   transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
 }
 
+.footer-container.loaded,
+.policies-container.loaded,
 .home-container.loaded,
 .company-container.loaded,
 .login-container.loaded,
@@ -621,6 +623,12 @@ body {
 /* Start of Footer */
 .footer-link {
   color: white;
+}
+
+.footer-container {
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateY(50px); /* Initially set translation */
+  transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
 }
 
 .footer {
@@ -1292,6 +1300,9 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
   padding: 1% 13% 3% 13%;
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateY(50px); /* Initially set translation */
+  transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
 }
 .policies-container > h1 {
   font-size: 40px;

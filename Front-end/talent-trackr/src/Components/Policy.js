@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Policy = () => {
+  const [loaded, setLoaded] = useState(false);
   const [policies, setPolicies] = useState([
     {
       id: 1,
@@ -136,9 +137,27 @@ const Policy = () => {
     },
   ]);
 
+  // Simulate loading delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoaded(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Apply overflow: hidden to body during transition
+  useEffect(() => {
+    if (!loaded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+      window.scrollTo(0, 0); // Scroll to the top when loaded
+    }
+  }, [loaded]);
+
   return (
     <>
-      <div className="policies-container">
+      <div className={`policies-container ${loaded ? "loaded" : ""}`}>
         <h1>Talent Tracker Privacy Policy</h1>
         {policies.map((policy) => (
           <div key={policy.id} className="policy-section">
