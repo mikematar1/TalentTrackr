@@ -1198,6 +1198,13 @@ body {
   justify-content: center;
   align-items: flex-end;
 }
+.change-message.error {
+  color: red;
+  margin-top: -5%;
+}
+.change-message.add {
+  margin-top: -5%;
+}
 .editprofile-changes {
   display: flex;
   flex-direction: row;
