@@ -1093,15 +1093,13 @@ body {
 .job-modal button:hover {
   background: #500f3d; /* Darker shade on hover */
 }
-.job-modal-header > img,
-.company-header > img {
+.job-modal-header > img {
   width: 200px;
-  height: 200px;
+  height: 180px;
   cursor: pointer;
   transition: transform 0.3s ease; /* Smooth transition when hovering */
 }
-.job-modal-header > img:hover,
-.company-header > img:hover {
+.job-modal-header > img:hover {
   transform: scale(1.05); /* Increase the size by 10% when hovered */
 }
 
@@ -1282,6 +1280,28 @@ body {
 }
 .job-listings-container.company {
   height: auto;
+}
+
+.company-header > div {
+  border-radius: 50%; /* Circular shape */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  background-color: white; /* Background color for the circular area */
+  width: 200px; /* Set the width */
+  height: 200px; /* Set the height */
+  overflow: hidden; /* Ensure the image stays within the boundary */
+  transition: transform 0.3s ease; /* Smooth transition when hovering */
+}
+
+.company-header > div:hover {
+  transform: scale(1.05); /* Scale up when hovering */
+}
+
+/* Ensure the image fits within the circular container */
+.company-header > div > img {
+  width: 100%; /* Image should fit the container */
+  height: 100%; /* Image should fit the container */
+  object-fit: contain; /* Ensure the image covers the entire container */
+  border-radius: 50%; /* Ensure the image follows the circular shape */
 }
 
 /* End of Company */

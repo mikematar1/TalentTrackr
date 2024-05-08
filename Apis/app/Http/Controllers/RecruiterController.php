@@ -55,10 +55,10 @@ class RecruiterController extends Controller
         return "succcess";
     }
     public function getInformation(){
-        $user=Auth::user();
-        $userdetails = User::where("id","=",$user->id)
-                        ->join("recruiters","recruiters.user_id","=","users.id")
-                        ->join("companies","companies.id","=","recruiters.company_id")
+        $user = Auth::user();
+        $userdetails = User::where("users.id", "=", $user->id)
+                        ->join("recruiters", "recruiters.user_id", "=", "users.id")
+                        ->join("companies", "companies.id", "=", "recruiters.company_id")
                         ->first();
         return $userdetails;
     }
@@ -69,7 +69,7 @@ class RecruiterController extends Controller
         if($request->has("logo_base64")){
             $storage = new StorageClient([
                 'projectId' => 'urban-boutique-hotel',
-                    'keyFilePath' => 'C:\Users\miche\Desktop\TalentTrackr\Apis\talentrackr-399fc-firebase-adminsdk-s7e1o-4cee66f79d.json'
+                    'keyFilePath' => 'C:\Users\miche\Downloads\Capstone Project\TalentTrackr\Apis\talentrackr-399fc-firebase-adminsdk-s7e1o-4cee66f79d.json'
             ]);
             $bucket = $storage->bucket('talentrackr-399fc.appspot.com');
 

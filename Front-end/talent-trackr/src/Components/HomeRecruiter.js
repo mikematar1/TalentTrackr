@@ -5,7 +5,7 @@ import GetListingsCompany from "../api-client/HomeSeeker/GetListingsCompany";
 import { FaArrowLeft, FaArrowRight, FaPlus, FaTimes } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import ReactModal from "react-modal";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const HomeRecruiter = () => {
   const [loaded, setLoaded] = useState(false);
@@ -15,11 +15,9 @@ const HomeRecruiter = () => {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const id = localStorage.getItem("id");
 
   let navigate = useNavigate();
-
-  const location = useLocation();
-  const { id } = location.state || {}; // Destructure data from the previous page
 
   const openModal = () => {
     setIsModalOpen(true);

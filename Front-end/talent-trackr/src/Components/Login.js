@@ -88,8 +88,8 @@ const Login = () => {
         if (userType === "seeker") {
           navigate("/seekerhome");
         } else if (userType === "recruiter") {
-          const id = res.data.user.id;
-          navigate("/recruiterhome", { state: { id } });
+          localStorage.setItem("id", res.data.user.id);
+          navigate("/recruiterhome");
         }
       }
     });

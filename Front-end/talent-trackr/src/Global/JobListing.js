@@ -2,10 +2,12 @@ import React from "react";
 import { IoLocationOutline } from "react-icons/io5";
 
 const JobListing = ({ job, userType }) => {
+  console.log(job);
   const title = job.listing_details.JobTitles.MainJobTitle;
   const type = job.listing_details.EmploymentType;
   const percentage = job.match_percentage;
   const company = job.company_details?.company_name;
+  const logo = job.company_details?.logo_url;
   const location =
     job.listing_details.CurrentLocation.Municipality +
     ", " +
@@ -38,7 +40,7 @@ const JobListing = ({ job, userType }) => {
           )}
         </div>
         <div className="company-loc">
-          <img src="/job-icon.png" alt="logo" />
+          <img src={logo} alt="logo" />
           <div className="name-loc">
             <p className="job-title company">{company}</p> {/* Company name */}
             <div className="salary company">
