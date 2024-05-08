@@ -40,7 +40,12 @@ const JobListing = ({ job, userType }) => {
           )}
         </div>
         <div className="company-loc">
-          <img src={logo} alt="logo" />
+          <div className="job-logo">
+            <div>
+              <img src={logo} alt="logo" />
+            </div>
+          </div>
+
           <div className="name-loc">
             <p className="job-title company">{company}</p> {/* Company name */}
             <div className="salary company">
