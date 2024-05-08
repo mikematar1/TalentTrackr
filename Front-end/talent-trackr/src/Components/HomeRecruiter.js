@@ -187,7 +187,7 @@ const HomeRecruiter = () => {
           </div>
         ) : currentJobListings.length === 0 ? (
           <div className="no-listings-message">
-            <h1>No job matches found</h1>{" "}
+            <h1>No job listings found</h1>{" "}
           </div>
         ) : (
           <>
