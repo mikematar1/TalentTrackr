@@ -35,7 +35,7 @@ const Home = () => {
               we’ve got you covered.
             </p>
             <Link to="/about">
-              <button> Contact us</button>
+              <button> About us</button>
             </Link>
           </div>
         </div>
