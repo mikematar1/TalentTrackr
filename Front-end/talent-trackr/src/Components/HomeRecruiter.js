@@ -15,6 +15,7 @@ const HomeRecruiter = () => {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMatchesView, setIsMatchesView] = useState(false);
   const id = localStorage.getItem("id");
 
   let navigate = useNavigate();
@@ -154,9 +155,12 @@ const HomeRecruiter = () => {
     setSelectedJob(job); // Set the selected job
     openModal(); // Open the modal
   };
-
   const handleMatches = (job) => {
-    console.log(job);
+    setSelectedJob(job);
+    setIsMatchesView(true); // Activate matches view
+  };
+  const handleBack = () => {
+    setIsMatchesView(false); // Deactivate matches view
   };
 
   return (
@@ -183,7 +187,7 @@ const HomeRecruiter = () => {
           </div>
         ) : currentJobListings.length === 0 ? (
           <div className="no-listings-message">
-            <h1>No job matches found</h1>{" "}
+            <h1>No job listings found</h1>{" "}
           </div>
         ) : (
           <>
@@ -214,7 +218,8 @@ const HomeRecruiter = () => {
       </div>
       <ReactModal
         className="custom-modal"
-        isOpen={isModalOpen}
+        isOpen={!!selectedJob}
+        onRequestClose={() => setSelectedJob(null)}
         style={{
           overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
           content: {
@@ -230,50 +235,82 @@ const HomeRecruiter = () => {
           },
         }}
       >
-        {selectedJob ? (
+        {selectedJob && (
           <div className="job-modal">
             <div className="job-modal-header">
               <h2>{selectedJob.listing_details.JobTitles.MainJobTitle}</h2>
-              <img src="job-icon.png" alt="logo" />
+              <div>
+                <img src={selectedJob.company_details.logo_url} alt="logo" />
+              </div>
             </div>
 
-            <div className="job-modal-body">
-              <p>
-                <strong>Type:</strong>{" "}
-                {capitalizeFirstLetter(
-                  selectedJob.listing_details.EmploymentType
-                )}
-              </p>
-              <p>
-                <strong>Skills Required:</strong>{" "}
-                {formatSkills(selectedJob.listing_details.Skills.Raw)}
-              </p>
-
-              <p>
-                <strong>Location:</strong>{" "}
-                {selectedJob.listing_details.CurrentLocation.Municipality +
-                  ", " +
-                  selectedJob.listing_details.CurrentLocation.CountryCode}
-              </p>
-              <p>
-                <strong>Description:</strong>{" "}
-                {selectedJob.listing_details.JobDescription}
-              </p>
-            </div>
+            {isMatchesView ? (
+              <div className="job-modal-body-matches">
+                {selectedJob.matches.map((match, index) => (
+                  <div key={index} className="match-details">
+                    <h3>
+                      {match.first_name} {match.last_name}
+                    </h3>
+                    <p>
+                      <strong>Email:</strong> {match.email}
+                    </p>
+                    <p>
+                      <strong>LinkedIn:</strong> {match.linkedin}
+                    </p>
+                    <p>
+                      <strong>Match Percentage:</strong>{" "}
+                      {match.match_percentage}%
+                    </p>
+                    <p>
+                      <strong>Date of Birth:</strong> {match.dob}
+                    </p>
+                    {/* Add additional information as needed */}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="job-modal-body">
+                <p>
+                  <strong>Type:</strong>{" "}
+                  {capitalizeFirstLetter(
+                    selectedJob.listing_details.EmploymentType
+                  )}
+                </p>
+                <p>
+                  <strong>Skills Required:</strong>{" "}
+                  {formatSkills(selectedJob.listing_details.Skills.Raw)}
+                </p>
+                <p>
+                  <strong>Location:</strong>{" "}
+                  {`${selectedJob.listing_details.CurrentLocation.Municipality}, ${selectedJob.listing_details.CurrentLocation.CountryCode}`}
+                </p>
+                <p>
+                  <strong>Description:</strong>{" "}
+                  {selectedJob.listing_details.JobDescription}
+                </p>
+              </div>
+            )}
 
             <div className="job-modal-footer">
+              {/* Toggle between Matches and Back based on the state */}
               <button
-                onClick={() => handleMatches(selectedJob)}
+                onClick={
+                  isMatchesView ? handleBack : () => handleMatches(selectedJob)
+                }
                 className="close-button first"
               >
-                Matches
+                {isMatchesView ? "Back" : "Matches"}{" "}
+                {/* Change text based on state */}
               </button>
-              <button onClick={closeModal} className="close-button">
-                <FaTimes /> {/* 'X' icon */}
+              <button
+                onClick={() => setSelectedJob(null)}
+                className="close-button"
+              >
+                <FaTimes /> {/* Close the modal */}
               </button>
             </div>
           </div>
-        ) : null}
+        )}
       </ReactModal>
     </div>
   );

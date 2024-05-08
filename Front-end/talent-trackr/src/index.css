@@ -146,6 +146,8 @@ body {
   transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
 }
 
+.footer-container.loaded,
+.policies-container.loaded,
 .home-container.loaded,
 .company-container.loaded,
 .login-container.loaded,
@@ -353,82 +355,15 @@ body {
 
 .about-title {
   text-align: center;
-  width: 28%;
+  width: 68%;
 }
 
 .about-title p {
-  text-align: center;
+  text-align: start;
   cursor: default;
   font-size: 17px;
   line-height: 32px;
-  margin-top: -5%;
-}
-
-.about-input {
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  height: 40vh;
-}
-
-.input-row {
-  display: flex;
-  margin-bottom: 2.5%;
-}
-
-.name-input,
-.email-input {
-  flex: 1;
-  margin-right: 10px;
-}
-
-.message-input {
-  font-family: inherit; /* Use the same font as the website */
-  resize: none; /* Prevent resizing */
-}
-
-.name-input:focus,
-.email-input:focus,
-.message-input:focus {
-  outline: none;
-  border-color: #ccc;
-}
-
-.name-input,
-.email-input,
-.message-input {
-  flex: 1;
-  margin-right: 10px;
-  border: 0px solid #ccc; /* Set border color */
-  border-radius: 13px; /* Set border radius */
-  padding: 10px; /* Add padding */
-  padding-left: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Add shadow */
-}
-
-.send-button {
-  width: 20%;
-}
-.about-button {
-  display: flex;
-  justify-content: center;
-}
-
-.about-input button {
   margin-top: 5%;
-  background-color: #000000;
-  border: 1px solid #020202;
-  color: #ffffff;
-  padding: 11px 30px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.4s, color 0.4s, border-color 0.4s; /* Add transition for color, background-color, and border-color */
-}
-
-.about-input button:hover {
-  background-color: #ffffff;
-  color: #000000;
-  border-color: #000000;
 }
 
 .about-title.reviews {
@@ -688,6 +623,12 @@ body {
 /* Start of Footer */
 .footer-link {
   color: white;
+}
+
+.footer-container {
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateY(50px); /* Initially set translation */
+  transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
 }
 
 .footer {
@@ -1103,7 +1044,36 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 80%;
   padding: 20px;
+  margin-left: 3%;
+}
+.job-modal-body-matches {
+  display: flex;
+  height: 80%;
+  width: 80%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px; /* Add padding */
+  padding-top: 20px;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.match-details {
+  margin-bottom: 10px; /* Space between match details */
+  border-bottom: 1px solid #ccc; /* Optional separator */
+}
+
+.match-details h3 {
+  margin: 0; /* Remove default margin */
+}
+
+.match-details p {
+  margin: 0; /* Remove default margin */
+  font-size: 14px; /* Adjust font size for smaller text */
 }
 
 .job-modal button:hover {
@@ -1168,6 +1138,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+}
+.change-message.error {
+  color: red;
+  margin-top: -5%;
+}
+.change-message.add {
+  margin-top: -5%;
 }
 .editprofile-changes {
   display: flex;
@@ -1315,3 +1292,29 @@ body {
 }
 
 /* End of Company */
+
+/* Start of Policy */
+.policies-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1% 13% 3% 13%;
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateY(50px); /* Initially set translation */
+  transition: opacity 0.5s, transform 0.5s; /* Add transition for opacity and transform */
+}
+.policies-container > h1 {
+  font-size: 40px;
+  text-transform: uppercase;
+}
+.policies-container p {
+  margin-top: 1%;
+  font-weight: 100;
+  color: rgb(74, 74, 74);
+}
+.policies-title {
+  margin-top: 5%;
+  text-transform: uppercase;
+}
+/* End of Policy */

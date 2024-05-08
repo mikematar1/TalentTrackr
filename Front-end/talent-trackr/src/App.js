@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactModal from "react-modal";
 
 import Home from "./Components/Home";
+import Policy from "./Components/Policy";
 import Companies from "./Components/Companies";
 import About from "./Components/About";
 import Login from "./Components/Login";
@@ -57,6 +58,14 @@ function App() {
                 <>
                   <Navbar />
                   <About />
+                </>
+              }
+            />
+            <Route
+              path="/privacypolicies"
+              element={
+                <>
+                  <Policy />
                 </>
               }
             />
