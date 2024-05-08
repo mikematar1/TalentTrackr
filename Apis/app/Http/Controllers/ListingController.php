@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Listing;
 use App\Models\ListingMatchesSeeker;
+use App\Models\Recruiter;
 use Illuminate\Http\Request;
 
 class ListingController extends Controller
@@ -26,7 +28,11 @@ class ListingController extends Controller
                                         ->join("seekers","seekers.user_id","=","listing_matches_seekers.seeker_id")
                                         ->get();
             $listing->matches = $matches;
+
         }
+        $recruiter=Recruiter::find($recruiterid);
+        $company = Company::find($recruiter->company_id);
+        $listings->company_details=$company;
         return $listings;
     }
 
