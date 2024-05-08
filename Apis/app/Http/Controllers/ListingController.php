@@ -28,11 +28,12 @@ class ListingController extends Controller
                                         ->join("seekers","seekers.user_id","=","listing_matches_seekers.seeker_id")
                                         ->get();
             $listing->matches = $matches;
+            $recruiter=Recruiter::find($recruiterid);
+            $company = Company::find($recruiter->company_id);
+            $listing->company_details=$company;
 
         }
-        $recruiter=Recruiter::find($recruiterid);
-        $company = Company::find($recruiter->company_id);
-        $listings->company_details=$company;
+
         return $listings;
     }
 
