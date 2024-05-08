@@ -2,7 +2,6 @@ import React from "react";
 import { IoLocationOutline } from "react-icons/io5";
 
 const JobListing = ({ job, userType }) => {
-  console.log(job);
   const title = job.listing_details.JobTitles.MainJobTitle;
   const type = job.listing_details.EmploymentType;
   const percentage = job.match_percentage;
