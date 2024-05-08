@@ -286,7 +286,9 @@ const HomeSeeker = () => {
           <div className="job-modal">
             <div className="job-modal-header">
               <h2>{selectedJob.listing_details.JobTitles.MainJobTitle}</h2>
-              <img src={selectedJob.company_details.logo_url} alt="logo" />
+              <div>
+                <img src={selectedJob.company_details.logo_url} alt="logo" />
+              </div>
             </div>
 
             <div className="job-modal-body">

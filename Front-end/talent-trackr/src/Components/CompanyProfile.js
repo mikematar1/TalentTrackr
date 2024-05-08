@@ -62,10 +62,10 @@ const CompanyProfile = () => {
         <>
           <div className="seeker-page">
             <div className="company-header">
-              <h1>{job.company_details.company_name}</h1>
               <div>
                 <img src={job.company_details.logo_url} alt="logo" />
               </div>
+              <h1>{job.company_details.company_name}</h1>
             </div>
             <div className="job-listings-container company">
               {listings.map((job) => (
