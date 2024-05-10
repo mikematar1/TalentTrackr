@@ -5,6 +5,7 @@ import ReactModal from "react-modal";
 
 import Home from "./Components/Home";
 import Policy from "./Components/Policy";
+import FAQ from "./Components/FAQ";
 import Companies from "./Components/Companies";
 import About from "./Components/About";
 import Login from "./Components/Login";
@@ -66,6 +67,14 @@ function App() {
               element={
                 <>
                   <Policy />
+                </>
+              }
+            />
+            <Route
+              path="/FAQ"
+              element={
+                <>
+                  <FAQ />
                 </>
               }
             />
