@@ -76,7 +76,7 @@ const Companies = () => {
             </div>
           ) : logos.length === 0 ? (
             <div className="no-listings-message companies">
-              <h1>No Companies found</h1>{" "}
+              <h1>No Companies Found</h1>{" "}
             </div>
           ) : (
             <>
