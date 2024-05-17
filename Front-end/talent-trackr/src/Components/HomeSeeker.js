@@ -36,6 +36,7 @@ const HomeSeeker = () => {
   useEffect(() => {
     const shouldReload = localStorage.getItem("shouldReload");
     if (shouldReload === "true") {
+      setLoading(true);
       localStorage.removeItem("shouldReload");
       window.location.reload(true);
     }
@@ -73,6 +74,7 @@ const HomeSeeker = () => {
     status,
     error,
     data: listingData,
+    refetch, // Refetch function
   } = useQuery({
     queryKey: ["listingData"],
     queryFn: GetMatches,
@@ -80,6 +82,7 @@ const HomeSeeker = () => {
     staleTime: Infinity, // Never re-fetch based on staleness
     cacheTime: Infinity, // Keep the cache forever
   });
+
   useEffect(() => {
     if (status === "success" && listingData) {
       setListings(listingData);
@@ -313,7 +316,7 @@ const HomeSeeker = () => {
                   ", " +
                   selectedJob.listing_details.CurrentLocation.CountryCode}
               </p>
-              <p>
+              <p className="job-desc">
                 <strong>Description:</strong>{" "}
                 {selectedJob.listing_details.JobDescription}
               </p>

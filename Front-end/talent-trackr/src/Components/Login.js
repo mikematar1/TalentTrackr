@@ -87,6 +87,7 @@ const Login = () => {
 
         if (userType === "seeker") {
           navigate("/seekerhome");
+          localStorage.setItem("shouldReload", "true");
         } else if (userType === "recruiter") {
           localStorage.setItem("id", res.data.user.id);
           navigate("/recruiterhome");
