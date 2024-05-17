@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\RecruiterController;
@@ -56,6 +57,9 @@ Route::group(["prefix" => "v0.1"], function () {
     });
     Route::group(["prefix"=>"feedbacks"],function(){
         Route::get("/",[FeedbackController::class,"getRandomFeedbacks"]);
+    });
+    Route::group(["prefix"=>"homepage"],function(){
+        Route::get("/logos",[CompanyController::class,"getCompanyLogos"]);
     });
 
 
