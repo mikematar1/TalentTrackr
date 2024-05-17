@@ -1121,6 +1121,10 @@ body {
   align-items: center;
   height: 60vh;
 }
+.no-listings-message.companies {
+  height: 30vh;
+}
+.no-listings-message.companies,
 .no-listings-message h1 {
   cursor: default;
 }

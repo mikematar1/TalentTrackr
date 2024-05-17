@@ -75,7 +75,7 @@ const Companies = () => {
               <div className="buffer-loader"></div>
             </div>
           ) : logos.length === 0 ? (
-            <div className="no-listings-message">
+            <div className="no-listings-message companies">
               <h1>No Companies found</h1>{" "}
             </div>
           ) : (
