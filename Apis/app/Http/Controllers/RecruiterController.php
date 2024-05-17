@@ -40,13 +40,30 @@ class RecruiterController extends Controller
         curl_close($curl);
         $result = json_decode($result);
         $result = $result->Value;
-        $jobdata = json_encode($result->JobData);
+        $result = $result->JobData;
+        if (str_contains($result->EmployerDescription, "{") || str_contains($result->EmployerDescription, "}") ||
+            str_contains($result->JobRequirements, "{") || str_contains($result->JobRequirements, "}")) {
+                return response()->json([
+                    'status' => 'FAIL',
+                    'message' => "The template is not fully editted"
 
-        Listing::create([
-            'job_listing_json_object'=>$jobdata,
-            'matches'=>0,
-            'recruiter_id'=>Auth::user()->id,
-        ]);
+                ]);
+        } else {
+            $jobdata = json_encode($result);
+
+            $listing=Listing::create([
+                'job_listing_json_object'=>$jobdata,
+                'matches'=>0,
+                'recruiter_id'=>Auth::user()->id,
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'listing' => $listing
+
+            ]);
+        }
+
+
 
 
     }
