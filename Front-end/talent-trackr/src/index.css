@@ -398,6 +398,8 @@ body {
 }
 
 .reviews-name {
+  width: 300px;
+  text-align: center;
   cursor: default;
   font-weight: bold;
   font-size: 25px;
