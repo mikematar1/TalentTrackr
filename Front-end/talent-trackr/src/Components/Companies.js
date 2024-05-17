@@ -1,29 +1,37 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../Global/Footer";
+import GetCompanyLogos from "../api-client/BaseWebsite/GetCompanyLogos";
+import { useQuery } from "@tanstack/react-query";
 
 const Companies = () => {
   const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const companies = [
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-    "/Logo1.png",
-  ];
+  const [logos, setLogos] = useState([]);
 
-  const totalPages = Math.ceil(companies.length / 12);
+  //API
+  const {
+    status,
+    error,
+    data: companyLogos,
+  } = useQuery({
+    queryKey: ["companyLogos"],
+    queryFn: GetCompanyLogos,
+    refetchOnWindowFocus: false, // Disable refetch on window focus
+    staleTime: Infinity, // Never re-fetch based on staleness
+    cacheTime: Infinity, // Keep the cache forever
+  });
+  useEffect(() => {
+    if (status === "success" && companyLogos) {
+      setLogos(companyLogos);
+      setLoading(false);
+    } else if (error) {
+      console.log(error);
+    }
+  }, [companyLogos, status, error]);
+
+  const totalPages = Math.ceil(logos?.length / 12);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true);
@@ -62,23 +70,37 @@ const Companies = () => {
           <h1>Companies That Work With Us</h1>
         </div>
         <div className="slideshow">
-          <div className="slides">
-            {companies
-              .slice((currentPage - 1) * 12, currentPage * 12)
-              .map((company, index) => (
-                <img src={company} alt={`Company ${index + 1}`} key={index} />
-              ))}
-          </div>
-          {totalPages > 1 && (
-            <div className="pagination-dots">
-              {Array.from({ length: totalPages }).map((_, index) => (
-                <span
-                  key={index}
-                  className={currentPage === index + 1 ? "dot active" : "dot"}
-                  onClick={() => handleClickDot(index + 1)}
-                ></span>
-              ))}
+          {loading ? (
+            <div className="buffer-space">
+              <div className="buffer-loader"></div>
             </div>
+          ) : (
+            <>
+              <div className="slides">
+                {companyLogos
+                  .slice((currentPage - 1) * 12, currentPage * 12)
+                  .map((logo, index) => (
+                    <img
+                      src={logo.logo_url}
+                      alt={`Company ${index + 1}`}
+                      key={index}
+                    />
+                  ))}
+              </div>
+              {totalPages > 1 && (
+                <div className="pagination-dots">
+                  {Array.from({ length: totalPages }).map((_, index) => (
+                    <span
+                      key={index}
+                      className={
+                        currentPage === index + 1 ? "dot active" : "dot"
+                      }
+                      onClick={() => handleClickDot(index + 1)}
+                    ></span>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
