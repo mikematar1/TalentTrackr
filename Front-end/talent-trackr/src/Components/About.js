@@ -119,6 +119,10 @@ const About = () => {
           <div className="buffer-space">
             <div className="buffer-loader"></div>
           </div>
+        ) : reviews.length === 0 ? (
+          <div className="no-listings-message companies">
+            <h1>No Reviews Found</h1>{" "}
+          </div>
         ) : (
           <>
             <div className="slideshow reviews">
