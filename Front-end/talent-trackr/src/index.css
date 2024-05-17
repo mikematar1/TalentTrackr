@@ -1183,6 +1183,15 @@ body {
   cursor: not-allowed;
   width: 70%;
 }
+.login-input.profile-desc {
+  margin-bottom: 5%;
+  opacity: 0.5;
+  font-family: "inter", sans-serif;
+  font-size: small;
+  cursor: not-allowed;
+  width: 70%;
+  resize: none; /* Prevent resizing */
+}
 .login-input.profile-password {
   margin-bottom: 5%;
   width: 70%;

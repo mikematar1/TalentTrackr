@@ -131,11 +131,11 @@ const ProfileRecruiter = () => {
                 value={email}
                 readOnly
               />
-              <input
+              <textarea
                 type="text"
                 name="description"
                 placeholder="Description"
-                className="login-input profile"
+                className="login-input profile-desc"
                 value={description}
                 readOnly
               />
