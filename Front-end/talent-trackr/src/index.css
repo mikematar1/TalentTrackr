@@ -308,15 +308,17 @@ body {
 .slides {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center align images */
+  justify-content: center;
   width: 70%;
-  height: 250px; /* Set a fixed height for the slides container */
-  overflow: hidden; /* Ensure images don't overflow */
+  height: 250px;
+  overflow: hidden;
 }
 
 .slides img {
-  width: 130px;
+  max-width: 130px;
+  max-height: 100%;
   margin: 10px;
+  object-fit: contain; /* Ensure the images are contained within their box without stretching */
 }
 
 .pagination-dots {
