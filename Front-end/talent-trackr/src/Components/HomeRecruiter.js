@@ -289,7 +289,7 @@ const HomeRecruiter = () => {
                   <strong>Location:</strong>{" "}
                   {`${selectedJob.listing_details.CurrentLocation.Municipality}, ${selectedJob.listing_details.CurrentLocation.CountryCode}`}
                 </p>
-                <p>
+                <p className="job-desc">
                   <strong>Description:</strong>{" "}
                   {selectedJob.listing_details.JobDescription}
                 </p>

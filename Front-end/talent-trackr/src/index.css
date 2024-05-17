@@ -398,6 +398,8 @@ body {
 }
 
 .reviews-name {
+  width: 300px;
+  text-align: center;
   cursor: default;
   font-weight: bold;
   font-size: 25px;
@@ -1049,10 +1051,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 80%;
+  width: 70%;
   padding: 20px;
   margin-left: 3%;
 }
+
+.job-desc {
+  height: auto;
+  overflow-y: auto;
+}
+
 .job-modal-body-matches {
   display: flex;
   height: 80%;
@@ -1280,6 +1288,13 @@ body {
   cursor: default;
   font-weight: bold;
   font-size: 55px;
+}
+.company-header p {
+  cursor: default;
+  font-weight: medium;
+  text-align: center;
+  width: 40%;
+  font-size: 15px;
 }
 .job-listings-container.company {
   height: auto;

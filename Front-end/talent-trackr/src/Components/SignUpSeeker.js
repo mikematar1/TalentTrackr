@@ -139,7 +139,7 @@ const SignUpSeeker = () => {
           let token = parsedData.authorisation.token;
           localStorage.setItem("token", "Bearer " + token);
           localStorage.setItem("usertype", 1);
-          localStorage.setItem("shouldReload", "false");
+          localStorage.setItem("shouldReload", "true");
           localStorage.removeItem("firstName");
           localStorage.removeItem("lastName");
           localStorage.removeItem("email");
