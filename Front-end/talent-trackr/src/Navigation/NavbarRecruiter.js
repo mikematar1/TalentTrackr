@@ -1,9 +1,7 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavbarRecruiter = () => {
-  const location = useLocation();
-
   return (
     <nav className="navbar">
       <div className="navbar-left" id="logo-container">
