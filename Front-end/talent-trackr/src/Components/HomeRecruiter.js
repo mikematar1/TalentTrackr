@@ -26,6 +26,7 @@ const HomeRecruiter = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setIsMatchesView(false);
     setSelectedJob(null); // Reset selected job when closing the modal
   };
 
@@ -193,7 +194,11 @@ const HomeRecruiter = () => {
           <>
             <div className="job-listings-container">
               {currentJobListings.map((job) => (
-                <div key={job.id} onClick={() => handleJobClick(job)}>
+                <div
+                  className="job-listing-view"
+                  key={job.id}
+                  onClick={() => handleJobClick(job)}
+                >
                   <JobListing key={job.id} job={job} userType={"recruiter"} />
                 </div>
               ))}

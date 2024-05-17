@@ -834,6 +834,9 @@ body {
   margin-top: 1%;
   height: 65vh;
 }
+.job-listing-view {
+  height: 0;
+}
 
 .feedback-container {
   display: flex;
