@@ -12,7 +12,7 @@ const CompanyProfile = () => {
   const location = useLocation();
   const { job } = location.state || {}; // Destructure data from the previous page
   const id = job.company_details.id;
-
+  console.log(job);
   // Simulate loading delay
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -66,6 +66,7 @@ const CompanyProfile = () => {
                 <img src={job.company_details.logo_url} alt="logo" />
               </div>
               <h1>{job.company_details.company_name}</h1>
+              <p>{job.company_details.description}</p>
             </div>
             <div className="job-listings-container company">
               {listings.map((job) => (

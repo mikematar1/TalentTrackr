@@ -1287,6 +1287,13 @@ body {
   font-weight: bold;
   font-size: 55px;
 }
+.company-header p {
+  cursor: default;
+  font-weight: medium;
+  text-align: center;
+  width: 40%;
+  font-size: 15px;
+}
 .job-listings-container.company {
   height: auto;
 }
