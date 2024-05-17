@@ -58,7 +58,7 @@ const AddJob = () => {
 
     let response = AddListing(data_recruiter);
     response.then((res) => {
-      if (res.status === 500) {
+      if (res.status === 500 || res.data.status === "FAIL") {
         setError(true);
       } else {
         setError(false);
