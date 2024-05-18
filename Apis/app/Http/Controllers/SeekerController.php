@@ -195,11 +195,11 @@ class SeekerController extends Controller
             foreach($listings as $listing){
                 $listing_details=json_decode($listing->job_listing_json_object);
                 $listing->listing_details=$listing_details;
-                $matches=ListingMatchesSeeker::where("listing_id","=",$listing->id)
+                $matches_tmp=ListingMatchesSeeker::where("listing_id","=",$listing->id)
                                             ->join("users","users.id","=","listing_matches_seekers.seeker_id")
                                             ->join("seekers","seekers.user_id","=","listing_matches_seekers.seeker_id")
                                             ->get();
-                $listing->matches = $matches;
+                $listing->matches = $matches_tmp;
                 $recruiter=Recruiter::find($match->recruiter_id);
                 $company = Company::find($recruiter->company_id);
                 $listing->company_details=$company;

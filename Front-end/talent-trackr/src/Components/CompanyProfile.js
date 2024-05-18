@@ -1,18 +1,15 @@
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import GetListingsCompany from "../api-client/HomeSeeker/GetListingsCompany";
 import JobListing from "../Global/JobListing";
 
 const CompanyProfile = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [listings, setListings] = useState([]);
 
   const location = useLocation();
   const { job } = location.state || {}; // Destructure data from the previous page
-  const id = job.company_details.id;
-  console.log(job);
+  const listings = job.company_listings;
+
   // Simulate loading delay
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,28 +26,6 @@ const CompanyProfile = () => {
       window.scrollTo(0, 0); // Scroll to the top when loaded
     }
   }, [loaded]);
-
-  //API
-  const {
-    status,
-    error,
-    data: listingCompanyData,
-  } = useQuery({
-    queryKey: ["listingCompanyData", id], // Pass the id to the queryKey
-    queryFn: ({ queryKey }) => GetListingsCompany(queryKey[1]), // Extract the id from queryKey and pass it to GetListingsCompany
-    refetchOnWindowFocus: false,
-    staleTime: Infinity,
-    cacheTime: Infinity,
-  });
-
-  useEffect(() => {
-    if (status === "success" && listingCompanyData) {
-      setListings(listingCompanyData);
-      setLoading(false);
-    } else if (error) {
-      console.log(error);
-    }
-  }, [listingCompanyData, status, error]);
 
   return (
     <div className={`company-container ${loaded ? "loaded" : ""}`}>

@@ -74,7 +74,6 @@ const HomeSeeker = () => {
     status,
     error,
     data: listingData,
-    refetch, // Refetch function
   } = useQuery({
     queryKey: ["listingData"],
     queryFn: GetMatches,
